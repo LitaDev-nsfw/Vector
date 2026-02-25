@@ -1,6 +1,11 @@
 extends AnimatedSprite2D
 class_name Shot
 
+enum BulletTypes {
+	STANDARD,
+	SHOTGUN,
+}
+
 enum Teams {
 	PLAYER,
 	ENEMY
@@ -8,12 +13,19 @@ enum Teams {
 
 var team: Teams = Teams.PLAYER
 var damages_self: bool = false
+var bullet_type: BulletTypes = BulletTypes.STANDARD
 
 var vector: Vector2
 var shot_speed: float
 
 var shot_owner
 
+func _ready():
+	var anim_name = BulletTypes.find_key(bullet_type).to_lower() + "_"
+	if team == Teams.ENEMY:
+		anim_name += "enemy"
+	else:
+		anim_name += "friendly"
 
 func _process(delta: float) -> void:
 	position += vector * shot_speed * delta

@@ -3,6 +3,22 @@
 [ext_resource type="Texture2D" uid="uid://vlh6kqocjfbl" path="res://Assets/Sprites/shot.png" id="1_xhsjy"]
 [ext_resource type="Script" uid="uid://qdeoofkww6v7" path="res://Data/Scripts/shot.gd" id="2_m8kjd"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_xhsjy"]
+atlas = ExtResource("1_xhsjy")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m8kjd"]
+atlas = ExtResource("1_xhsjy")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4jxk0"]
+atlas = ExtResource("1_xhsjy")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gikam"]
+atlas = ExtResource("1_xhsjy")
+region = Rect2(48, 16, 16, 16)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_34ual"]
 atlas = ExtResource("1_xhsjy")
 region = Rect2(0, 0, 16, 16)
@@ -23,6 +39,23 @@ region = Rect2(48, 0, 16, 16)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_xhsjy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m8kjd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4jxk0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gikam")
+}],
+"loop": true,
+"name": &"standard_enemy",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_34ual")
 }, {
 "duration": 1.0,
@@ -35,7 +68,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_tkbbl")
 }],
 "loop": true,
-"name": &"standard",
+"name": &"standard_friendly",
 "speed": 5.0
 }]
 
@@ -44,8 +77,8 @@ radius = 2.236068
 
 [node name="Shot" type="AnimatedSprite2D" unique_id=395401191]
 sprite_frames = SubResource("SpriteFrames_4jxk0")
-animation = &"standard"
-autoplay = "standard"
+animation = &"standard_friendly"
+autoplay = "standard_friendly"
 script = ExtResource("2_m8kjd")
 
 [node name="Hitbox" type="Area2D" parent="." unique_id=1146394889]

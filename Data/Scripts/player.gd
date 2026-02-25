@@ -57,6 +57,8 @@ func shoot():
 			var shot: Shot = shot_scene.instantiate()
 			shot.shot_owner = self
 			shot.shot_speed = get_attribute(Attributes.SHOT_SPEED)
+			shot.team = Shot.Teams.PLAYER
+			shot.bullet_type = Shot.BulletTypes.STANDARD
 			get_parent().add_child(shot)
 			shot.global_position = global_position
 			shot.vector = aim_vector

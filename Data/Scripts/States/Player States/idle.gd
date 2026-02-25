@@ -1,12 +1,13 @@
 extends State
 
 @export var thruster_sprite: AnimatedSprite2D
+@export var animation_player: AnimationPlayer
 
 @onready var player: Player = get_parent().get_parent()
 
 
 func begin_state():
-	pass
+	animation_player.play("idle")
 
 func physics_update(_delta: float):
 	var input_vector = player.input_vector
