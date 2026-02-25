@@ -7,7 +7,6 @@
 [ext_resource type="Script" uid="uid://lglu1qtsh6am" path="res://Data/Scripts/States/Player States/attack.gd" id="3_1l0tm"]
 [ext_resource type="Texture2D" uid="uid://ckgv6jv2hjgtd" path="res://Assets/Sprites/thruster.png" id="3_wrm1d"]
 [ext_resource type="Script" uid="uid://cmqtvl2dej403" path="res://Data/Scripts/States/Player States/idle.gd" id="4_1l0tm"]
-[ext_resource type="PackedScene" uid="uid://b67xlson8puyh" path="res://Scenes/enemy.tscn" id="4_1phco"]
 [ext_resource type="Script" uid="uid://cglohlwl1myex" path="res://Data/Scripts/States/Player States/move.gd" id="5_1l0tm"]
 [ext_resource type="Shader" uid="uid://bgn2qiarsaxxu" path="res://Assets/Resources/Shaders/normal_map.gdshader" id="7_o5yvi"]
 [ext_resource type="Texture2D" uid="uid://buglw34iow0ii" path="res://Assets/Sprites/player_normals_sheet.png" id="8_rku1e"]
@@ -358,25 +357,6 @@ texture_scale = 11.98
 material = SubResource("ShaderMaterial_nnt18")
 tile_map_data = PackedByteArray("AAD2//n/AAACAAAAAAD3//n/AAAAAAEAAAD4//n/AAAAAAEAAAD5//n/AAAAAAEAAAD6//n/AAAAAAEAAAD7//n/AAAAAAEAAAD8//n/AAAAAAEAAAD9//n/AAAAAAEAAAD+//n/AAABAAMAAAAIAPn/AAADAAAAAAAHAPn/AAAAAAEAAAAGAPn/AAAAAAEAAAAFAPn/AAAAAAEAAAAEAPn/AAAAAAEAAAADAPn/AAAAAAEAAAACAPn/AAAAAAEAAAABAPn/AAAAAAEAAAAAAPn/AAAAAAIAAAD2//3/AAAAAAMAAAD2//z/AAAAAAAAAAD2//v/AAAAAAAAAAD2//r/AAAAAAAAAAD2/wIAAAACAAEAAAD2/wEAAAAAAAAAAAD2/wAAAAAAAAAAAAD2////AAABAAIAAAD+/wIAAAABAAMAAAD9/wIAAAAAAAEAAAD8/wIAAAAAAAEAAAD7/wIAAAAAAAEAAAD6/wIAAAAAAAEAAAD5/wIAAAAAAAEAAAD4/wIAAAAAAAEAAAD3/wIAAAAAAAEAAAAIAAIAAAADAAEAAAAHAAIAAAAAAAEAAAAGAAIAAAAAAAEAAAAFAAIAAAAAAAEAAAAEAAIAAAAAAAEAAAADAAIAAAAAAAEAAAACAAIAAAAAAAEAAAABAAIAAAAAAAEAAAAAAAIAAAAAAAIAAAAIAP7/AAABAAIAAAAIAP//AAAAAAAAAAAIAAAAAAAAAAAAAAAIAAEAAAAAAAAAAAAIAPz/AAAAAAMAAAAIAPv/AAAAAAAAAAAIAPr/AAAAAAAAAAA=")
 tile_set = SubResource("TileSet_85qyi")
-
-[node name="Sentry" parent="Level/Room" unique_id=1631603036 instance=ExtResource("4_1phco")]
-position = Vector2(175, -138)
-health = 100000.0
-
-[node name="Sentry2" parent="Level/Room" unique_id=382466428 instance=ExtResource("4_1phco")]
-position = Vector2(-215, -140)
-health = -5.0
-attack_delay = 1.0
-
-[node name="Sentry3" parent="Level/Room" unique_id=1432654820 instance=ExtResource("4_1phco")]
-position = Vector2(174, 16)
-health = -5.0
-attack_delay = 1.0
-
-[node name="Sentry4" parent="Level/Room" unique_id=817890794 instance=ExtResource("4_1phco")]
-position = Vector2(-218, 36)
-health = -5.0
-attack_delay = 1.0
 
 [node name="Player" type="CharacterBody2D" parent="Level" unique_id=1183994837 groups=["Player"]]
 position = Vector2(-23, -61)
