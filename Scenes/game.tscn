@@ -7,15 +7,131 @@
 [ext_resource type="Script" uid="uid://lglu1qtsh6am" path="res://Data/Scripts/States/Player States/attack.gd" id="3_1l0tm"]
 [ext_resource type="Texture2D" uid="uid://ckgv6jv2hjgtd" path="res://Assets/Sprites/thruster.png" id="3_wrm1d"]
 [ext_resource type="Script" uid="uid://cmqtvl2dej403" path="res://Data/Scripts/States/Player States/idle.gd" id="4_1l0tm"]
+[ext_resource type="PackedScene" uid="uid://b67xlson8puyh" path="res://Scenes/enemy.tscn" id="4_1phco"]
 [ext_resource type="Script" uid="uid://cglohlwl1myex" path="res://Data/Scripts/States/Player States/move.gd" id="5_1l0tm"]
 [ext_resource type="Shader" uid="uid://bgn2qiarsaxxu" path="res://Assets/Resources/Shaders/normal_map.gdshader" id="7_o5yvi"]
-[ext_resource type="Script" uid="uid://c2ms6acjy0y1l" path="res://Data/Scripts/enemy.gd" id="8_ldgsr"]
 [ext_resource type="Texture2D" uid="uid://buglw34iow0ii" path="res://Assets/Sprites/player_normals_sheet.png" id="8_rku1e"]
-[ext_resource type="Texture2D" uid="uid://durj4rpbtlsa1" path="res://Assets/Sprites/cube.png" id="9_o5yvi"]
-[ext_resource type="Texture2D" uid="uid://bv2xrbwfgdwni" path="res://Assets/Sprites/sentry.png" id="10_rku1e"]
+[ext_resource type="Script" uid="uid://dk6pyqjtdvppy" path="res://Data/Scripts/States/Player States/dash.gd" id="10_nb51f"]
+[ext_resource type="Script" uid="uid://wsouaa7kwbs" path="res://Data/Scripts/States/Player States/parry.gd" id="11_ewbju"]
+[ext_resource type="Texture2D" uid="uid://f0yu0ihlbnrb" path="res://Assets/Sprites/reticle.png" id="11_nb51f"]
+[ext_resource type="Script" uid="uid://wvhd7njm4812" path="res://Data/Scripts/reticle.gd" id="11_nnt18"]
 [ext_resource type="Texture2D" uid="uid://cadbhd0asi7v7" path="res://Assets/Sprites/walls_diffuse.png" id="14_nb51f"]
+[ext_resource type="Texture2D" uid="uid://dx7a63fvfgeeo" path="res://Assets/Sprites/parry.png" id="17_ewbju"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_qxrlw"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nnt18"]
+shader = ExtResource("7_o5yvi")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ewbju"]
+texture = ExtResource("14_nb51f")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/terrain_set = 0
+0:0/0/terrain = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-14, -16, 14, -16, 14, 16, -14, 16)
+0:0/0/terrains_peering_bit/bottom_side = 0
+0:0/0/terrains_peering_bit/top_side = 0
+1:0/0 = 0
+1:0/0/terrain_set = 0
+1:0/0/terrain = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:0/0/terrains_peering_bit/right_side = 0
+1:0/0/terrains_peering_bit/bottom_side = 0
+1:0/0/terrains_peering_bit/left_side = 0
+1:0/0/terrains_peering_bit/top_side = 0
+2:0/0 = 0
+2:0/0/terrain_set = 0
+2:0/0/terrain = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-14, -14, 16, -14, 16, 16, -14, 16)
+2:0/0/terrains_peering_bit/right_side = 0
+2:0/0/terrains_peering_bit/bottom_side = 0
+3:0/0 = 0
+3:0/0/terrain_set = 0
+3:0/0/terrain = 0
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(14, -14, 14, 16, -16, 16, -16, -14)
+3:0/0/terrains_peering_bit/bottom_side = 0
+3:0/0/terrains_peering_bit/left_side = 0
+4:0/0 = 0
+4:0/0/terrain_set = 0
+4:0/0/terrain = 0
+4:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(16, -14, 16, 16, -16, 16, -16, -14)
+4:0/0/terrains_peering_bit/right_side = 0
+4:0/0/terrains_peering_bit/bottom_side = 0
+4:0/0/terrains_peering_bit/left_side = 0
+5:0/0 = 0
+5:0/0/terrain_set = 0
+5:0/0/terrain = 0
+5:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-14, -16, 16, -16, 16, 16, -14, 16)
+5:0/0/terrains_peering_bit/right_side = 0
+5:0/0/terrains_peering_bit/bottom_side = 0
+5:0/0/terrains_peering_bit/top_side = 0
+0:1/0 = 0
+0:1/0/terrain_set = 0
+0:1/0/terrain = 0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -14, 16, -14, 16, 14, -16, 14)
+0:1/0/terrains_peering_bit/right_side = 0
+0:1/0/terrains_peering_bit/left_side = 0
+1:1/0 = 0
+1:1/0/terrain_set = 0
+1:1/0/terrain = 0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-14, -14, 14, -14, 14, 14, -14, 14)
+2:1/0 = 0
+2:1/0/terrain_set = 0
+2:1/0/terrain = 0
+2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-14, 14, -14, -16, 16, -16, 16, 14)
+2:1/0/terrains_peering_bit/right_side = 0
+2:1/0/terrains_peering_bit/top_side = 0
+3:1/0 = 0
+3:1/0/terrain_set = 0
+3:1/0/terrain = 0
+3:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(14, 14, -16, 14, -16, -16, 14, -16)
+3:1/0/terrains_peering_bit/left_side = 0
+3:1/0/terrains_peering_bit/top_side = 0
+4:1/0 = 0
+4:1/0/terrain_set = 0
+4:1/0/terrain = 0
+4:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, 14, -16, -16, 16, -16, 16, 14)
+4:1/0/terrains_peering_bit/right_side = 0
+4:1/0/terrains_peering_bit/left_side = 0
+4:1/0/terrains_peering_bit/top_side = 0
+5:1/0 = 0
+5:1/0/terrain_set = 0
+5:1/0/terrain = 0
+5:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(14, 16, -16, 16, -16, -16, 14, -16)
+5:1/0/terrains_peering_bit/bottom_side = 0
+5:1/0/terrains_peering_bit/left_side = 0
+5:1/0/terrains_peering_bit/top_side = 0
+0:2/0 = 0
+0:2/0/terrain_set = 0
+0:2/0/terrain = 0
+0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-14, -14, 16, -14, 16, 14, -14, 14)
+0:2/0/terrains_peering_bit/right_side = 0
+1:2/0 = 0
+1:2/0/terrain_set = 0
+1:2/0/terrain = 0
+1:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-14, -14, 14, -14, 14, 16, -14, 16)
+1:2/0/terrains_peering_bit/bottom_side = 0
+0:3/0 = 0
+0:3/0/terrain_set = 0
+0:3/0/terrain = 0
+0:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-14, -16, 14, -16, 14, 14, -14, 14)
+0:3/0/terrains_peering_bit/top_side = 0
+1:3/0 = 0
+1:3/0/terrain_set = 0
+1:3/0/terrain = 0
+1:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -14, 14, -14, 14, 14, -16, 14)
+1:3/0/terrains_peering_bit/left_side = 0
+
+[sub_resource type="TileSet" id="TileSet_85qyi"]
+tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 1
+terrain_set_0/mode = 0
+terrain_set_0/terrain_0/name = "Walls"
+terrain_set_0/terrain_0/color = Color(0.2799506, 0.41070068, 0.4428513, 1)
+sources/0 = SubResource("TileSetAtlasSource_ewbju")
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nnt18"]
+radius = 6.0
+height = 18.0
 
 [sub_resource type="Animation" id="Animation_wowpa"]
 length = 0.001
@@ -218,227 +334,53 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_nb51f"]
-atlas = ExtResource("9_o5yvi")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_nnt18"]
-atlas = ExtResource("9_o5yvi")
-region = Rect2(32, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ewbju"]
-atlas = ExtResource("9_o5yvi")
-region = Rect2(64, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_85qyi"]
-atlas = ExtResource("9_o5yvi")
-region = Rect2(96, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_iivbl"]
-atlas = ExtResource("9_o5yvi")
-region = Rect2(128, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7nbq1"]
-atlas = ExtResource("9_o5yvi")
-region = Rect2(160, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_exi56"]
-atlas = ExtResource("9_o5yvi")
-region = Rect2(192, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7t8sx"]
-atlas = ExtResource("10_rku1e")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_mg4q0"]
-atlas = ExtResource("10_rku1e")
-region = Rect2(32, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_vm72l"]
-atlas = ExtResource("10_rku1e")
-region = Rect2(64, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_22asu"]
-atlas = ExtResource("10_rku1e")
-region = Rect2(96, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_fkdbe"]
-atlas = ExtResource("10_rku1e")
-region = Rect2(128, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_81klo"]
-atlas = ExtResource("10_rku1e")
-region = Rect2(160, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tgy6u"]
-atlas = ExtResource("10_rku1e")
-region = Rect2(192, 0, 32, 32)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_cwurv"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_nb51f")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_nnt18")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ewbju")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_85qyi")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_iivbl")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_7nbq1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_exi56")
-}],
-"loop": true,
-"name": &"cube",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_7t8sx")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_mg4q0")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_vm72l")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_22asu")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_fkdbe")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_81klo")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_tgy6u")
-}],
-"loop": true,
-"name": &"sentry",
-"speed": 5.0
-}]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_mucmn"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_nnt18"]
-shader = ExtResource("7_o5yvi")
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ewbju"]
-texture = ExtResource("14_nb51f")
-texture_region_size = Vector2i(32, 32)
-0:0/0 = 0
-0:0/0/terrain_set = 0
-0:0/0/terrain = 0
-0:0/0/terrains_peering_bit/bottom_side = 0
-0:0/0/terrains_peering_bit/top_side = 0
-1:0/0 = 0
-1:0/0/terrain_set = 0
-1:0/0/terrain = 0
-1:0/0/terrains_peering_bit/right_side = 0
-1:0/0/terrains_peering_bit/bottom_side = 0
-1:0/0/terrains_peering_bit/left_side = 0
-1:0/0/terrains_peering_bit/top_side = 0
-2:0/0 = 0
-2:0/0/terrain_set = 0
-2:0/0/terrain = 0
-2:0/0/terrains_peering_bit/right_side = 0
-2:0/0/terrains_peering_bit/bottom_side = 0
-3:0/0 = 0
-3:0/0/terrain_set = 0
-3:0/0/terrain = 0
-3:0/0/terrains_peering_bit/bottom_side = 0
-3:0/0/terrains_peering_bit/left_side = 0
-4:0/0 = 0
-4:0/0/terrain_set = 0
-4:0/0/terrain = 0
-4:0/0/terrains_peering_bit/right_side = 0
-4:0/0/terrains_peering_bit/bottom_side = 0
-4:0/0/terrains_peering_bit/left_side = 0
-5:0/0 = 0
-5:0/0/terrain_set = 0
-5:0/0/terrain = 0
-5:0/0/terrains_peering_bit/right_side = 0
-5:0/0/terrains_peering_bit/bottom_side = 0
-5:0/0/terrains_peering_bit/top_side = 0
-0:1/0 = 0
-0:1/0/terrain_set = 0
-0:1/0/terrain = 0
-0:1/0/terrains_peering_bit/right_side = 0
-0:1/0/terrains_peering_bit/left_side = 0
-1:1/0 = 0
-1:1/0/terrain_set = 0
-1:1/0/terrain = 0
-2:1/0 = 0
-2:1/0/terrain_set = 0
-2:1/0/terrain = 0
-2:1/0/terrains_peering_bit/right_side = 0
-2:1/0/terrains_peering_bit/top_side = 0
-3:1/0 = 0
-3:1/0/terrain_set = 0
-3:1/0/terrain = 0
-3:1/0/terrains_peering_bit/left_side = 0
-3:1/0/terrains_peering_bit/top_side = 0
-4:1/0 = 0
-4:1/0/terrain_set = 0
-4:1/0/terrain = 0
-4:1/0/terrains_peering_bit/right_side = 0
-4:1/0/terrains_peering_bit/left_side = 0
-4:1/0/terrains_peering_bit/top_side = 0
-5:1/0 = 0
-5:1/0/terrain_set = 0
-5:1/0/terrain = 0
-5:1/0/terrains_peering_bit/bottom_side = 0
-5:1/0/terrains_peering_bit/left_side = 0
-5:1/0/terrains_peering_bit/top_side = 0
-0:2/0 = 0
-0:2/0/terrain_set = 0
-0:2/0/terrain = 0
-0:2/0/terrains_peering_bit/right_side = 0
-1:2/0 = 0
-1:2/0/terrain_set = 0
-1:2/0/terrain = 0
-1:2/0/terrains_peering_bit/bottom_side = 0
-0:3/0 = 0
-0:3/0/terrain_set = 0
-0:3/0/terrain = 0
-0:3/0/terrains_peering_bit/top_side = 0
-1:3/0 = 0
-1:3/0/terrain_set = 0
-1:3/0/terrain = 0
-1:3/0/terrains_peering_bit/left_side = 0
-
-[sub_resource type="TileSet" id="TileSet_85qyi"]
-tile_size = Vector2i(32, 32)
-terrain_set_0/mode = 0
-terrain_set_0/terrain_0/name = "Walls"
-terrain_set_0/terrain_0/color = Color(0.2799506, 0.41070068, 0.4428513, 1)
-sources/0 = SubResource("TileSetAtlasSource_ewbju")
+[sub_resource type="CircleShape2D" id="CircleShape2D_ewbju"]
+radius = 9.0
 
 [node name="Game" type="Node2D" unique_id=1982323791]
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1526536229]
-zoom = Vector2(3, 3)
+position = Vector2(-16, -64)
+zoom = Vector2(2, 2)
 
-[node name="Level" type="Node2D" parent="." unique_id=1708957120]
-
-[node name="Player" type="CharacterBody2D" parent="Level" unique_id=1183994837]
-script = ExtResource("1_ebmjs")
-
-[node name="PointLight2D" type="PointLight2D" parent="Level/Player" unique_id=2044030451]
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=2044030451]
+visible = false
+position = Vector2(72, -10)
 energy = 6.98
 texture = ExtResource("2_1phco")
 texture_scale = 11.98
+
+[node name="Level" type="Node2D" parent="." unique_id=1708957120]
+
+[node name="Room" type="Node2D" parent="Level" unique_id=164314709]
+
+[node name="OuterWall" type="TileMapLayer" parent="Level/Room" unique_id=1588590795]
+material = SubResource("ShaderMaterial_nnt18")
+tile_map_data = PackedByteArray("AAD2//n/AAACAAAAAAD3//n/AAAAAAEAAAD4//n/AAAAAAEAAAD5//n/AAAAAAEAAAD6//n/AAAAAAEAAAD7//n/AAAAAAEAAAD8//n/AAAAAAEAAAD9//n/AAAAAAEAAAD+//n/AAABAAMAAAAIAPn/AAADAAAAAAAHAPn/AAAAAAEAAAAGAPn/AAAAAAEAAAAFAPn/AAAAAAEAAAAEAPn/AAAAAAEAAAADAPn/AAAAAAEAAAACAPn/AAAAAAEAAAABAPn/AAAAAAEAAAAAAPn/AAAAAAIAAAD2//3/AAAAAAMAAAD2//z/AAAAAAAAAAD2//v/AAAAAAAAAAD2//r/AAAAAAAAAAD2/wIAAAACAAEAAAD2/wEAAAAAAAAAAAD2/wAAAAAAAAAAAAD2////AAABAAIAAAD+/wIAAAABAAMAAAD9/wIAAAAAAAEAAAD8/wIAAAAAAAEAAAD7/wIAAAAAAAEAAAD6/wIAAAAAAAEAAAD5/wIAAAAAAAEAAAD4/wIAAAAAAAEAAAD3/wIAAAAAAAEAAAAIAAIAAAADAAEAAAAHAAIAAAAAAAEAAAAGAAIAAAAAAAEAAAAFAAIAAAAAAAEAAAAEAAIAAAAAAAEAAAADAAIAAAAAAAEAAAACAAIAAAAAAAEAAAABAAIAAAAAAAEAAAAAAAIAAAAAAAIAAAAIAP7/AAABAAIAAAAIAP//AAAAAAAAAAAIAAAAAAAAAAAAAAAIAAEAAAAAAAAAAAAIAPz/AAAAAAMAAAAIAPv/AAAAAAAAAAAIAPr/AAAAAAAAAAA=")
+tile_set = SubResource("TileSet_85qyi")
+
+[node name="Sentry" parent="Level/Room" unique_id=1631603036 instance=ExtResource("4_1phco")]
+position = Vector2(175, -138)
+health = 100000.0
+
+[node name="Sentry2" parent="Level/Room" unique_id=382466428 instance=ExtResource("4_1phco")]
+position = Vector2(-215, -140)
+health = -5.0
+attack_delay = 1.0
+
+[node name="Sentry3" parent="Level/Room" unique_id=1432654820 instance=ExtResource("4_1phco")]
+position = Vector2(174, 16)
+health = -5.0
+attack_delay = 1.0
+
+[node name="Sentry4" parent="Level/Room" unique_id=817890794 instance=ExtResource("4_1phco")]
+position = Vector2(-218, 36)
+health = -5.0
+attack_delay = 1.0
+
+[node name="Player" type="CharacterBody2D" parent="Level" unique_id=1183994837 groups=["Player"]]
+position = Vector2(-23, -61)
+script = ExtResource("1_ebmjs")
 
 [node name="StateMachine" type="Node" parent="Level/Player" unique_id=824081022 node_paths=PackedStringArray("default_state")]
 script = ExtResource("2_wowpa")
@@ -463,19 +405,31 @@ script = ExtResource("5_1l0tm")
 thruster_sprite = NodePath("../../Thruster")
 metadata/_custom_type_script = "uid://4yulkrqdi05f"
 
+[node name="Dash" type="Node" parent="Level/Player/StateMachine" unique_id=1238009096]
+script = ExtResource("10_nb51f")
+metadata/_custom_type_script = "uid://4yulkrqdi05f"
+
+[node name="Parry" type="Node" parent="Level/Player/StateMachine" unique_id=1111848170 node_paths=PackedStringArray("parry_icon", "parry_area")]
+script = ExtResource("11_ewbju")
+parry_icon = NodePath("../../ParryIcon")
+parry_area = NodePath("../../ParryIcon/ParryArea")
+metadata/_custom_type_script = "uid://4yulkrqdi05f"
+
 [node name="ShotCooldown" type="Timer" parent="Level/Player" unique_id=1349875459]
 one_shot = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Player" unique_id=720688759]
-shape = SubResource("CircleShape2D_qxrlw")
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_nnt18")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Level/Player" unique_id=548427511]
 libraries/ = SubResource("AnimationLibrary_1l0tm")
 
 [node name="Thruster" type="AnimatedSprite2D" parent="Level/Player" unique_id=1248199435]
+visible = false
 sprite_frames = SubResource("SpriteFrames_nb51f")
 autoplay = "default"
-offset = Vector2(0, 20)
+offset = Vector2(-20, 0)
 
 [node name="CharacterSprite" type="AnimatedSprite2D" parent="Level/Player" unique_id=1007364282]
 material = SubResource("ShaderMaterial_rku1e")
@@ -483,22 +437,23 @@ sprite_frames = SubResource("SpriteFrames_ldgsr")
 animation = &"shoot"
 frame = 1
 
-[node name="Enemy" type="CharacterBody2D" parent="Level" unique_id=1853128566]
-position = Vector2(229, -15)
-script = ExtResource("8_ldgsr")
+[node name="Reticle" type="Node" parent="Level/Player" unique_id=1619501989]
+script = ExtResource("11_nnt18")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Level/Enemy" unique_id=555319589]
+[node name="RayCast2D" type="RayCast2D" parent="Level/Player/Reticle" unique_id=1754376815]
+target_position = Vector2(100, 0)
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Level/Enemy" unique_id=1628184618]
-sprite_frames = SubResource("SpriteFrames_cwurv")
-animation = &"cube"
+[node name="Reticle" type="Sprite2D" parent="Level/Player/Reticle" unique_id=938264287]
+visible = false
+position = Vector2(100, 0)
+texture = ExtResource("11_nb51f")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Enemy" unique_id=362044629]
-shape = SubResource("CircleShape2D_mucmn")
+[node name="ParryIcon" type="Sprite2D" parent="Level/Player" unique_id=582533016]
+texture = ExtResource("17_ewbju")
 
-[node name="Room" type="Node2D" parent="Level" unique_id=164314709]
+[node name="ParryArea" type="Area2D" parent="Level/Player/ParryIcon" unique_id=1580213530]
+collision_layer = 8
+collision_mask = 8
 
-[node name="OuterWall" type="TileMapLayer" parent="Level/Room" unique_id=1588590795]
-material = SubResource("ShaderMaterial_nnt18")
-tile_map_data = PackedByteArray("AAD+//v/AAABAAMAAAD9//v/AAAAAAEAAAD8//v/AAAAAAEAAAD7//v/AAAAAAEAAAAAAPv/AAAAAAIAAAABAPv/AAAAAAEAAAACAPv/AAAAAAEAAAADAPv/AAAAAAEAAAAEAPv/AAADAAAAAAAEAPz/AAAAAAAAAAAEAP3/AAAAAAMAAAAEAP//AAABAAIAAAAEAAAAAAAAAAAAAAAEAAEAAAADAAEAAAADAAEAAAAAAAEAAAACAAEAAAAAAAEAAAABAAEAAAAAAAEAAAAAAAEAAAAAAAIAAAD+/wEAAAABAAMAAAD9/wEAAAAAAAEAAAD8/wEAAAAAAAEAAAD7/wEAAAAAAAEAAAD6/wEAAAACAAEAAAD6/wAAAAAAAAAAAAD6////AAABAAIAAAD6//z/AAAAAAAAAAD6//v/AAACAAAAAAD6//3/AAAAAAMAAAA=")
-tile_set = SubResource("TileSet_85qyi")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Player/ParryIcon/ParryArea" unique_id=670628656]
+shape = SubResource("CircleShape2D_ewbju")

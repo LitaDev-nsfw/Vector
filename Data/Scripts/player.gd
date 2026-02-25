@@ -33,7 +33,11 @@ enum ShotTypes {
 @export var shot_speed_mult: float = 1.0
 @export var fire_rate_bonus: int = 10
 @export var fire_rate_mult: float = 1.0
-@export var health: int = 3
+@export var health: int = 3:
+	set(value):
+		health = value
+		if health <= 0:
+			queue_free()
 @export var damage_bonus: int = 10
 @export var damage_mult: float = 1.0
 @export var bullet_size_mult: float = 1.0
@@ -43,14 +47,22 @@ enum ShotTypes {
 var input_vector: Vector2
 var aim_vector: Vector2
 var shot_type: ShotTypes = ShotTypes.SINGLE
+var current_combo: float = 1.0:
+	set(value):
+		current_combo = max(value,1.0)
+		if current_combo > 1.0:
+			set_current_combo_life()
+var current_combo_life: float = 0.0
 
 @onready var shot_scene = preload("res://Scenes/shot.tscn")
 
 const BASE_FIRE_DELAY = 15
-const BASE_MOVE_SPEED = 100
-const BASE_SHOT_SPEED = 100
-
+const BASE_MOVE_SPEED = 150
+const BASE_SHOT_SPEED = 400
+const GROUND_ACCELERATION = 10000000.0
 func shoot():
+	if G.halt_actions:
+		return
 	if !aim_vector: return
 	match shot_type:
 		ShotTypes.SINGLE:
@@ -68,9 +80,29 @@ func get_attribute(attribute: Attributes):
 		Attributes.MOVE_SPEED: return BASE_MOVE_SPEED * clamp(move_speed_mult,move_speed_min,move_speed_max)
 		Attributes.FIRE_RATE: return fire_rate_bonus * fire_rate_mult
 		Attributes.SHOT_SPEED: return (BASE_SHOT_SPEED + shot_speed_bonus) * shot_speed_mult
+		Attributes.DAMAGE: return damage_bonus * damage_mult
+
+func take_damage():
+	health -= 1
+
+func set_current_combo_life():
+	if current_combo == 1.0:
+		current_combo_life = 0
+		return
+	if current_combo >= 3.0:
+		current_combo_life = 3/(floor(current_combo)-2.5)
+	elif current_combo > 2.0:
+		current_combo_life = 10
+	else:
+		current_combo_life = 15
 
 func _process(delta: float) -> void:
 	input_vector = Input.get_vector("move_left","move_right","move_up","move_down")
 	if input_vector.length() > 1:
 		input_vector = input_vector.normalized()
 	aim_vector = Input.get_vector("aim_left","aim_right","aim_up","aim_down").normalized()
+	print("Combo: "+str(current_combo)+" Life: "+str(current_combo_life))
+	if current_combo_life > 0:
+		current_combo_life -= delta
+	if current_combo_life <= 0 and current_combo > 1.0:
+		current_combo -= 1.0

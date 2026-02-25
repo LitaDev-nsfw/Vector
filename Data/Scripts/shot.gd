@@ -14,7 +14,7 @@ enum Teams {
 var team: Teams = Teams.PLAYER
 var damages_self: bool = false
 var bullet_type: BulletTypes = BulletTypes.STANDARD
-
+var was_parried = false
 var vector: Vector2
 var shot_speed: float
 
@@ -26,25 +26,36 @@ func _ready():
 		anim_name += "enemy"
 	else:
 		anim_name += "friendly"
+	play(anim_name)
 
 func _process(delta: float) -> void:
-	position += vector * shot_speed * delta
+	global_rotation = vector.angle()
+	if G.halt_actions:
+		return
+	position += vector.normalized() * shot_speed * delta
 	#print(vector.angle())
-	global_rotation = vector.angle() + (.5*PI)
+	
 
 func _on_hitbox_body_entered(body: Node2D) -> void:
 	var ignore_team = false
-	print(body)
+	print("Body: " +body.name)
 	if body == shot_owner:
+		print("Body is owner")
 		if !damages_self:
 			return
 		else:
 			ignore_team = true
+	print("Body is not owner")
 	if body is Player and (team == Teams.ENEMY or ignore_team):
+		print("Body is Player")
 		body.take_damage()
 	if body is Enemy:
+		print("Body is Enemy")
 		if (team == Teams.PLAYER):
-			body.take_damage(shot_owner.get_attribute(Player.Attributes.DAMAGE))
+			var shot_multiplier = shot_owner.current_combo
+			if was_parried:
+				shot_multiplier += 1
+			body.take_damage(shot_owner.get_attribute(Player.Attributes.DAMAGE)*shot_multiplier)
 		elif ignore_team:
 			body.take_damage(shot_owner.health / 4)
 	print("Removing Shot")

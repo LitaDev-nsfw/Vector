@@ -73,7 +73,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gikam"]
-radius = 2.236068
+radius = 3.0
 
 [node name="Shot" type="AnimatedSprite2D" unique_id=395401191]
 sprite_frames = SubResource("SpriteFrames_4jxk0")
@@ -82,6 +82,8 @@ autoplay = "standard_friendly"
 script = ExtResource("2_m8kjd")
 
 [node name="Hitbox" type="Area2D" parent="." unique_id=1146394889]
+position = Vector2(4, 4)
+collision_layer = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=245701292]
 position = Vector2(0, -4)

@@ -15,12 +15,14 @@ func begin_state():
 	attack_timer.start(shoot_delay_time)
 	#player.spawn_attack(Player.AttackTypes.SMALL_SLASH,player.get_attribute(Player.Attributes.STRENGTH))
 
-func update(_delta):
+func update(delta):
 	if attack_timer.is_stopped():
 		state_machine.change_state("idle")
 	if player.input_vector:
-		move_state.do_move()
+		move_state.do_move(delta)
 	else:
 		thruster_sprite.visible = false
-	if player.aim_vector:
-		player.rotation = player.aim_vector.angle()+(.5*PI)
+	if Input.is_action_just_pressed("dash"):
+		state_machine.change_state("dash")
+	if Input.is_action_just_pressed("parry"):
+		state_machine.change_state("parry")
