@@ -1,9 +1,9 @@
-[gd_scene format=3 uid="uid://b67xlson8puyh"]
+[gd_scene format=3 uid="uid://du3qu1tudrtpa"]
 
 [ext_resource type="Script" uid="uid://c2ms6acjy0y1l" path="res://Data/Scripts/enemy.gd" id="1_ghaa6"]
 [ext_resource type="Script" uid="uid://c3xy6ebvr4cw7" path="res://Data/Scripts/state_machine.gd" id="2_1dp5w"]
-[ext_resource type="Script" uid="uid://cef51vxtrq5kc" path="res://Data/Scripts/States/Enemy States/idle_stationary.gd" id="3_auwsv"]
-[ext_resource type="Script" uid="uid://b7taqorvmqwtu" path="res://Data/Scripts/States/Enemy States/shoot_stationary.gd" id="4_8uf12"]
+[ext_resource type="Script" path="res://Data/Scripts/States/Enemy States/idle_stationary.gd" id="3_auwsv"]
+[ext_resource type="Script" path="res://Data/Scripts/States/Enemy States/shoot_stationary.gd" id="4_8uf12"]
 [ext_resource type="Texture2D" uid="uid://durj4rpbtlsa1" path="res://Assets/Sprites/cube.png" id="5_po0sg"]
 [ext_resource type="Texture2D" uid="uid://bv2xrbwfgdwni" path="res://Assets/Sprites/sentry.png" id="6_haro7"]
 
@@ -124,6 +124,7 @@ animations = [{
 radius = 189.09521
 
 [node name="Enemy" type="CharacterBody2D" unique_id=1631603036]
+collision_layer = 21
 script = ExtResource("1_ghaa6")
 
 [node name="AttackDelay" type="Timer" parent="." unique_id=2041846998]
@@ -153,6 +154,8 @@ animation = &"cube"
 shape = SubResource("CircleShape2D_mucmn")
 
 [node name="DetectionHitbox" type="Area2D" parent="." unique_id=187940754]
+collision_layer = 0
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionHitbox" unique_id=1864702638]
 shape = SubResource("CircleShape2D_iivbl")

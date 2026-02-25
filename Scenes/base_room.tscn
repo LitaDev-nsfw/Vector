@@ -1,4 +1,4 @@
-[gd_scene format=4 uid="uid://3iu03paseq3o"]
+[gd_scene format=4 uid="uid://dbtgpv01w0f1x"]
 
 [ext_resource type="Texture2D" uid="uid://byfktncipek2a" path="res://Assets/Sprites/background.png" id="1_n8ynd"]
 [ext_resource type="Script" uid="uid://j7im6j05n23n" path="res://Data/Scripts/room.gd" id="1_rqups"]
@@ -136,22 +136,18 @@ tile_set = SubResource("TileSet_85qyi")
 
 [node name="NorthExitArea" type="Area2D" parent="Exits" unique_id=149224160]
 position = Vector2(-16, -207)
+collision_layer = 0
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Exits/NorthExitArea" unique_id=1813766084]
-position = Vector2(0, -5)
-shape = SubResource("RectangleShape2D_rqups")
-
-[node name="WestExitArea" type="Area2D" parent="Exits" unique_id=464073131]
-position = Vector2(-313, -48)
-rotation = 1.5707964
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Exits/WestExitArea" unique_id=1158159116]
 position = Vector2(0, -5)
 shape = SubResource("RectangleShape2D_rqups")
 
 [node name="EastExitArea" type="Area2D" parent="Exits" unique_id=362935898]
 position = Vector2(271, -48)
 rotation = 1.5707964
+collision_layer = 0
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Exits/EastExitArea" unique_id=164746692]
 position = Vector2(0, -5)
@@ -159,8 +155,20 @@ shape = SubResource("RectangleShape2D_rqups")
 
 [node name="SouthExitArea" type="Area2D" parent="Exits" unique_id=200810546]
 position = Vector2(-16, 121)
+collision_layer = 0
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Exits/SouthExitArea" unique_id=355011059]
+position = Vector2(0, -5)
+shape = SubResource("RectangleShape2D_rqups")
+
+[node name="WestExitArea" type="Area2D" parent="Exits" unique_id=464073131]
+position = Vector2(-313, -48)
+rotation = 1.5707964
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Exits/WestExitArea" unique_id=1158159116]
 position = Vector2(0, -5)
 shape = SubResource("RectangleShape2D_rqups")
 
@@ -217,7 +225,9 @@ texture = ExtResource("5_um5sr")
 position = Vector2(-32, 0)
 texture = ExtResource("5_um5sr")
 
+[node name="Enemies" type="Node2D" parent="." unique_id=683597873]
+
 [connection signal="body_entered" from="Exits/NorthExitArea" to="." method="_on_exit_body_entered" binds= [0]]
-[connection signal="body_entered" from="Exits/WestExitArea" to="." method="_on_exit_body_entered" binds= [3]]
 [connection signal="body_entered" from="Exits/EastExitArea" to="." method="_on_exit_body_entered" binds= [1]]
 [connection signal="body_entered" from="Exits/SouthExitArea" to="." method="_on_exit_body_entered" binds= [2]]
+[connection signal="body_entered" from="Exits/WestExitArea" to="." method="_on_exit_body_entered" binds= [3]]

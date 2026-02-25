@@ -3,20 +3,22 @@
 [ext_resource type="Script" uid="uid://cpmmf673y1l1r" path="res://Data/Scripts/player.gd" id="1_ebmjs"]
 [ext_resource type="Texture2D" uid="uid://p4uijrce3q4d" path="res://Assets/Sprites/large_point_light.png" id="2_1phco"]
 [ext_resource type="Script" uid="uid://n87epj2ltqdw" path="res://Data/Scripts/level.gd" id="2_ewbju"]
-[ext_resource type="PackedScene" uid="uid://3iu03paseq3o" path="res://Scenes/base_room.tscn" id="2_nnt18"]
+[ext_resource type="PackedScene" uid="uid://dbtgpv01w0f1x" path="res://Scenes/base_room.tscn" id="2_nnt18"]
 [ext_resource type="Texture2D" uid="uid://dxn2aq3nt4iij" path="res://Assets/Sprites/player_shoot.png" id="2_qxrlw"]
 [ext_resource type="Script" uid="uid://c3xy6ebvr4cw7" path="res://Data/Scripts/state_machine.gd" id="2_wowpa"]
 [ext_resource type="Script" uid="uid://lglu1qtsh6am" path="res://Data/Scripts/States/Player States/attack.gd" id="3_1l0tm"]
 [ext_resource type="Texture2D" uid="uid://ckgv6jv2hjgtd" path="res://Assets/Sprites/thruster.png" id="3_wrm1d"]
 [ext_resource type="Script" uid="uid://cmqtvl2dej403" path="res://Data/Scripts/States/Player States/idle.gd" id="4_1l0tm"]
 [ext_resource type="Script" uid="uid://cglohlwl1myex" path="res://Data/Scripts/States/Player States/move.gd" id="5_1l0tm"]
+[ext_resource type="Script" uid="uid://bjb4tau8cmobw" path="res://Data/Scripts/item_manager.gd" id="5_iivbl"]
 [ext_resource type="Shader" uid="uid://bgn2qiarsaxxu" path="res://Assets/Resources/Shaders/normal_map.gdshader" id="7_o5yvi"]
 [ext_resource type="Texture2D" uid="uid://buglw34iow0ii" path="res://Assets/Sprites/player_normals_sheet.png" id="8_rku1e"]
-[ext_resource type="Script" uid="uid://dk6pyqjtdvppy" path="res://Data/Scripts/States/Player States/dash.gd" id="10_nb51f"]
-[ext_resource type="Script" uid="uid://wsouaa7kwbs" path="res://Data/Scripts/States/Player States/parry.gd" id="11_ewbju"]
+[ext_resource type="Script" path="res://Data/Scripts/States/Player States/dash.gd" id="10_nb51f"]
+[ext_resource type="Script" path="res://Data/Scripts/States/Player States/parry.gd" id="11_ewbju"]
 [ext_resource type="Texture2D" uid="uid://f0yu0ihlbnrb" path="res://Assets/Sprites/reticle.png" id="11_nb51f"]
-[ext_resource type="Script" uid="uid://wvhd7njm4812" path="res://Data/Scripts/reticle.gd" id="11_nnt18"]
+[ext_resource type="Script" path="res://Data/Scripts/reticle.gd" id="11_nnt18"]
 [ext_resource type="Texture2D" uid="uid://dx7a63fvfgeeo" path="res://Assets/Sprites/parry.png" id="17_ewbju"]
+[ext_resource type="Script" uid="uid://bn1h50ufx85up" path="res://Data/Scripts/ui.gd" id="18_85qyi"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nnt18"]
 radius = 6.0
@@ -249,7 +251,11 @@ has_enemies = false
 
 [node name="Player" type="CharacterBody2D" parent="Level" unique_id=1183994837 groups=["Player"]]
 position = Vector2(-23, -61)
+collision_layer = 19
 script = ExtResource("1_ebmjs")
+
+[node name="ItemManager" type="Node" parent="Level/Player" unique_id=1257488670]
+script = ExtResource("5_iivbl")
 
 [node name="StateMachine" type="Node" parent="Level/Player" unique_id=824081022 node_paths=PackedStringArray("default_state")]
 script = ExtResource("2_wowpa")
@@ -327,3 +333,48 @@ collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Player/ParryIcon/ParryArea" unique_id=670628656]
 shape = SubResource("CircleShape2D_ewbju")
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=498555873]
+script = ExtResource("18_85qyi")
+
+[node name="Control" type="Control" parent="UI" unique_id=1102289863]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Control" unique_id=1346442845]
+custom_minimum_size = Vector2(200, 400)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -20.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Control/VBoxContainer" unique_id=100483602]
+layout_mode = 2
+
+[node name="Timer" type="Label" parent="UI/Control/VBoxContainer/HBoxContainer" unique_id=909604477]
+layout_mode = 2
+size_flags_horizontal = 3
+vertical_alignment = 1
+
+[node name="Combo" type="Label" parent="UI/Control/VBoxContainer/HBoxContainer" unique_id=326208928]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="ComboMeter" type="TextureProgressBar" parent="UI/Control/VBoxContainer" unique_id=1987867746]
+layout_mode = 2
+
+[node name="ComboHistory" type="VBoxContainer" parent="UI/Control/VBoxContainer" unique_id=1212225771]
+layout_mode = 2

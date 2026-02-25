@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 G="*uid://l07lhw1afjhk"
 E="*uid://bc7voxm0fhhys"
+D="*uid://bbgdbg051uspe"
 
 [display]
 
@@ -97,7 +98,11 @@ parry={
 
 [layer_names]
 
+2d_physics/layer_1="Collision"
+2d_physics/layer_2="Player"
+2d_physics/layer_3="Enemies"
 2d_physics/layer_4="Shots"
+2d_physics/layer_5="Entities"
 
 [physics]
 

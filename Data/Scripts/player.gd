@@ -51,7 +51,7 @@ var current_combo: float = 1.0:
 	set(value):
 		current_combo = max(value,1.0)
 		if current_combo > 1.0:
-			set_current_combo_life()
+			reset_current_combo_life()
 var current_combo_life: float = 0.0
 
 @onready var shot_scene = preload("res://Scenes/shot.tscn")
@@ -85,16 +85,21 @@ func get_attribute(attribute: Attributes):
 func take_damage():
 	health -= 1
 
-func set_current_combo_life():
+func reset_current_combo_life():
+	current_combo_life = get_current_combo_life()
+
+func get_current_combo_life() -> float:
 	if current_combo == 1.0:
-		current_combo_life = 0
-		return
+		return 0
 	if current_combo >= 3.0:
-		current_combo_life = 3/(floor(current_combo)-2.5)
+		return 3/(floor(current_combo)-2.5)
 	elif current_combo > 2.0:
-		current_combo_life = 10
+		return 10
 	else:
-		current_combo_life = 15
+		return 15
+
+func _ready():
+	E.enemy_died.connect(_on_enemy_died)
 
 func _process(delta: float) -> void:
 	input_vector = Input.get_vector("move_left","move_right","move_up","move_down")
@@ -106,3 +111,6 @@ func _process(delta: float) -> void:
 		current_combo_life -= delta
 	if current_combo_life <= 0 and current_combo > 1.0:
 		current_combo -= 1.0
+
+func _on_enemy_died(_enemy: Enemy):
+	reset_current_combo_life()

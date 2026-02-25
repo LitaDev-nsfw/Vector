@@ -17,11 +17,6 @@ var entrance_direction: Directions:
 var entrance_tween: Tween
 var special_exit_direction: Directions:
 	set(value):
-		print("Entrance: "+Directions.find_key(entrance_direction))
-		print(Directions.find_key(value))
-		if special_exit_direction == entrance_direction:
-			print("Matching")
-			return
 		special_exit_direction = value
 		var marker_name = Directions.find_key(special_exit_direction).capitalize()+"Marker"
 		find_child(marker_name).visible = true
@@ -37,6 +32,7 @@ func leave():
 
 func _ready():
 	room_exited.connect(E._on_room_exited)
+	E.enemy_died.connect(_on_enemy_died)
 	if !entrance_direction: return
 	var entrance_player_position: Vector2
 	match entrance_direction:
@@ -49,17 +45,21 @@ func _ready():
 	entrance_tween.set_ease(Tween.EASE_OUT)
 	entrance_tween.tween_property(player,"global_position",entrance_player_position,TRANSITION_TIME)
 	entrance_tween.tween_property(G,"halt_actions",false,0)
-	while true:
-		if special_exit_direction:
-			break
-		special_exit_direction = randi_range(0,3) as Directions
-		
+	var usable_directions: Array[Directions] = [Directions.NORTH,Directions.SOUTH,Directions.EAST,Directions.WEST]
+	usable_directions.erase(entrance_direction)
+	special_exit_direction = usable_directions.pick_random()
 
-
-func _on_exit_body_entered(body: Node2D, Direction: Directions) -> void:
-	print("Room Exit Body Entered")
+func _on_exit_body_entered(body: Node2D, direction: Directions) -> void:
+	print("Room Exit Body Entered"+str(Directions.find_key(direction)))
 	if entrance_tween and entrance_tween.is_running():
 		return
 	if has_enemies or !body is Player:
 		return
-	room_exited.emit(self,Direction)
+	print("Exiting")
+	room_exited.emit(self,direction)
+
+func _on_enemy_died(_enemy: Enemy):
+	for enemy: Enemy in $Enemies.get_children():
+		if enemy.is_alive:
+			return
+	has_enemies = false

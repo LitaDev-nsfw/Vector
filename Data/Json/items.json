@@ -1,0 +1,13 @@
+[
+	{
+		"id": "crying_onion",
+		"name": {"sp": "Crying Onion"},
+		"number": 1,
+		"priority": 1,
+		"effects": {
+			"fire_rate_bonus": {
+				"amount": 5
+			}
+		}
+	},
+]

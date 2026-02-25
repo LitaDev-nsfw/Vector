@@ -36,10 +36,14 @@ func _on_room_exited(room: Room, direction: Room.Directions):
 	elif current_room == 6:
 		pass
 	else:
+		if !remaining_rooms:
+			push_error("OUT OF ROOMS")
 		var new_room_scene = remaining_rooms.pick_random()
 		var new_room: Room = new_room_scene.instantiate()
 		remaining_rooms.erase(new_room_scene)
-		new_room.entrance_direction = direction + 2 % 4 as Room.Directions
+		print(direction)
+		print("New direction "+str(direction + 2 % 4))
+		new_room.entrance_direction = (direction + 2) % 4 as Room.Directions
 		call_deferred("add_child",new_room)
 		var point_vector: Vector2
 		match direction:
