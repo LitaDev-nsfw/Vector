@@ -9,9 +9,9 @@ extends State
 func do_move(delta):
 	if G.halt_actions:
 		return
-	print("Test")
+	#print("Test")
 	player.velocity = player.velocity.move_toward(player.input_vector * player.get_attribute(player.Attributes.MOVE_SPEED), player.GROUND_ACCELERATION*delta)
-	print(player.velocity)
+	#print(player.velocity)
 	player.rotation = player.input_vector.angle()
 	thruster_sprite.visible = false
 	thruster_sprite.global_rotation = player.input_vector.angle()

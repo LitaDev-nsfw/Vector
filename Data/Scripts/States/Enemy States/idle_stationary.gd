@@ -7,7 +7,7 @@ func begin_state():
 	pass
 
 func update(_delta: float):
-	print(detection_hitbox)
+	#print(detection_hitbox)
 	if detection_hitbox:
 		if !detection_hitbox.has_overlapping_bodies():
 			return
@@ -17,7 +17,7 @@ func update(_delta: float):
 				player = body
 				break
 		if !player: return
-	print("test")
+	#print("test")
 	if state_machine.states.has("chase"):
 		state_machine.change_state("chase")
 	else:

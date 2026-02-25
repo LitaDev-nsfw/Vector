@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://dem3xunko802k"]
+
+[ext_resource type="PackedScene" uid="uid://b67xlson8puyh" path="res://Scenes/enemy.tscn" id="1_hb4qr"]
+
+[node name="FastSentry" unique_id=1631603036 instance=ExtResource("1_hb4qr")]
+health = 30.0
+attack_delay = 1.0
+
+[node name="Idle" parent="StateMachine" parent_id_path=PackedInt32Array(206549298) index="0" unique_id=855984815 node_paths=PackedStringArray("detection_hitbox")]
+detection_hitbox = NodePath("../../DetectionHitbox")
+
+[node name="Attack" parent="StateMachine" parent_id_path=PackedInt32Array(206549298) index="1" unique_id=2060268359 node_paths=PackedStringArray("detection_area")]
+detection_area = NodePath("../../DetectionHitbox")

@@ -33,7 +33,7 @@ enum ShotTypes {
 @export var shot_speed_mult: float = 1.0
 @export var fire_rate_bonus: int = 10
 @export var fire_rate_mult: float = 1.0
-@export var health: int = 3:
+@export var health: int = 6:
 	set(value):
 		health = value
 		if health <= 0:
@@ -56,7 +56,7 @@ var current_combo_life: float = 0.0
 
 @onready var shot_scene = preload("res://Scenes/shot.tscn")
 
-const BASE_FIRE_DELAY = 15
+const BASE_FIRE_DELAY = 5
 const BASE_MOVE_SPEED = 150
 const BASE_SHOT_SPEED = 400
 const GROUND_ACCELERATION = 10000000.0
@@ -101,7 +101,7 @@ func _process(delta: float) -> void:
 	if input_vector.length() > 1:
 		input_vector = input_vector.normalized()
 	aim_vector = Input.get_vector("aim_left","aim_right","aim_up","aim_down").normalized()
-	print("Combo: "+str(current_combo)+" Life: "+str(current_combo_life))
+	#print("Combo: "+str(current_combo)+" Life: "+str(current_combo_life))
 	if current_combo_life > 0:
 		current_combo_life -= delta
 	if current_combo_life <= 0 and current_combo > 1.0:

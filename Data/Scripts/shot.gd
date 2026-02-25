@@ -18,7 +18,7 @@ var was_parried = false
 var vector: Vector2
 var shot_speed: float
 
-var shot_owner
+var shot_owner: CharacterBody2D
 
 func _ready():
 	var anim_name = BulletTypes.find_key(bullet_type).to_lower() + "_"
@@ -52,6 +52,8 @@ func _on_hitbox_body_entered(body: Node2D) -> void:
 	if body is Enemy:
 		print("Body is Enemy")
 		if (team == Teams.PLAYER):
+			if !shot_owner.is_inside_tree():
+				return
 			var shot_multiplier = shot_owner.current_combo
 			if was_parried:
 				shot_multiplier += 1

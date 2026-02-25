@@ -228,6 +228,10 @@ radius = 9.0
 
 [node name="Game" type="Node2D" unique_id=1982323791]
 
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1526536229]
+position = Vector2(-15, -49)
+zoom = Vector2(1.8, 1.8)
+
 [node name="PointLight2D" type="PointLight2D" parent="." unique_id=2044030451]
 visible = false
 position = Vector2(-253, -38)
@@ -235,14 +239,9 @@ energy = 6.98
 texture = ExtResource("2_1phco")
 texture_scale = 11.98
 
-[node name="Level" type="Node2D" parent="." unique_id=1708957120 node_paths=PackedStringArray("current_room_node", "level_camera")]
+[node name="Level" type="Node2D" parent="." unique_id=1708957120 node_paths=PackedStringArray("current_room_node")]
 script = ExtResource("2_ewbju")
 current_room_node = NodePath("StartingRoom")
-level_camera = NodePath("Camera2D")
-
-[node name="Camera2D" type="Camera2D" parent="Level" unique_id=1526536229]
-position = Vector2(-15, -49)
-zoom = Vector2(1.8, 1.8)
 
 [node name="StartingRoom" parent="Level" unique_id=1415294416 instance=ExtResource("2_nnt18")]
 has_enemies = false

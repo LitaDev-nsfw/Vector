@@ -20,7 +20,7 @@ func begin_state():
 	parry_icon.global_position = player.global_position + parry_icon_relative_position
 	parry_icon.global_rotation = 0
 	parried_projectiles = []
-	print(parry_icon_relative_position)
+	#print(parry_icon_relative_position)
 	for shot_area in parry_area.get_overlapping_areas():
 		var shot: Shot
 		if not shot_area.get_parent() is Shot:
@@ -35,7 +35,7 @@ func begin_state():
 		tween.tween_property(parry_icon,"visible",false, 0)
 		state_machine.change_state("idle")
 	else:
-		print("PARRIED")
+		#print("PARRIED")
 		remaining_parry_time = parry_length*(1.0/60)
 		G.halt_actions = true
 		for shot in parried_projectiles:
@@ -46,7 +46,7 @@ func begin_state():
 			player.current_combo += .2
 
 func update(delta: float):
-	print(parry_icon.position)
+	#print(parry_icon.position)
 	remaining_parry_time -= delta
 	if remaining_parry_time <= 0:
 		if player.aim_vector:

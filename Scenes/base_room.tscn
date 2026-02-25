@@ -1,0 +1,223 @@
+[gd_scene format=4 uid="uid://3iu03paseq3o"]
+
+[ext_resource type="Texture2D" uid="uid://byfktncipek2a" path="res://Assets/Sprites/background.png" id="1_n8ynd"]
+[ext_resource type="Script" uid="uid://j7im6j05n23n" path="res://Data/Scripts/room.gd" id="1_rqups"]
+[ext_resource type="Texture2D" uid="uid://cadbhd0asi7v7" path="res://Assets/Sprites/walls_diffuse.png" id="2_rqups"]
+[ext_resource type="Texture2D" uid="uid://belqgnqagr862" path="res://Assets/Sprites/walls_normals.png" id="3_um5sr"]
+[ext_resource type="Texture2D" uid="uid://bhnesvmsl836p" path="res://Assets/Sprites/combo_reset_logo.png" id="5_um5sr"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_r3eiq"]
+diffuse_texture = ExtResource("2_rqups")
+normal_texture = ExtResource("3_um5sr")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ewbju"]
+texture = SubResource("CanvasTexture_r3eiq")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/terrain_set = 0
+0:0/0/terrain = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-14, -16, 14, -16, 14, 16, -14, 16)
+0:0/0/terrains_peering_bit/bottom_side = 0
+0:0/0/terrains_peering_bit/top_side = 0
+1:0/0 = 0
+1:0/0/terrain_set = 0
+1:0/0/terrain = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:0/0/terrains_peering_bit/right_side = 0
+1:0/0/terrains_peering_bit/bottom_side = 0
+1:0/0/terrains_peering_bit/left_side = 0
+1:0/0/terrains_peering_bit/top_side = 0
+2:0/0 = 0
+2:0/0/terrain_set = 0
+2:0/0/terrain = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-14, -14, 16, -14, 16, 16, -14, 16)
+2:0/0/terrains_peering_bit/right_side = 0
+2:0/0/terrains_peering_bit/bottom_side = 0
+3:0/0 = 0
+3:0/0/terrain_set = 0
+3:0/0/terrain = 0
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(14, -14, 14, 16, -16, 16, -16, -14)
+3:0/0/terrains_peering_bit/bottom_side = 0
+3:0/0/terrains_peering_bit/left_side = 0
+4:0/0 = 0
+4:0/0/terrain_set = 0
+4:0/0/terrain = 0
+4:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(16, -14, 16, 16, -16, 16, -16, -14)
+4:0/0/terrains_peering_bit/right_side = 0
+4:0/0/terrains_peering_bit/bottom_side = 0
+4:0/0/terrains_peering_bit/left_side = 0
+5:0/0 = 0
+5:0/0/terrain_set = 0
+5:0/0/terrain = 0
+5:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-14, -16, 16, -16, 16, 16, -14, 16)
+5:0/0/terrains_peering_bit/right_side = 0
+5:0/0/terrains_peering_bit/bottom_side = 0
+5:0/0/terrains_peering_bit/top_side = 0
+0:1/0 = 0
+0:1/0/terrain_set = 0
+0:1/0/terrain = 0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -14, 16, -14, 16, 14, -16, 14)
+0:1/0/terrains_peering_bit/right_side = 0
+0:1/0/terrains_peering_bit/left_side = 0
+1:1/0 = 0
+1:1/0/terrain_set = 0
+1:1/0/terrain = 0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-14, -14, 14, -14, 14, 14, -14, 14)
+2:1/0 = 0
+2:1/0/terrain_set = 0
+2:1/0/terrain = 0
+2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-14, 14, -14, -16, 16, -16, 16, 14)
+2:1/0/terrains_peering_bit/right_side = 0
+2:1/0/terrains_peering_bit/top_side = 0
+3:1/0 = 0
+3:1/0/terrain_set = 0
+3:1/0/terrain = 0
+3:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(14, 14, -16, 14, -16, -16, 14, -16)
+3:1/0/terrains_peering_bit/left_side = 0
+3:1/0/terrains_peering_bit/top_side = 0
+4:1/0 = 0
+4:1/0/terrain_set = 0
+4:1/0/terrain = 0
+4:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, 14, -16, -16, 16, -16, 16, 14)
+4:1/0/terrains_peering_bit/right_side = 0
+4:1/0/terrains_peering_bit/left_side = 0
+4:1/0/terrains_peering_bit/top_side = 0
+5:1/0 = 0
+5:1/0/terrain_set = 0
+5:1/0/terrain = 0
+5:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(14, 16, -16, 16, -16, -16, 14, -16)
+5:1/0/terrains_peering_bit/bottom_side = 0
+5:1/0/terrains_peering_bit/left_side = 0
+5:1/0/terrains_peering_bit/top_side = 0
+0:2/0 = 0
+0:2/0/terrain_set = 0
+0:2/0/terrain = 0
+0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-14, -14, 16, -14, 16, 14, -14, 14)
+0:2/0/terrains_peering_bit/right_side = 0
+1:2/0 = 0
+1:2/0/terrain_set = 0
+1:2/0/terrain = 0
+1:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-14, -14, 14, -14, 14, 16, -14, 16)
+1:2/0/terrains_peering_bit/bottom_side = 0
+0:3/0 = 0
+0:3/0/terrain_set = 0
+0:3/0/terrain = 0
+0:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-14, -16, 14, -16, 14, 14, -14, 14)
+0:3/0/terrains_peering_bit/top_side = 0
+1:3/0 = 0
+1:3/0/terrain_set = 0
+1:3/0/terrain = 0
+1:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -14, 14, -14, 14, 14, -16, 14)
+1:3/0/terrains_peering_bit/left_side = 0
+
+[sub_resource type="TileSet" id="TileSet_85qyi"]
+tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 1
+terrain_set_0/mode = 0
+terrain_set_0/terrain_0/name = "Walls"
+terrain_set_0/terrain_0/color = Color(0.2799506, 0.41070068, 0.4428513, 1)
+sources/0 = SubResource("TileSetAtlasSource_ewbju")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rqups"]
+size = Vector2(38, 20)
+
+[node name="Room" type="Node2D" unique_id=1415294416]
+script = ExtResource("1_rqups")
+
+[node name="Background" type="Sprite2D" parent="." unique_id=73276614]
+z_index = -1
+texture = ExtResource("1_n8ynd")
+
+[node name="OuterWall" type="TileMapLayer" parent="." unique_id=1054772282]
+tile_map_data = PackedByteArray("AAD2//n/AAACAAAAAAD3//n/AAAAAAEAAAD4//n/AAAAAAEAAAD5//n/AAAAAAEAAAD6//n/AAAAAAEAAAD7//n/AAAAAAEAAAD8//n/AAAAAAEAAAD9//n/AAAAAAEAAAD+//n/AAABAAMAAAAIAPn/AAADAAAAAAAHAPn/AAAAAAEAAAAGAPn/AAAAAAEAAAAFAPn/AAAAAAEAAAAEAPn/AAAAAAEAAAADAPn/AAAAAAEAAAACAPn/AAAAAAEAAAABAPn/AAAAAAEAAAAAAPn/AAAAAAIAAAD2//3/AAAAAAMAAAD2//z/AAAAAAAAAAD2//v/AAAAAAAAAAD2//r/AAAAAAAAAAD2/wIAAAAAAAAAAAD2/wEAAAAAAAAAAAD2/wAAAAAAAAAAAAD2////AAABAAIAAAAIAAIAAAAAAAAAAAAIAP//AAABAAIAAAAIAAAAAAAAAAAAAAAIAAEAAAAAAAAAAAAIAPz/AAAAAAAAAAAIAPv/AAAAAAAAAAAIAPr/AAAAAAAAAAAIAP3/AAAAAAMAAAAIAAMAAAADAAEAAAAHAAMAAAAAAAEAAAAGAAMAAAAAAAEAAAAFAAMAAAAAAAEAAAAEAAMAAAAAAAEAAAADAAMAAAAAAAEAAAACAAMAAAAAAAEAAAABAAMAAAAAAAEAAAAAAAMAAAAAAAIAAAD+/wMAAAABAAMAAAD9/wMAAAAAAAEAAAD8/wMAAAAAAAEAAAD7/wMAAAAAAAEAAAD6/wMAAAAAAAEAAAD5/wMAAAAAAAEAAAD4/wMAAAAAAAEAAAD3/wMAAAAAAAEAAAD2/wMAAAACAAEAAAA=")
+tile_set = SubResource("TileSet_85qyi")
+
+[node name="Exits" type="Node2D" parent="." unique_id=887774351]
+
+[node name="NorthExitArea" type="Area2D" parent="Exits" unique_id=149224160]
+position = Vector2(-16, -207)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Exits/NorthExitArea" unique_id=1813766084]
+position = Vector2(0, -5)
+shape = SubResource("RectangleShape2D_rqups")
+
+[node name="WestExitArea" type="Area2D" parent="Exits" unique_id=464073131]
+position = Vector2(-313, -48)
+rotation = 1.5707964
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Exits/WestExitArea" unique_id=1158159116]
+position = Vector2(0, -5)
+shape = SubResource("RectangleShape2D_rqups")
+
+[node name="EastExitArea" type="Area2D" parent="Exits" unique_id=362935898]
+position = Vector2(271, -48)
+rotation = 1.5707964
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Exits/EastExitArea" unique_id=164746692]
+position = Vector2(0, -5)
+shape = SubResource("RectangleShape2D_rqups")
+
+[node name="SouthExitArea" type="Area2D" parent="Exits" unique_id=200810546]
+position = Vector2(-16, 121)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Exits/SouthExitArea" unique_id=355011059]
+position = Vector2(0, -5)
+shape = SubResource("RectangleShape2D_rqups")
+
+[node name="SpecialExitMarkers" type="Node2D" parent="." unique_id=1365617386]
+
+[node name="NorthMarker" type="Node2D" parent="SpecialExitMarkers" unique_id=685023093]
+visible = false
+position = Vector2(-16, -208)
+
+[node name="Sprite2D" type="Sprite2D" parent="SpecialExitMarkers/NorthMarker" unique_id=1198982704]
+position = Vector2(32, 0)
+texture = ExtResource("5_um5sr")
+
+[node name="Sprite2D2" type="Sprite2D" parent="SpecialExitMarkers/NorthMarker" unique_id=1834022572]
+position = Vector2(-32, 0)
+texture = ExtResource("5_um5sr")
+
+[node name="WestMarker" type="Node2D" parent="SpecialExitMarkers" unique_id=1333628702]
+visible = false
+position = Vector2(-304, -48)
+rotation = -1.5707964
+
+[node name="Sprite2D" type="Sprite2D" parent="SpecialExitMarkers/WestMarker" unique_id=1151818224]
+position = Vector2(32, 0)
+texture = ExtResource("5_um5sr")
+
+[node name="Sprite2D2" type="Sprite2D" parent="SpecialExitMarkers/WestMarker" unique_id=1385639695]
+position = Vector2(-32, 0)
+texture = ExtResource("5_um5sr")
+
+[node name="SouthMarker" type="Node2D" parent="SpecialExitMarkers" unique_id=1085978260]
+visible = false
+position = Vector2(-16, 112)
+rotation = 3.1415927
+
+[node name="Sprite2D" type="Sprite2D" parent="SpecialExitMarkers/SouthMarker" unique_id=390895555]
+position = Vector2(32, 0)
+texture = ExtResource("5_um5sr")
+
+[node name="Sprite2D2" type="Sprite2D" parent="SpecialExitMarkers/SouthMarker" unique_id=982024161]
+position = Vector2(-32, 0)
+texture = ExtResource("5_um5sr")
+
+[node name="EastMarker" type="Node2D" parent="SpecialExitMarkers" unique_id=704485501]
+visible = false
+position = Vector2(272, -48)
+rotation = 1.5707964
+
+[node name="Sprite2D" type="Sprite2D" parent="SpecialExitMarkers/EastMarker" unique_id=1446394203]
+position = Vector2(32, 0)
+texture = ExtResource("5_um5sr")
+
+[node name="Sprite2D2" type="Sprite2D" parent="SpecialExitMarkers/EastMarker" unique_id=865700622]
+position = Vector2(-32, 0)
+texture = ExtResource("5_um5sr")
+
+[connection signal="body_entered" from="Exits/NorthExitArea" to="." method="_on_exit_body_entered" binds= [0]]
+[connection signal="body_entered" from="Exits/WestExitArea" to="." method="_on_exit_body_entered" binds= [3]]
+[connection signal="body_entered" from="Exits/EastExitArea" to="." method="_on_exit_body_entered" binds= [1]]
+[connection signal="body_entered" from="Exits/SouthExitArea" to="." method="_on_exit_body_entered" binds= [2]]

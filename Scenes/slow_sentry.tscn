@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://d2y1td7a5t5jq"]
+
+[ext_resource type="PackedScene" uid="uid://b67xlson8puyh" path="res://Scenes/enemy.tscn" id="1_4f0kh"]
+
+[node name="SlowSentry" unique_id=1631603036 instance=ExtResource("1_4f0kh")]
+health = 30.0
