@@ -25,7 +25,13 @@ enum ShotTypes {
 @export var move_speed_max: float = 3.0
 @export var bullet_size_min: float = 0.25
 @export var bullet_size_max: float = 4.0
-@export var max_health: int = 10
+@export var max_health: int = 10:
+	set(value):
+		max_health = value
+		if health > max_health:
+			health = max_health
+		else:
+			health_changed.emit(health)
 
 @export_category("Stat Modifiers")
 @export var move_speed_mult: float = 1.0
@@ -36,6 +42,7 @@ enum ShotTypes {
 @export var health: int = 6:
 	set(value):
 		health = value
+		health_changed.emit(health)
 		if health <= 0:
 			queue_free()
 @export var damage_bonus: int = 10
@@ -59,7 +66,10 @@ var current_combo_life: float = 0.0
 const BASE_FIRE_DELAY = 5
 const BASE_MOVE_SPEED = 150
 const BASE_SHOT_SPEED = 400
-const GROUND_ACCELERATION = 10000000.0
+const GROUND_ACCELERATION = 10000000
+
+signal health_changed(new_health: int)
+
 func shoot():
 	if G.halt_actions:
 		return
@@ -100,6 +110,8 @@ func get_current_combo_life() -> float:
 
 func _ready():
 	E.enemy_died.connect(_on_enemy_died)
+	health_changed.connect(E._on_health_changed)
+
 
 func _process(delta: float) -> void:
 	input_vector = Input.get_vector("move_left","move_right","move_up","move_down")

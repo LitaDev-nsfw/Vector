@@ -2,6 +2,8 @@ extends Node
 class_name ItemManager
 
 var items: Array[Item] = []
+var static_effects: Array[String] = []
+
 
 @onready var player: Player = get_parent()
 
@@ -13,6 +15,7 @@ func _on_get_item(item: Item):
 	if !items:
 		_apply_item(item)
 		return
+	static_effects = []
 	for previous_item: Item in items:
 		if previous_item.entry.priority <= item.entry.priority and previous_item.entry.number < item.entry.number:
 			_apply_item(previous_item, true)

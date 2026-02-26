@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://bv41era11wt8s"]
+
+[ext_resource type="Texture2D" uid="uid://cqqp4and36341" path="res://Assets/Sprites/health_pips.png" id="1_36me3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7t8sx"]
+atlas = ExtResource("1_36me3")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mg4q0"]
+atlas = ExtResource("1_36me3")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vm72l"]
+atlas = ExtResource("1_36me3")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_22asu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7t8sx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mg4q0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vm72l")
+}],
+"loop": true,
+"name": &"health",
+"speed": 5.0
+}]
+
+[node name="HealthPip" type="Control" unique_id=13242246]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 3
+anchors_preset = 0
+
+[node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=2046835440]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_22asu")
+animation = &"health"
+frame = 2
+centered = false
