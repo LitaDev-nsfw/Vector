@@ -381,3 +381,8 @@ texture_progress = ExtResource("20_7nbq1")
 
 [node name="ComboHistory" type="VBoxContainer" parent="UI/Control/VBoxContainer" unique_id=1212225771]
 layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Control" unique_id=301620605]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0

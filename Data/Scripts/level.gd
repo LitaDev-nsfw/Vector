@@ -39,6 +39,10 @@ func _on_room_exited(room: Room, direction: Room.Directions):
 		player.reset_current_combo_life()
 	current_room += 1
 	var new_room: Room
+	if current_room == 7:
+		current_room = 1
+		next_floor.emit(current_floor + 1)
+		print('signal emitted')
 	if current_room == 3:
 		var new_room_scene = load("res://Scenes/Rooms/healing.tscn")
 		new_room = new_room_scene.instantiate()
@@ -67,10 +71,9 @@ func _on_room_exited(room: Room, direction: Room.Directions):
 	var tween = create_tween()
 	tween.set_ease(Tween.EASE_IN_OUT)
 	tween.tween_property(level_camera,"global_position",level_camera.global_position + ROOM_OFFSET*point_vector,1.0)
-	if current_room == 7:
-		current_room = 1
-		next_floor.emit(current_floor + 1)
+	
 
 func _on_next_floor(new_floor: int):
+	print('signal received at level')
 	current_floor = new_floor
 	remaining_rooms = get_remaining_rooms()
