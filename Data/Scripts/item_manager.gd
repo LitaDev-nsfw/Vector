@@ -2,7 +2,7 @@ extends Node
 class_name ItemManager
 
 var items: Array[Item] = []
-var static_effects: Dictionary = {}
+var static_effects: Array[Dictionary] = []
 
 
 @onready var player: Player = get_parent()
@@ -15,7 +15,7 @@ func _on_get_item(item: Item):
 	if !items:
 		_apply_item(item)
 		return
-	static_effects = {}
+	static_effects = []
 	for previous_item: Item in items:
 		if previous_item.entry.priority <= item.entry.priority and previous_item.entry.number < item.entry.number:
 			_apply_item(previous_item, true)
@@ -39,12 +39,12 @@ func _sort_items():
 
 func _apply_item(item: Item, static_only = false):
 	for effect in item.entry.effects:
-		match effect:
+		match effect.id:
 			"fire_rate_bonus": 
 				if static_only:
 					return
-				player.fire_rate_bonus += item.entry.effects[effect].amount
+				player.fire_rate_bonus += effect.amount
 			"freeze_bullets":
-				static_effects["freeze_bullets"] = item.entry.effects[effect]
-					
-			_: push_error("Effect doesn't exist: "+effect)
+				static_effects.append(effect)
+			""
+			_: push_error("Effect doesn't exist: "+effect.id)

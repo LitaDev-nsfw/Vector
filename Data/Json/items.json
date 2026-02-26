@@ -9,6 +9,7 @@
 			{
 				"id": "fire_rate_bonus",
 				"amount": 5,
+				"subtypes": ["STAT_MODIFIER","BUFF"],
 			}
 		],
 	},
@@ -22,7 +23,8 @@
 			{
 			"id": "freeze_bullets",
 			"chance": 10,
-			"duration": 5
+			"duration": 5,
+			"subtypes": ["STATIC","SHOT_MODIFIER"],
 			}
 		],
 	},
@@ -36,10 +38,12 @@
 			{
 				"id": "kill_time_mult",
 				"amount": 2,
+				"subtypes": ["STAT_MODIFIER","BUFF"],
 			},
 			{
 				"id": "incoming_damage_mult",
 				"amount": 2,
+				"subtypes": ["STATIC","DEBUFF"],
 			},
 		],
 	},
@@ -53,7 +57,8 @@
 			{
 				"id": "item_rarity_mult",
 				"amount": 20,
-				"rarities": ["UNCOMMON", "RARE", "LEGENDARY"]
+				"rarities": ["UNCOMMON", "RARE", "LEGENDARY"],
+				"subtypes": ["STATIC"],
 			}
 		],
 	},
@@ -67,11 +72,13 @@
 			{
 				"id": "item_rarity_mult",
 				"amount": 50,
-				"rarities": ["COMMON"]
+				"rarities": ["COMMON"],
+				"subtypes": ["STATIC"],
 			},
 			{
 				"id": "item_choice_count",
 				"amount": 1,
+				"subtypes": ["STATIC"],
 			},
 		]
 	},
@@ -83,7 +90,8 @@
 		"priority": 1,
 		"effects": [
 			{
-				"id": "contract"
+				"id": "contract",
+				"subtypes": ["STATIC","BESPOKE"],
 			}
 		]
 	},
