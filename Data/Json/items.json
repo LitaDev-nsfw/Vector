@@ -2,6 +2,7 @@
 	{
 		"id": "crying_onion",
 		"name": {"sp": "Crying Onion"},
+		"description": "+5 fire rate",
 		"number": 1,
 		"priority": 1,
 		"effects": {
@@ -10,4 +11,73 @@
 			}
 		}
 	},
+	{
+		"id": "snowflake",
+		"name": {"sp": "Snowflake"},
+		"description": "Shots have a 10% chance to freeze enemies on hit. \nFrozen enemies cannot move or fire for 5 seconds.",
+		"number": 2,
+		"priority": 1,
+		"effects": {
+			"freeze_bullets": {
+				"chance": 10,
+				"duration": 5
+			}
+		}
+	},
+	{
+		"id": "bleeding_clock",
+		"name": {"sp": "Bleeding Clock"},
+		"description": "2x time restored on kill. \n2x damage recieved on hit.",
+		"number": 3,
+		"priority": 1,
+		"effects": {
+			"kill_time_mult": {
+				"amount": 2
+			},
+			"incoming_damage_mult": {
+				"amount": 2
+			}
+		}
+	},
+	{
+		"id": "clover",
+		"name": {"sp": "Four Leaf Clover"},
+		"description": "Uncommon or rarer items are 20% more likely to appear.",
+		"number": 4,
+		"priority": 1,
+		"effects": {
+			"item_rarity_mult": {
+				"amount": 20,
+				"rarities": ["UNCOMMON", "RARE", "LEGENDARY"]
+			}
+		}
+	},
+	{
+		"id": "production_line",
+		"name": {"sp": "Production line"},
+		"description": "Additional choice when choosing items. \nCommon items are 50% more likely to appear.",
+		"number": 5,
+		"priority": 1,
+		"effects": {
+			"item_rarity_mult": {
+				"amount": 50,
+				"rarities": ["COMMON"]
+			},
+			"item_choice_count": {
+				"amount": 1
+			}
+		}
+	},
+		{
+		"id": "contract",
+		"name": {"sp": "Contract"},
+		"description": "Every room will have an enemy marked in red. \nKilling the marked enemy first will grant a +2.0x combo.",
+		"number": 6,
+		"priority": 1,
+		"effects": {
+			"contract": {
+			}
+		}
+	},
+	
 ]
