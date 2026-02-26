@@ -127,6 +127,11 @@ radius = 189.09521
 collision_layer = 21
 script = ExtResource("1_ghaa6")
 
+[node name="NewRoomCooldown" type="Timer" parent="." unique_id=1811729363]
+wait_time = 1.5
+one_shot = true
+autostart = true
+
 [node name="AttackDelay" type="Timer" parent="." unique_id=2041846998]
 one_shot = true
 

@@ -32,7 +32,7 @@ var is_alive = true
 signal enemy_died(enemy: Enemy)
 
 func shoot(target: CharacterBody2D):
-	if G.halt_actions:
+	if G.halt_actions or !$NewRoomCooldown.is_stopped():
 		return
 	match aim_type:
 		AimTypes.AIMED:
