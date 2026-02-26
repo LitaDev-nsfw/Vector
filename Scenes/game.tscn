@@ -240,7 +240,9 @@ texture_scale = 11.98
 
 [node name="Level" type="Node2D" parent="." unique_id=1708957120 node_paths=PackedStringArray("current_room_node", "level_camera")]
 script = ExtResource("2_ewbju")
+current_room = null
 current_room_node = NodePath("StartingRoom")
+current_floor = null
 level_camera = NodePath("Camera2D")
 
 [node name="Camera2D" type="Camera2D" parent="Level" unique_id=1526536229]

@@ -72,3 +72,4 @@ func _on_room_exited(room: Room, direction: Room.Directions):
 
 func _on_next_floor(new_floor: int):
 	current_floor = new_floor
+	remaining_rooms = get_remaining_rooms()
