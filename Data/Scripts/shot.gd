@@ -1,6 +1,10 @@
 extends AnimatedSprite2D
 class_name Shot
 
+enum ShotEffects {
+	FREEZE,
+}
+
 enum BulletTypes {
 	STANDARD,
 	SHOTGUN,
@@ -19,6 +23,8 @@ var vector: Vector2
 var shot_speed: float
 
 var shot_owner: CharacterBody2D
+
+var on_hit_effects: Array[Dictionary] = []
 
 func _ready():
 	var anim_name = BulletTypes.find_key(bullet_type).to_lower() + "_"
@@ -61,4 +67,9 @@ func _on_hitbox_body_entered(body: Node2D) -> void:
 		elif ignore_team:
 			body.take_damage(shot_owner.health / 4)
 	print("Removing Shot")
+	for effect in on_hit_effects:
+		match effect.id:
+			"freeze_shots":
+				if randi_range(1,100) <= effect.chance:
+					body.inflict_effect(ShotEffects.FREEZE,effect.duration)
 	queue_free()

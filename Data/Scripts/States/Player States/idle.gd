@@ -10,7 +10,7 @@ func begin_state():
 	animation_player.play("idle")
 
 func physics_update(delta: float):
-	if G.halt_actions:
+	if G.halt_actions or player.frozen:
 		return
 	var input_vector = player.input_vector
 	if input_vector != Vector2():

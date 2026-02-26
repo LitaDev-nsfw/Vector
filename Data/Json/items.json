@@ -21,7 +21,7 @@
 		"priority": 1,
 		"effects": [
 			{
-			"id": "freeze_bullets",
+			"id": "freeze_shots",
 			"chance": 10,
 			"duration": 5,
 			"subtypes": ["STATIC","SHOT_MODIFIER"],

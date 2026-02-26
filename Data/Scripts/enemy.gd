@@ -26,6 +26,9 @@ enum AimTypes {
 
 var is_alive = true
 
+##Effects
+var frozen := false
+
 @onready var player: Player = get_tree().get_first_node_in_group("Player")
 @onready var shot_scene = preload("res://Scenes/shot.tscn")
 
@@ -44,6 +47,14 @@ func shoot(target: CharacterBody2D):
 			shot_node.vector = (target.global_position - global_position).normalized()
 			get_tree().root.add_child(shot_node)
 			shot_node.global_position = global_position
+
+
+func inflict_effect(effect: Shot.ShotEffects, duration = 0):
+	match effect:
+		Shot.ShotEffects.FREEZE:
+			var tween = create_tween()
+			frozen = true
+			tween.tween_property(self,"frozen",false,duration)
 
 func take_damage(damage: float):
 	health -= damage

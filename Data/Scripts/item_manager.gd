@@ -7,6 +7,13 @@ var static_effects: Array[Dictionary] = []
 
 @onready var player: Player = get_parent()
 
+func get_all_static_of_subtype(subtype: String) -> Array[Dictionary]:
+	var effects: Array[Dictionary] = []
+	for effect in static_effects:
+		if effect.subtypes.has(subtype):
+			effects.append(effect)
+	return effects
+
 func _ready():
 	_on_get_item(D.create_item("crying_onion"))
 
@@ -39,12 +46,14 @@ func _sort_items():
 
 func _apply_item(item: Item, static_only = false):
 	for effect in item.entry.effects:
+		if static_only and !effect.subtypes.has("STATIC"):
+			return
+		elif effect.subtypes.has("STATIC"):
+			static_effects.append(effect)
 		match effect.id:
-			"fire_rate_bonus": 
-				if static_only:
-					return
+			"fire_rate_bonus":
 				player.fire_rate_bonus += effect.amount
-			"freeze_bullets":
-				static_effects.append(effect)
-			""
+			"kill_time_mult":
+				player.kill_time_mult += effect.amount
+				
 			_: push_error("Effect doesn't exist: "+effect.id)

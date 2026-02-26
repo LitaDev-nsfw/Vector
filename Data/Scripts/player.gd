@@ -61,7 +61,13 @@ var current_combo: float = 1.0:
 			reset_current_combo_life()
 var current_combo_life: float = 0.0
 
+##Effects
+var frozen := false
+
+
 @onready var shot_scene = preload("res://Scenes/shot.tscn")
+@onready var item_manager: ItemManager = find_child("ItemManager")
+
 
 const BASE_FIRE_DELAY = 5
 const BASE_MOVE_SPEED = 150
@@ -74,6 +80,7 @@ func shoot():
 	if G.halt_actions:
 		return
 	if !aim_vector: return
+	var shots = Array[Shot]
 	match shot_type:
 		ShotTypes.SINGLE:
 			var shot: Shot = shot_scene.instantiate()
@@ -84,6 +91,15 @@ func shoot():
 			get_parent().add_child(shot)
 			shot.global_position = global_position
 			shot.vector = aim_vector
+			shots.append(shot)
+	var shot_modifiers = item_manager.get_all_static_of_subtype("SHOT_MODIFIER")
+	if !shot_modifiers:
+		return
+	for shot in shots:
+		for effect in shot_modifiers:
+			match effect.id:
+				"freeze_shots":
+					shot.on_hit_effects.append(effect)
 
 func get_attribute(attribute: Attributes):
 	match attribute:
@@ -91,6 +107,13 @@ func get_attribute(attribute: Attributes):
 		Attributes.FIRE_RATE: return fire_rate_bonus * fire_rate_mult
 		Attributes.SHOT_SPEED: return (BASE_SHOT_SPEED + shot_speed_bonus) * shot_speed_mult
 		Attributes.DAMAGE: return damage_bonus * damage_mult
+
+func inflict_effect(effect: Shot.ShotEffects, duration = 0):
+	match effect:
+		Shot.ShotEffects.FREEZE:
+			var tween = create_tween()
+			frozen = true
+			tween.tween_property(self,"frozen",false,duration)
 
 func take_damage():
 	health -= 1

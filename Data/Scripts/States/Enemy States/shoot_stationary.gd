@@ -4,9 +4,11 @@ extends State
 @export var detection_area: Area2D
 @export var attack_delay_timer: Timer
 
-@onready var owner_node = get_parent().get_parent()
+@onready var owner_node: Enemy = get_parent().get_parent()
 
 func update(_delta: float):
+	if G.halt_actions or owner_node.frozen:
+		return
 	var player: Player
 	if detection_area:
 		if !detection_area.has_overlapping_bodies():

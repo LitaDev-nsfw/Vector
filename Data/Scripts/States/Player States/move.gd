@@ -7,7 +7,7 @@ extends State
 
 
 func do_move(delta):
-	if G.halt_actions:
+	if G.halt_actions or player.frozen:
 		return
 	#print("Test")
 	player.velocity = player.velocity.move_toward(player.input_vector * player.get_attribute(player.Attributes.MOVE_SPEED), player.GROUND_ACCELERATION*delta)
@@ -21,6 +21,8 @@ func begin_state():
 	pass
 
 func physics_update(delta: float):
+	if G.halt_actions or player.frozen:
+		return
 	if player.input_vector == Vector2():
 		state_machine.change_state("Idle")
 	else:
