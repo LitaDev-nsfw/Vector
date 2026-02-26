@@ -42,7 +42,7 @@ func shoot(target: CharacterBody2D):
 			shot_node.shot_speed = shot_speed
 			shot_node.team = Shot.Teams.ENEMY
 			shot_node.vector = (target.global_position - global_position).normalized()
-			get_parent().add_child(shot_node)
+			get_tree().root.add_child(shot_node)
 			shot_node.global_position = global_position
 
 func take_damage(damage: float):
