@@ -44,6 +44,7 @@ func _process(delta: float) -> void:
 
 func _on_hitbox_body_entered(body: Node2D) -> void:
 	var ignore_team = false
+	var body_was_hit = false
 	print("Body: " +body.name)
 	if body == shot_owner:
 		print("Body is owner")
@@ -54,6 +55,7 @@ func _on_hitbox_body_entered(body: Node2D) -> void:
 	print("Body is not owner")
 	if body is Player and (team == Teams.ENEMY or ignore_team):
 		print("Body is Player")
+		body_was_hit = true
 		body.take_damage()
 	if body is Enemy:
 		print("Body is Enemy")
@@ -64,12 +66,14 @@ func _on_hitbox_body_entered(body: Node2D) -> void:
 			if was_parried:
 				shot_multiplier += 1
 			body.take_damage(shot_owner.get_attribute(Player.Attributes.DAMAGE)*shot_multiplier)
+			body_was_hit = true
 		elif ignore_team:
 			body.take_damage(shot_owner.health / 4)
-	print("Removing Shot")
-	for effect in on_hit_effects:
-		match effect.id:
-			"freeze_shots":
-				if randi_range(1,100) <= effect.chance:
-					body.inflict_effect(ShotEffects.FREEZE,effect.duration)
+			body_was_hit = true
+	if body_was_hit:
+		for effect in on_hit_effects:
+			match effect.id:
+				"freeze_shots":
+					if randi_range(1,100) <= effect.chance:
+						body.inflict_effect(ShotEffects.FREEZE,effect.duration)
 	queue_free()

@@ -8,7 +8,9 @@ enum Attributes {
 	HEALTH,
 	DAMAGE,
 	BULLET_SIZE,
-	BURST_COUNT
+	BURST_COUNT,
+	KILL_TIME,
+	DAMAGE_COMBO_METER_LOSS
 }
 
 enum ShotTypes {
@@ -50,6 +52,9 @@ enum ShotTypes {
 @export var bullet_size_mult: float = 1.0
 @export var bullet_spread_mult: float = 1.0
 @export var burst_count: int = 1
+@export var kill_time_bonus: int = 3
+@export var kill_time_mult: float = 1.0
+@export var damage_combo_meter_loss_modifier: float = 1.0
 
 var input_vector: Vector2
 var aim_vector: Vector2
@@ -72,6 +77,7 @@ var frozen := false
 const BASE_FIRE_DELAY = 5
 const BASE_MOVE_SPEED = 150
 const BASE_SHOT_SPEED = 400
+const BASE_DAMAGE_COMBO_METER_LOSS = 1
 const GROUND_ACCELERATION = 10000000
 
 signal health_changed(new_health: int)
@@ -80,7 +86,7 @@ func shoot():
 	if G.halt_actions:
 		return
 	if !aim_vector: return
-	var shots = Array[Shot]
+	var shots: Array[Shot] = []
 	match shot_type:
 		ShotTypes.SINGLE:
 			var shot: Shot = shot_scene.instantiate()
@@ -107,6 +113,8 @@ func get_attribute(attribute: Attributes):
 		Attributes.FIRE_RATE: return fire_rate_bonus * fire_rate_mult
 		Attributes.SHOT_SPEED: return (BASE_SHOT_SPEED + shot_speed_bonus) * shot_speed_mult
 		Attributes.DAMAGE: return damage_bonus * damage_mult
+		Attributes.KILL_TIME: return kill_time_bonus * kill_time_mult
+		Attributes.DAMAGE_COMBO_METER_LOSS: return BASE_DAMAGE_COMBO_METER_LOSS * damage_combo_meter_loss_modifier
 
 func inflict_effect(effect: Shot.ShotEffects, duration = 0):
 	match effect:
@@ -116,7 +124,12 @@ func inflict_effect(effect: Shot.ShotEffects, duration = 0):
 			tween.tween_property(self,"frozen",false,duration)
 
 func take_damage():
-	health -= 1
+	var life_to_lose = 1.0
+	for effect in item_manager.static_effects:
+		if effect.id == "incoming_damage_mult":
+			life_to_lose *= effect.amount
+	health -= roundi(life_to_lose)
+	current_combo_life -= get_attribute(Attributes.DAMAGE_COMBO_METER_LOSS)
 
 func reset_current_combo_life():
 	current_combo_life = get_current_combo_life()
@@ -151,5 +164,8 @@ func _process(delta: float) -> void:
 	if current_combo_life <= 0 and current_combo > 1.0:
 		current_combo -= 1.0
 
-func _on_enemy_died(_enemy: Enemy):
+func _on_enemy_died(enemy: Enemy):
 	reset_current_combo_life()
+	G.remaining_time += get_attribute(Attributes.KILL_TIME)
+	if enemy.grant_combo_on_death > 0:
+		current_combo += enemy.grant_combo_on_death

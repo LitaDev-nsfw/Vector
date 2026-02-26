@@ -1,10 +1,13 @@
 [
 	{
 		"id": "crying_onion",
-		"name": {"sp": "Crying Onion"},
+		"name": {"str_sp": "Crying Onion"},
+		"type": "ITEM",
+		"subtypes": ["POOL_BOSS"],
 		"description": "+5 fire rate",
 		"number": 1,
 		"priority": 1,
+		"rarity": "COMMON",
 		"effects": [
 			{
 				"id": "fire_rate_bonus",
@@ -15,10 +18,13 @@
 	},
 	{
 		"id": "snowflake",
-		"name": {"sp": "Snowflake"},
+		"name": {"str_sp": "Snowflake"},
+		"type": "ITEM",
+		"subtypes": ["POOL_BOSS"],
 		"description": "Shots have a 10% chance to freeze enemies on hit. \nFrozen enemies cannot move or fire for 5 seconds.",
 		"number": 2,
 		"priority": 1,
+		"rarity": "UNCOMMON",
 		"effects": [
 			{
 			"id": "freeze_shots",
@@ -30,10 +36,13 @@
 	},
 	{
 		"id": "bleeding_clock",
-		"name": {"sp": "Bleeding Clock"},
+		"name": {"str_sp": "Bleeding Clock"},
+		"type": "ITEM",
+		"subtypes": ["POOL_BOSS"],
 		"description": "2x time restored on kill. \n2x damage recieved on hit.",
 		"number": 3,
 		"priority": 1,
+		"rarity": "RARE",
 		"effects": [
 			{
 				"id": "kill_time_mult",
@@ -49,14 +58,17 @@
 	},
 	{
 		"id": "clover",
-		"name": {"sp": "Four Leaf Clover"},
+		"name": {"str_sp": "Four Leaf Clover"},
+		"type": "ITEM",
+		"subtypes": ["POOL_BOSS"],
 		"description": "Uncommon or rarer items are 20% more likely to appear.",
 		"number": 4,
 		"priority": 1,
+		"rarity": "RARE",
 		"effects": [
 			{
 				"id": "item_rarity_mult",
-				"amount": 20,
+				"amount": 1.2,
 				"rarities": ["UNCOMMON", "RARE", "LEGENDARY"],
 				"subtypes": ["STATIC"],
 			}
@@ -64,14 +76,17 @@
 	},
 	{
 		"id": "production_line",
-		"name": {"sp": "Production line"},
+		"name": {"str_sp": "Production line"},
+		"type": "ITEM",
+		"subtypes": ["POOL_BOSS"],
 		"description": "Additional choice when choosing items. \nCommon items are 50% more likely to appear.",
 		"number": 5,
 		"priority": 1,
+		"rarity": "UNCOMMON",
 		"effects": [
 			{
 				"id": "item_rarity_mult",
-				"amount": 50,
+				"amount": 1.5,
 				"rarities": ["COMMON"],
 				"subtypes": ["STATIC"],
 			},
@@ -84,15 +99,13 @@
 	},
 		{
 		"id": "contract",
-		"name": {"sp": "Contract"},
-		"description": "Every room will have an enemy marked in red. \nKilling the marked enemy first will grant a +2.0x combo.",
+		"name": {"str_sp": "Contract"},
+		"type": "ITEM",
+		"subtypes": ["POOL_BOSS"],
+		"description": "Every room will have an enemy marked in red. \nKilling the marked enemy first will grant a +0.6x combo.",
 		"number": 6,
 		"priority": 1,
-		"effects": [
-			{
-				"id": "contract",
-				"subtypes": ["STATIC","BESPOKE"],
-			}
-		]
+		"rarity": "LEGENDARY",
+		"effects": []
 	},
 ]

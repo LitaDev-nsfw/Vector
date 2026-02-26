@@ -123,6 +123,7 @@ size = Vector2(38, 20)
 
 [node name="Room" type="Node2D" unique_id=1415294416]
 script = ExtResource("1_rqups")
+has_enemies = null
 
 [node name="Background" type="Sprite2D" parent="." unique_id=73276614]
 z_index = -1

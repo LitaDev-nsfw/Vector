@@ -4,6 +4,8 @@ extends State
 @export var detection_area: Area2D
 @export var attack_delay_timer: Timer
 
+
+
 @onready var owner_node: Enemy = get_parent().get_parent()
 
 func update(_delta: float):

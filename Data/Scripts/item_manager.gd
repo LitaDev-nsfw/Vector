@@ -1,6 +1,12 @@
 extends Node
 class_name ItemManager
 
+enum Rarities {
+	COMMON,
+	UNCOMMON,
+	RARE,
+	LEGENDARY
+}
 var items: Array[Item] = []
 var static_effects: Array[Dictionary] = []
 
@@ -14,13 +20,34 @@ func get_all_static_of_subtype(subtype: String) -> Array[Dictionary]:
 			effects.append(effect)
 	return effects
 
+func match_item_rarity(rarity_string: String) -> Rarities:
+	match rarity_string:
+		"COMMON": return Rarities.COMMON
+		"UNCOMMON": return Rarities.UNCOMMON
+		"RARE": return Rarities.RARE
+		"LEGENDARY": return Rarities.LEGENDARY
+	return Rarities.COMMON
+
+
+func check_for_item(item_id: String) -> bool:
+	print("Checking for item: "+item_id)
+	print(items)
+	for item: Item in items:
+		print(item.id)
+		print(item_id)
+		if item.id == item_id:
+			print("true")
+			return true
+	return false
+
 func _ready():
-	_on_get_item(D.create_item("crying_onion"))
+	E.acquire_item.connect(_on_get_item)
 
 func _on_get_item(item: Item):
 	_sort_items()
 	if !items:
 		_apply_item(item)
+		items.append(item)
 		return
 	static_effects = []
 	for previous_item: Item in items:
@@ -28,6 +55,8 @@ func _on_get_item(item: Item):
 			_apply_item(previous_item, true)
 		else:
 			_apply_item(item)
+	items.append(item)
+	print("Items: "+str(items))
 
 func _sort_items():
 	var hold_items = items.duplicate()
@@ -53,7 +82,10 @@ func _apply_item(item: Item, static_only = false):
 		match effect.id:
 			"fire_rate_bonus":
 				player.fire_rate_bonus += effect.amount
+			"fire_rate_mult":
+				player.fire_rate_mult *= effect.amount
+			"kill_time_bonus":
+				player.kill_time_bonus += effect.amount
 			"kill_time_mult":
-				player.kill_time_mult += effect.amount
-				
+				player.kill_time_mult *= effect.amount
 			_: push_error("Effect doesn't exist: "+effect.id)

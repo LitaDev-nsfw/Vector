@@ -11,6 +11,8 @@ var remaining_rooms: Array[PackedScene]
 const ROOM_OFFSET = Vector2(623,353)
 
 signal next_floor(new_floor: int)
+signal show_selection(pool: ItemSelection.Pools)
+
 
 func get_remaining_rooms(boss_rooms := false) -> Array[PackedScene]:
 	var array: Array[PackedScene] = []
@@ -30,6 +32,7 @@ func _ready():
 	E.room_exited.connect(_on_room_exited)
 	next_floor.connect(E._on_next_floor)
 	E.next_floor.connect(_on_next_floor)
+	show_selection.connect(E._on_show_selection)
 
 
 func _on_room_exited(room: Room, direction: Room.Directions):
@@ -77,3 +80,4 @@ func _on_next_floor(new_floor: int):
 	print('signal received at level')
 	current_floor = new_floor
 	remaining_rooms = get_remaining_rooms()
+	show_selection.emit(ItemSelection.Pools.POOL_BOSS)

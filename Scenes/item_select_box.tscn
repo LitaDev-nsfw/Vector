@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://din4eqi8ctob4"]
+
+[ext_resource type="Script" uid="uid://bcieiflut0ny7" path="res://Data/Scripts/item_select_box.gd" id="1_35vh3"]
+[ext_resource type="FontFile" uid="uid://5npxki2ak35y" path="res://Assets/Fonts/liberation-mono/LiberationMono-Italic.ttf" id="2_ryhmg"]
+
+[node name="ItemSelectBox" type="VBoxContainer" unique_id=494770694]
+size_flags_horizontal = 3
+theme_override_constants/separation = 5
+script = ExtResource("1_35vh3")
+
+[node name="ItemName" type="Label" parent="." unique_id=1815326316]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Item Name"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ASCII" type="RichTextLabel" parent="." unique_id=718631822]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/normal_font = ExtResource("2_ryhmg")
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="Description" type="Label" parent="." unique_id=1857668868]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Button" type="Button" parent="." unique_id=296731750]
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 24
+text = "Select"

@@ -1,17 +1,22 @@
 extends Node
 
-var halt_actions = false
+
+
+
+var halt_actions = false:
+	set(value):
+		halt_actions = value
+		change_halt_actions.emit(halt_actions)
 var timer_active = true
 
 ##Remaining time in seconds
 var remaining_time := 180.0
 
+signal change_halt_actions(halt: bool)
+
 func _ready():
-	E.enemy_died.connect(_on_enemy_died)
+	change_halt_actions.connect(E._on_change_halt_actions)
 
 func _process(delta: float) -> void:
 	if timer_active:
 		remaining_time -= delta
-
-func _on_enemy_died(_enemy: Enemy):
-	remaining_time += 5

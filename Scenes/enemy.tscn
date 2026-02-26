@@ -3,9 +3,19 @@
 [ext_resource type="Script" uid="uid://c2ms6acjy0y1l" path="res://Data/Scripts/enemy.gd" id="1_ghaa6"]
 [ext_resource type="Script" uid="uid://c3xy6ebvr4cw7" path="res://Data/Scripts/state_machine.gd" id="2_1dp5w"]
 [ext_resource type="Script" path="res://Data/Scripts/States/Enemy States/idle_stationary.gd" id="3_auwsv"]
-[ext_resource type="Script" path="res://Data/Scripts/States/Enemy States/shoot_stationary.gd" id="4_8uf12"]
+[ext_resource type="Script" uid="uid://b7taqorvmqwtu" path="res://Data/Scripts/States/Enemy States/shoot_stationary.gd" id="4_8uf12"]
+[ext_resource type="Shader" uid="uid://c3jq327el6twi" path="res://Assets/Resources/Shaders/outline.gdshader" id="5_1dp5w"]
 [ext_resource type="Texture2D" uid="uid://durj4rpbtlsa1" path="res://Assets/Sprites/cube.png" id="5_po0sg"]
 [ext_resource type="Texture2D" uid="uid://bv2xrbwfgdwni" path="res://Assets/Sprites/sentry.png" id="6_haro7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ghaa6"]
+shader = ExtResource("5_1dp5w")
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+shader_parameter/outline_width = 0.0
+shader_parameter/outline_pattern = 0
+shader_parameter/outline_inside = false
+shader_parameter/outline_add_margins = true
+shader_parameter/outline_number_of_images = Vector2(7, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nb51f"]
 atlas = ExtResource("5_po0sg")
@@ -126,6 +136,7 @@ radius = 189.09521
 [node name="Enemy" type="CharacterBody2D" unique_id=1631603036]
 collision_layer = 21
 script = ExtResource("1_ghaa6")
+sprite_sheet_dimensions = Vector2(7, 1)
 
 [node name="NewRoomCooldown" type="Timer" parent="." unique_id=1811729363]
 wait_time = 1.5
@@ -151,14 +162,17 @@ metadata/_custom_type_script = "uid://4yulkrqdi05f"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1984190733]
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1151198309]
+[node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=1151198309]
+material = SubResource("ShaderMaterial_ghaa6")
 sprite_frames = SubResource("SpriteFrames_cwurv")
 animation = &"cube"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1759336711]
+visible = false
 shape = SubResource("CircleShape2D_mucmn")
 
 [node name="DetectionHitbox" type="Area2D" parent="." unique_id=187940754]
+visible = false
 collision_layer = 0
 collision_mask = 2
 
