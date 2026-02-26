@@ -1,6 +1,24 @@
-[gd_scene format=3 uid="uid://cetw12a15gt76"]
+[gd_scene format=3 uid="uid://csp0qlyuropbr"]
 
 [ext_resource type="PackedScene" uid="uid://dbtgpv01w0f1x" path="res://Scenes/base_room.tscn" id="1_dpwli"]
+[ext_resource type="Script" uid="uid://bli7b2pg22732" path="res://Data/Scripts/healing_zone.gd" id="2_q66y1"]
+[ext_resource type="Texture2D" uid="uid://5q0c66hq3yck" path="res://Assets/Sprites/heal_zone.png" id="2_yqms6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q66y1"]
 
 [node name="Healing" unique_id=1415294416 instance=ExtResource("1_dpwli")]
 has_enemies = false
+
+[node name="HealingZone" type="Area2D" parent="." index="5" unique_id=370784265]
+position = Vector2(-16, -48)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("2_q66y1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HealingZone" index="0" unique_id=1725711097]
+shape = SubResource("RectangleShape2D_q66y1")
+
+[node name="Sprite2D" type="Sprite2D" parent="HealingZone" index="1" unique_id=1400407812]
+texture = ExtResource("2_yqms6")
+
+[connection signal="body_entered" from="HealingZone" to="HealingZone" method="_on_body_entered"]

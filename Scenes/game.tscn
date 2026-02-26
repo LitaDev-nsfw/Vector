@@ -19,6 +19,7 @@
 [ext_resource type="Script" path="res://Data/Scripts/reticle.gd" id="11_nnt18"]
 [ext_resource type="Texture2D" uid="uid://dx7a63fvfgeeo" path="res://Assets/Sprites/parry.png" id="17_ewbju"]
 [ext_resource type="Script" uid="uid://bn1h50ufx85up" path="res://Data/Scripts/ui.gd" id="18_85qyi"]
+[ext_resource type="Texture2D" uid="uid://cmwympn1o4gw6" path="res://Assets/Sprites/combo_meter.png" id="20_7nbq1"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nnt18"]
 radius = 6.0
@@ -375,6 +376,8 @@ vertical_alignment = 1
 
 [node name="ComboMeter" type="TextureProgressBar" parent="UI/Control/VBoxContainer" unique_id=1987867746]
 layout_mode = 2
+step = 0.1
+texture_progress = ExtResource("20_7nbq1")
 
 [node name="ComboHistory" type="VBoxContainer" parent="UI/Control/VBoxContainer" unique_id=1212225771]
 layout_mode = 2

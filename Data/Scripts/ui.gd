@@ -14,6 +14,10 @@ func _process(_delta: float):
 	if seconds.length() == 1:
 		seconds = "0"+seconds
 	timer_label.text = str(minutes)+":"+str(seconds)
-w	combo_label.text = str(player.current_combo)+"x"
-	combo_meter.max_value = player.get_current_combo_life()
-	combo_meter.value = player.current_combo_life
+	combo_label.text = str(player.current_combo)+"x"
+	if player.current_combo == 1.0:
+		combo_meter.visible = false
+	else:
+		combo_meter.visible = true
+		combo_meter.max_value = player.get_current_combo_life()
+		combo_meter.value = player.current_combo_life

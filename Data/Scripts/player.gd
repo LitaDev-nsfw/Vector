@@ -107,6 +107,10 @@ func _process(delta: float) -> void:
 		input_vector = input_vector.normalized()
 	aim_vector = Input.get_vector("aim_left","aim_right","aim_up","aim_down").normalized()
 	#print("Combo: "+str(current_combo)+" Life: "+str(current_combo_life))
+	
+	##Halt Actions Early Return
+	if G.halt_actions:
+		return
 	if current_combo_life > 0:
 		current_combo_life -= delta
 	if current_combo_life <= 0 and current_combo > 1.0:
