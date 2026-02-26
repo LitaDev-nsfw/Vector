@@ -19,6 +19,7 @@ func get_remaining_rooms(boss_rooms := false) -> Array[PackedScene]:
 		folder_path = "Scenes/Rooms/Floor "+str(current_floor)
 	else:
 		folder_path = "Scenes/Rooms/Floor "+str(current_floor)+"/Bosses"
+	print(folder_path)
 	var folder := DirAccess.open(folder_path)
 	for file_name in folder.get_files():
 		array.append(load(folder_path+"/"+file_name))
