@@ -5,11 +5,12 @@
 		"description": "+5 fire rate",
 		"number": 1,
 		"priority": 1,
-		"effects": {
-			"fire_rate_bonus": {
-				"amount": 5
+		"effects": [
+			{
+				"id": "fire_rate_bonus",
+				"amount": 5,
 			}
-		}
+		],
 	},
 	{
 		"id": "snowflake",
@@ -17,12 +18,13 @@
 		"description": "Shots have a 10% chance to freeze enemies on hit. \nFrozen enemies cannot move or fire for 5 seconds.",
 		"number": 2,
 		"priority": 1,
-		"effects": {
-			"freeze_bullets": {
-				"chance": 10,
-				"duration": 5
+		"effects": [
+			{
+			"id": "freeze_bullets",
+			"chance": 10,
+			"duration": 5
 			}
-		}
+		],
 	},
 	{
 		"id": "bleeding_clock",
@@ -30,14 +32,16 @@
 		"description": "2x time restored on kill. \n2x damage recieved on hit.",
 		"number": 3,
 		"priority": 1,
-		"effects": {
-			"kill_time_mult": {
-				"amount": 2
+		"effects": [
+			{
+				"id": "kill_time_mult",
+				"amount": 2,
 			},
-			"incoming_damage_mult": {
-				"amount": 2
-			}
-		}
+			{
+				"id": "incoming_damage_mult",
+				"amount": 2,
+			},
+		],
 	},
 	{
 		"id": "clover",
@@ -45,12 +49,13 @@
 		"description": "Uncommon or rarer items are 20% more likely to appear.",
 		"number": 4,
 		"priority": 1,
-		"effects": {
-			"item_rarity_mult": {
+		"effects": [
+			{
+				"id": "item_rarity_mult",
 				"amount": 20,
 				"rarities": ["UNCOMMON", "RARE", "LEGENDARY"]
 			}
-		}
+		],
 	},
 	{
 		"id": "production_line",
@@ -58,15 +63,17 @@
 		"description": "Additional choice when choosing items. \nCommon items are 50% more likely to appear.",
 		"number": 5,
 		"priority": 1,
-		"effects": {
-			"item_rarity_mult": {
+		"effects": [
+			{
+				"id": "item_rarity_mult",
 				"amount": 50,
 				"rarities": ["COMMON"]
 			},
-			"item_choice_count": {
-				"amount": 1
-			}
-		}
+			{
+				"id": "item_choice_count",
+				"amount": 1,
+			},
+		]
 	},
 		{
 		"id": "contract",
@@ -74,10 +81,10 @@
 		"description": "Every room will have an enemy marked in red. \nKilling the marked enemy first will grant a +2.0x combo.",
 		"number": 6,
 		"priority": 1,
-		"effects": {
-			"contract": {
+		"effects": [
+			{
+				"id": "contract"
 			}
-		}
+		]
 	},
-	
 ]
