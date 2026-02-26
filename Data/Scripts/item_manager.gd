@@ -41,3 +41,4 @@ func _apply_item(item: Item, static_only = false):
 				if static_only:
 					return
 				player.fire_rate_bonus += item.entry.effects[effect].amount
+			_: push_error("Effect doesn't exist: "+effect)
