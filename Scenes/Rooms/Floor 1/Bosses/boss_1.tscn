@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://h345h0ylo6ww"]
+
+[ext_resource type="PackedScene" uid="uid://dbtgpv01w0f1x" path="res://Scenes/base_room.tscn" id="1_n0dff"]
+
+[node name="Boss1" unique_id=1415294416 instance=ExtResource("1_n0dff")]
