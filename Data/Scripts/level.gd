@@ -29,7 +29,7 @@ func _on_room_exited(room: Room, direction: Room.Directions):
 	print("On Room Exit")
 	if direction == room.special_exit_direction:
 		var player: Player = find_child("Player")
-		player.set_current_combo_life()
+		player.reset_current_combo_life()
 	current_room += 1
 	if current_room == 3:
 		pass
@@ -53,7 +53,7 @@ func _on_room_exited(room: Room, direction: Room.Directions):
 			Room.Directions.WEST: point_vector = Vector2.LEFT
 		new_room.position = current_room_node.position + ROOM_OFFSET*point_vector
 		current_room_node.leave()
-		new_room = current_room_node
+		current_room_node = new_room
 		var tween = create_tween()
 		tween.set_ease(Tween.EASE_IN_OUT)
 		tween.tween_property(level_camera,"global_position",level_camera.global_position + ROOM_OFFSET*point_vector,1.0)
