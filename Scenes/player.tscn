@@ -1,0 +1,309 @@
+[gd_scene format=3 uid="uid://hlhp1nl05p6c"]
+
+[ext_resource type="Script" uid="uid://cpmmf673y1l1r" path="res://Data/Scripts/player.gd" id="1_h4iuc"]
+[ext_resource type="Script" uid="uid://bjb4tau8cmobw" path="res://Data/Scripts/item_manager.gd" id="2_fd4e3"]
+[ext_resource type="Script" uid="uid://c3xy6ebvr4cw7" path="res://Data/Scripts/state_machine.gd" id="3_qqcod"]
+[ext_resource type="Script" uid="uid://lglu1qtsh6am" path="res://Data/Scripts/States/Player States/attack.gd" id="4_igrcy"]
+[ext_resource type="Script" uid="uid://cmqtvl2dej403" path="res://Data/Scripts/States/Player States/idle.gd" id="5_fs7ks"]
+[ext_resource type="Script" uid="uid://cglohlwl1myex" path="res://Data/Scripts/States/Player States/move.gd" id="6_l6n3p"]
+[ext_resource type="Script" uid="uid://dk6pyqjtdvppy" path="res://Data/Scripts/States/Player States/dash.gd" id="7_olqyp"]
+[ext_resource type="Script" uid="uid://wsouaa7kwbs" path="res://Data/Scripts/States/Player States/parry.gd" id="8_wpjfl"]
+[ext_resource type="Texture2D" uid="uid://ckgv6jv2hjgtd" path="res://Assets/Sprites/thruster.png" id="9_bi64h"]
+[ext_resource type="Shader" uid="uid://bgn2qiarsaxxu" path="res://Assets/Resources/Shaders/normal_map.gdshader" id="10_2ijsl"]
+[ext_resource type="Texture2D" uid="uid://buglw34iow0ii" path="res://Assets/Sprites/player_normals_sheet.png" id="11_p1odr"]
+[ext_resource type="Texture2D" uid="uid://dxn2aq3nt4iij" path="res://Assets/Sprites/player_shoot.png" id="12_0gysh"]
+[ext_resource type="Script" uid="uid://wvhd7njm4812" path="res://Data/Scripts/reticle.gd" id="13_vfarp"]
+[ext_resource type="Texture2D" uid="uid://f0yu0ihlbnrb" path="res://Assets/Sprites/reticle.png" id="14_y6uwr"]
+[ext_resource type="Texture2D" uid="uid://dx7a63fvfgeeo" path="res://Assets/Sprites/parry.png" id="15_83xs0"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nnt18"]
+radius = 6.0
+height = 18.0
+
+[sub_resource type="Animation" id="Animation_wowpa"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CharacterSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CharacterSprite:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"shoot"]
+}
+
+[sub_resource type="Animation" id="Animation_rku1e"]
+resource_name = "idle"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CharacterSprite")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"idle", 1.0, false],
+"method": &"play"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_i6g32"]
+resource_name = "shoot"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CharacterSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.16666667, 0.33333334, 0.5, 0.7, 0.8666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 3, 4, 5, 0]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"shoot"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CharacterSprite:animation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"shoot"]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1l0tm"]
+_data = {
+&"RESET": SubResource("Animation_wowpa"),
+&"idle": SubResource("Animation_rku1e"),
+&"shoot": SubResource("Animation_i6g32")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ldgsr"]
+atlas = ExtResource("9_bi64h")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o5yvi"]
+atlas = ExtResource("9_bi64h")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rku1e"]
+atlas = ExtResource("9_bi64h")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rfjv2"]
+atlas = ExtResource("9_bi64h")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1phco"]
+atlas = ExtResource("9_bi64h")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nb51f"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ldgsr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o5yvi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rku1e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rfjv2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1phco")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rku1e"]
+shader = ExtResource("10_2ijsl")
+shader_parameter/normal_map = ExtResource("11_p1odr")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wrm1d"]
+atlas = ExtResource("12_0gysh")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3dryh"]
+atlas = ExtResource("12_0gysh")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wowpa"]
+atlas = ExtResource("12_0gysh")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i6g32"]
+atlas = ExtResource("12_0gysh")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1l0tm"]
+atlas = ExtResource("12_0gysh")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v158k"]
+atlas = ExtResource("12_0gysh")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h4fw4"]
+atlas = ExtResource("12_0gysh")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ldgsr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wrm1d")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3dryh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wowpa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i6g32")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1l0tm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v158k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h4fw4")
+}],
+"loop": true,
+"name": &"shoot",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ewbju"]
+radius = 9.0
+
+[node name="Player" type="CharacterBody2D" unique_id=1301122545 groups=["Player"]]
+collision_layer = 19
+script = ExtResource("1_h4iuc")
+
+[node name="ItemManager" type="Node" parent="." unique_id=1260135593]
+script = ExtResource("2_fd4e3")
+
+[node name="StateMachine" type="Node" parent="." unique_id=137289923 node_paths=PackedStringArray("default_state")]
+script = ExtResource("3_qqcod")
+default_state = NodePath("Idle")
+
+[node name="Shoot" type="Node" parent="StateMachine" unique_id=1286749836 node_paths=PackedStringArray("animation_player", "attack_timer", "move_state", "thruster_sprite")]
+script = ExtResource("4_igrcy")
+animation_player = NodePath("../../AnimationPlayer")
+attack_timer = NodePath("../../ShotCooldown")
+move_state = NodePath("../Move")
+thruster_sprite = NodePath("../../Thruster")
+metadata/_custom_type_script = "uid://4yulkrqdi05f"
+
+[node name="Idle" type="Node" parent="StateMachine" unique_id=1030277534 node_paths=PackedStringArray("thruster_sprite", "animation_player")]
+script = ExtResource("5_fs7ks")
+thruster_sprite = NodePath("../../Thruster")
+animation_player = NodePath("../../AnimationPlayer")
+metadata/_custom_type_script = "uid://4yulkrqdi05f"
+
+[node name="Move" type="Node" parent="StateMachine" unique_id=1926959944 node_paths=PackedStringArray("thruster_sprite")]
+script = ExtResource("6_l6n3p")
+thruster_sprite = NodePath("../../Thruster")
+metadata/_custom_type_script = "uid://4yulkrqdi05f"
+
+[node name="Dash" type="Node" parent="StateMachine" unique_id=2079699802]
+script = ExtResource("7_olqyp")
+metadata/_custom_type_script = "uid://4yulkrqdi05f"
+
+[node name="Parry" type="Node" parent="StateMachine" unique_id=798612724 node_paths=PackedStringArray("parry_icon", "parry_area")]
+script = ExtResource("8_wpjfl")
+parry_icon = NodePath("../../ParryIcon")
+parry_area = NodePath("../../ParryIcon/ParryArea")
+metadata/_custom_type_script = "uid://4yulkrqdi05f"
+
+[node name="ShotCooldown" type="Timer" parent="." unique_id=1911408191]
+one_shot = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=58487984]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_nnt18")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=361830061]
+libraries/ = SubResource("AnimationLibrary_1l0tm")
+
+[node name="Thruster" type="AnimatedSprite2D" parent="." unique_id=2119821916]
+visible = false
+sprite_frames = SubResource("SpriteFrames_nb51f")
+autoplay = "default"
+offset = Vector2(-20, 0)
+
+[node name="CharacterSprite" type="AnimatedSprite2D" parent="." unique_id=726623463]
+material = SubResource("ShaderMaterial_rku1e")
+sprite_frames = SubResource("SpriteFrames_ldgsr")
+animation = &"shoot"
+frame = 1
+
+[node name="Reticle" type="Node" parent="." unique_id=177096936]
+script = ExtResource("13_vfarp")
+
+[node name="RayCast2D" type="RayCast2D" parent="Reticle" unique_id=1425805992]
+target_position = Vector2(100, 0)
+
+[node name="Reticle" type="Sprite2D" parent="Reticle" unique_id=1812239569]
+visible = false
+position = Vector2(100, 0)
+texture = ExtResource("14_y6uwr")
+
+[node name="ParryIcon" type="Sprite2D" parent="." unique_id=418676415]
+visible = false
+texture = ExtResource("15_83xs0")
+
+[node name="ParryArea" type="Area2D" parent="ParryIcon" unique_id=2095715132]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ParryIcon/ParryArea" unique_id=1122306971]
+shape = SubResource("CircleShape2D_ewbju")
