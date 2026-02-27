@@ -1,21 +1,21 @@
 [gd_scene format=4 uid="uid://bt0bi6tqopeid"]
 
 [ext_resource type="PackedScene" uid="uid://dbtgpv01w0f1x" path="res://Scenes/base_room.tscn" id="1_jae17"]
-[ext_resource type="PackedScene" uid="uid://d2y1td7a5t5jq" path="res://Scenes/Enemies/slow_sentry.tscn" id="2_7n5m6"]
+[ext_resource type="PackedScene" uid="uid://csfg1wbvw20he" path="res://Scenes/Enemies/slow_sentry.tscn" id="2_7n5m6"]
 
-[node name="TurrentClump" unique_id=1415294416 instance=ExtResource("1_jae17")]
+[node name="TurretClump" unique_id=1415294416 instance=ExtResource("1_jae17")]
 
 [node name="OuterWall" parent="." index="1" unique_id=1054772282]
 tile_map_data = PackedByteArray("AAD2//n/AAACAAAAAAD3//n/AAAAAAEAAAD4//n/AAAAAAEAAAD5//n/AAAAAAEAAAD6//n/AAAAAAEAAAD7//n/AAAAAAEAAAD8//n/AAAAAAEAAAD9//n/AAAAAAEAAAD+//n/AAABAAMAAAAIAPn/AAADAAAAAAAHAPn/AAAAAAEAAAAGAPn/AAAAAAEAAAAFAPn/AAAAAAEAAAAEAPn/AAAAAAEAAAADAPn/AAAAAAEAAAACAPn/AAAAAAEAAAABAPn/AAAAAAEAAAAAAPn/AAAAAAIAAAD2//3/AAAAAAMAAAD2//z/AAAAAAAAAAD2//v/AAAAAAAAAAD2//r/AAAAAAAAAAD2/wIAAAAAAAAAAAD2/wEAAAAAAAAAAAD2/wAAAAAAAAAAAAD2////AAABAAIAAAAIAAIAAAAAAAAAAAAIAP//AAABAAIAAAAIAAAAAAAAAAAAAAAIAAEAAAAAAAAAAAAIAPz/AAAAAAAAAAAIAPv/AAAAAAAAAAAIAPr/AAAAAAAAAAAIAP3/AAAAAAMAAAAIAAMAAAADAAEAAAAHAAMAAAAAAAEAAAAGAAMAAAAAAAEAAAAFAAMAAAAAAAEAAAAEAAMAAAAAAAEAAAADAAMAAAAAAAEAAAACAAMAAAAAAAEAAAABAAMAAAAAAAEAAAAAAAMAAAAAAAIAAAD+/wMAAAABAAMAAAD9/wMAAAAAAAEAAAD8/wMAAAAAAAEAAAD7/wMAAAAAAAEAAAD6/wMAAAAAAAEAAAD5/wMAAAAAAAEAAAD4/wMAAAAAAAEAAAD3/wMAAAAAAAEAAAD2/wMAAAACAAEAAAD+/wEAAAAAAAIAAAD//wEAAAAAAAEAAAAAAAEAAAABAAMAAAD+//v/AAAAAAIAAAD///v/AAAAAAEAAAAAAPv/AAABAAMAAAD4//3/AAABAAIAAAD4//7/AAAAAAAAAAD4////AAAAAAMAAAAGAP3/AAABAAIAAAAGAP7/AAAAAAAAAAAGAP//AAAAAAMAAAA=")
 
 [node name="SlowSentry" parent="Enemies" parent_id_path=PackedInt32Array(683597873) index="0" unique_id=1631603036 instance=ExtResource("2_7n5m6")]
-position = Vector2(-48, -80)
-
-[node name="SlowSentry2" parent="Enemies" parent_id_path=PackedInt32Array(683597873) index="1" unique_id=1266926372 instance=ExtResource("2_7n5m6")]
-position = Vector2(16, -80)
-
-[node name="SlowSentry3" parent="Enemies" parent_id_path=PackedInt32Array(683597873) index="2" unique_id=1180974902 instance=ExtResource("2_7n5m6")]
 position = Vector2(16, -16)
 
-[node name="SlowSentry4" parent="Enemies" parent_id_path=PackedInt32Array(683597873) index="3" unique_id=1040092108 instance=ExtResource("2_7n5m6")]
+[node name="SlowSentry2" parent="Enemies" parent_id_path=PackedInt32Array(683597873) index="1" unique_id=896368732 instance=ExtResource("2_7n5m6")]
 position = Vector2(-48, -16)
+
+[node name="SlowSentry3" parent="Enemies" parent_id_path=PackedInt32Array(683597873) index="2" unique_id=435085172 instance=ExtResource("2_7n5m6")]
+position = Vector2(-48, -80)
+
+[node name="SlowSentry4" parent="Enemies" parent_id_path=PackedInt32Array(683597873) index="3" unique_id=2028361687 instance=ExtResource("2_7n5m6")]
+position = Vector2(16, -80)

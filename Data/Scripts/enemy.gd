@@ -5,8 +5,7 @@ enum AimTypes {
 	AIMED,
 	FORWARDED,
 	ONE_WAY,
-	AIMED_FOUR_WAY,
-	AIMED_FOUR_WAY_DIAGONAL,
+	AIMED_SPLIT,
 	TWO_WAY,
 	FOUR_WAY,
 }
@@ -26,6 +25,7 @@ enum AimTypes {
 @export var grant_combo_on_death := 0.0
 @export var sprite_sheet_dimensions := Vector2(1,1)
 @export var flags: Array[String] = []
+@export var bullet_spread: float = .125*PI
 
 var is_alive = true
 
@@ -45,13 +45,51 @@ func shoot(target: CharacterBody2D):
 	match aim_type:
 		AimTypes.AIMED:
 			if !target: return
-			var shot_node: Shot = shot_scene.instantiate()
-			shot_node.shot_owner = self
-			shot_node.shot_speed = shot_speed
-			shot_node.team = Shot.Teams.ENEMY
+			var shot_node: Shot = _create_shot()
 			shot_node.vector = (target.global_position - global_position).normalized()
 			get_tree().root.add_child(shot_node)
-			shot_node.global_position = global_position
+		AimTypes.FORWARDED:
+			if !target: return
+			var shot_node: Shot = _create_shot()
+			var distance_vector = (target.global_position - global_position)
+			shot_node.vector = (distance_vector+(target.velocity*distance_vector.length()/shot_speed)).normalized()
+			get_tree().root.add_child(shot_node)
+		AimTypes.ONE_WAY:
+			var shot_node: Shot = _create_shot()
+			shot_node.vector = Vector2.UP.normalized().rotated(rotation)
+			get_tree().root.add_child(shot_node)
+		AimTypes.AIMED_SPLIT:
+			var shot_node: Shot = _create_shot()
+			var direction = (target.global_position - global_position).normalized()
+			shot_node.vector = direction
+			get_tree().root.add_child(shot_node)
+			shot_node = _create_shot()
+			shot_node.vector = direction.rotated(-bullet_spread)
+			get_tree().root.add_child(shot_node)
+			shot_node = _create_shot()
+			shot_node.vector = direction.rotated(bullet_spread)
+			get_tree().root.add_child(shot_node)
+		AimTypes.TWO_WAY:
+			var shot_node: Shot = _create_shot()
+			shot_node.vector = Vector2.UP.normalized().rotated(rotation)
+			get_tree().root.add_child(shot_node)
+			shot_node = _create_shot()
+			shot_node.vector = Vector2.UP.normalized().rotated(rotation+PI)
+			get_tree().root.add_child(shot_node)
+		AimTypes.FOUR_WAY:
+			var shot_node: Shot = _create_shot()
+			shot_node.vector = Vector2.UP.normalized().rotated(rotation)
+			get_tree().root.add_child(shot_node)
+			shot_node = _create_shot()
+			shot_node.vector = Vector2.UP.normalized().rotated(rotation+PI)
+			get_tree().root.add_child(shot_node)
+			shot_node = _create_shot()
+			shot_node.vector = Vector2.UP.normalized().rotated(rotation+0.5*PI)
+			get_tree().root.add_child(shot_node)
+			shot_node = _create_shot()
+			shot_node.vector = Vector2.UP.normalized().rotated(rotation-0.5*PI)
+			get_tree().root.add_child(shot_node)
+
 
 
 func inflict_effect(effect: Shot.ShotEffects, duration = 0):
@@ -64,6 +102,14 @@ func inflict_effect(effect: Shot.ShotEffects, duration = 0):
 
 func take_damage(damage: float):
 	health -= damage
+
+func _create_shot() -> Shot:
+	var shot_node: Shot = shot_scene.instantiate()
+	shot_node.shot_owner = self
+	shot_node.shot_speed = shot_speed
+	shot_node.team = Shot.Teams.ENEMY
+	shot_node.global_position = global_position
+	return shot_node
 
 func _ready(	):
 	enemy_died.connect(E._on_enemy_died)

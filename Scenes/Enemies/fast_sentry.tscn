@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dem3xunko802k"]
 
-[ext_resource type="PackedScene" uid="uid://b67xlson8puyh" path="res://Scenes/enemy.tscn" id="1_hb4qr"]
+[ext_resource type="PackedScene" uid="uid://du3qu1tudrtpa" path="res://Scenes/enemy.tscn" id="1_hb4qr"]
 
 [node name="FastSentry" unique_id=1631603036 instance=ExtResource("1_hb4qr")]
 health = 30.0
