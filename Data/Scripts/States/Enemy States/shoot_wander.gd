@@ -4,6 +4,7 @@ extends State
 
 
 @export var detection_area: Area2D
+@export var line_of_sight: RayCast2D
 @export var attack_delay_timer: Timer
 
 @export var wander_radius: float
@@ -15,7 +16,7 @@ var starting_position: Vector2
 var previous_position: Vector2
 
 @onready var owner_node: Enemy = get_parent().get_parent()
-
+@onready var player: Player = get_tree().get_first_node_in_group("Player")
 
 func begin_state():
 	starting_position = owner_node.global_position
@@ -49,19 +50,22 @@ func update(delta: float):
 		owner_node.move_and_slide()
 	
 	
-	var player: Player
 	if detection_area:
 		if !detection_area.has_overlapping_bodies():
 			state_machine.change_state("idle")
+		var player_found = false
 		for body in detection_area.get_overlapping_bodies():
 			if body is Player:
-				player = body
+				player_found = body
 				break
-		if !player:
+		if !player_found:
+			state_machine.change_state("idle")
+	if line_of_sight:
+		line_of_sight.target_position = line_of_sight.global_position - player.global_position
+		line_of_sight.force_raycast_update()
+		if not line_of_sight.get_collider() is Player:
 			state_machine.change_state("idle")
 	if !attack_delay_timer.is_stopped():
 		return
-	if !player:
-		player = get_tree().get_first_node_in_group("Player")
 	owner_node.shoot(player)
 	attack_delay_timer.start(owner_node.attack_delay)

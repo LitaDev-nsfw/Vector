@@ -18,10 +18,11 @@ detection_hitbox = NodePath("../../DetectionHitbox")
 wander_radius = 75.0
 metadata/_custom_type_script = "uid://4yulkrqdi05f"
 
-[node name="Attack" type="Node" parent="StateMachine" index="1" unique_id=647964090 node_paths=PackedStringArray("detection_area", "attack_delay_timer")]
+[node name="Attack" type="Node" parent="StateMachine" index="1" unique_id=647964090 node_paths=PackedStringArray("detection_area", "attack_delay_timer", "line_of_sight")]
 script = ExtResource("3_88r02")
 detection_area = NodePath("../../DetectionHitbox")
 attack_delay_timer = NodePath("../../AttackDelay")
+line_of_sight = NodePath("../../LineOfSight")
 metadata/_custom_type_script = "uid://4yulkrqdi05f"
 
 [node name="Sprite" parent="." index="4" unique_id=1151198309]

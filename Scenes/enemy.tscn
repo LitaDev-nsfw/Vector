@@ -161,3 +161,5 @@ shape = SubResource("CircleShape2D_mucmn")
 [node name="DetectionHitbox" type="Area2D" parent="." unique_id=187940754]
 collision_layer = 0
 collision_mask = 2
+
+[node name="LineOfSight" type="RayCast2D" parent="." unique_id=357936683]

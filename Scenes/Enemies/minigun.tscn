@@ -19,18 +19,17 @@ one_shot = true
 [node name="StateMachine" parent="." index="3" unique_id=206549298 node_paths=PackedStringArray("default_state")]
 default_state = NodePath("Idle")
 
-[node name="Idle" type="Node" parent="StateMachine" index="0" unique_id=1849034000 node_paths=PackedStringArray("detection_hitbox")]
+[node name="Idle" type="Node" parent="StateMachine" index="0" unique_id=1849034000]
 script = ExtResource("2_tb6m1")
-detection_hitbox = NodePath("../../DetectionHitbox")
 wander_radius = 40.0
 wander_cooldown = 3.0
 metadata/_custom_type_script = "uid://4yulkrqdi05f"
 
-[node name="Attack" type="Node" parent="StateMachine" index="1" unique_id=1973823447 node_paths=PackedStringArray("detection_area", "attack_delay_timer", "attack_windup_timer")]
+[node name="Attack" type="Node" parent="StateMachine" index="1" unique_id=1973823447 node_paths=PackedStringArray("attack_delay_timer", "attack_windup_timer", "line_of_sight")]
 script = ExtResource("3_0m51w")
-detection_area = NodePath("../../DetectionHitbox")
 attack_delay_timer = NodePath("../../AttackDelay")
 attack_windup_timer = NodePath("../../AttackWindup")
+line_of_sight = NodePath("../../LineOfSight")
 metadata/_custom_type_script = "uid://4yulkrqdi05f"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionHitbox" parent_id_path=PackedInt32Array(187940754) index="0" unique_id=21574777]

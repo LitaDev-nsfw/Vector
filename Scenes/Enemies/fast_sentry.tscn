@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dem3xunko802k"]
 
 [ext_resource type="PackedScene" uid="uid://du3qu1tudrtpa" path="res://Scenes/enemy.tscn" id="1_hb4qr"]
-[ext_resource type="Script" path="res://Data/Scripts/States/Enemy States/idle_stationary.gd" id="2_h86s8"]
+[ext_resource type="Script" uid="uid://cef51vxtrq5kc" path="res://Data/Scripts/States/Enemy States/idle_stationary.gd" id="2_h86s8"]
 [ext_resource type="Script" uid="uid://b7taqorvmqwtu" path="res://Data/Scripts/States/Enemy States/shoot_stationary.gd" id="3_fdu7v"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fdu7v"]

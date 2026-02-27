@@ -1,6 +1,7 @@
 extends State
 
 @export var detection_hitbox: Area2D
+@export var line_of_sight: RayCast2D
 @export var wander_radius: float
 @export var wander_cooldown: float = 1.0
 
@@ -9,6 +10,7 @@ var current_wander_cooldown: float = 0
 var starting_position: Vector2
 var previous_position: Vector2
 
+@onready var player: Player = get_tree().get_first_node_in_group("Player")
 @onready var state_owner: Enemy = get_parent().get_parent()
 
 
@@ -46,12 +48,17 @@ func update(delta: float):
 	if detection_hitbox:
 		if !detection_hitbox.has_overlapping_bodies():
 			return
-		var player: Player
+		var player_found = false
 		for body in detection_hitbox.get_overlapping_bodies():
 			if body is Player:
-				player = body
+				player_found = true
 				break
-		if !player: return
+		if !player_found: return
+	if line_of_sight:
+		line_of_sight.target_position = line_of_sight.global_position - player.global_position
+		line_of_sight.force_raycast_update()
+		if not line_of_sight.get_collider() is Player:
+			return
 	#print("test")
 	if state_machine.states.has("chase"):
 		state_machine.change_state("chase")
