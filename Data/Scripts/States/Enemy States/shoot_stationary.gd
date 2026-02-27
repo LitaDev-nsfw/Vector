@@ -28,7 +28,7 @@ func update(_delta: float):
 		if !player_found:
 			state_machine.change_state("idle")
 	if line_of_sight:
-		line_of_sight.target_position = line_of_sight.global_position - player.global_position
+		line_of_sight.target_position = player.global_position - line_of_sight.global_position
 		line_of_sight.force_raycast_update()
 		if not line_of_sight.get_collider() is Player:
 			state_machine.change_state("idle")

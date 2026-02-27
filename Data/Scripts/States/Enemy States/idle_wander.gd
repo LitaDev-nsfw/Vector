@@ -55,7 +55,7 @@ func update(delta: float):
 				break
 		if !player_found: return
 	if line_of_sight:
-		line_of_sight.target_position = line_of_sight.global_position - player.global_position
+		line_of_sight.target_position = player.global_position - line_of_sight.global_position
 		line_of_sight.force_raycast_update()
 		if not line_of_sight.get_collider() is Player:
 			return
