@@ -1,6 +1,26 @@
 [gd_scene format=3 uid="uid://csfg1wbvw20he"]
 
 [ext_resource type="PackedScene" uid="uid://du3qu1tudrtpa" path="res://Scenes/enemy.tscn" id="1_4f0kh"]
+[ext_resource type="Script" path="res://Data/Scripts/States/Enemy States/idle_stationary.gd" id="2_8op6i"]
+[ext_resource type="Script" uid="uid://b7taqorvmqwtu" path="res://Data/Scripts/States/Enemy States/shoot_stationary.gd" id="3_hlhf0"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8op6i"]
+radius = 181.27603
 
 [node name="SlowSentry" unique_id=1631603036 instance=ExtResource("1_4f0kh")]
 aim_type = 1
+
+[node name="StateMachine" parent="." index="2" unique_id=206549298 node_paths=PackedStringArray("default_state")]
+default_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine" index="0" unique_id=817860109 node_paths=PackedStringArray("detection_hitbox")]
+script = ExtResource("2_8op6i")
+detection_hitbox = NodePath("../../DetectionHitbox")
+metadata/_custom_type_script = "uid://4yulkrqdi05f"
+
+[node name="Attack" type="Node" parent="StateMachine" index="1" unique_id=917545069]
+script = ExtResource("3_hlhf0")
+metadata/_custom_type_script = "uid://4yulkrqdi05f"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionHitbox" parent_id_path=PackedInt32Array(187940754) index="0" unique_id=877540390]
+shape = SubResource("CircleShape2D_8op6i")

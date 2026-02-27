@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://csqdceksah25l"]
+
+[ext_resource type="PackedScene" uid="uid://du3qu1tudrtpa" path="res://Scenes/enemy.tscn" id="1_gm1gg"]
+[ext_resource type="Script" uid="uid://c1xmwuyh14d52" path="res://Data/Scripts/States/Enemy States/idle_wander.gd" id="2_hnkay"]
+[ext_resource type="Script" uid="uid://b7taqorvmqwtu" path="res://Data/Scripts/States/Enemy States/shoot_stationary.gd" id="3_88r02"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_88r02"]
+radius = 166.07529
+
+[node name="Wanderer" unique_id=1631603036 instance=ExtResource("1_gm1gg")]
+
+[node name="StateMachine" parent="." index="2" unique_id=206549298 node_paths=PackedStringArray("default_state")]
+default_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine" index="0" unique_id=1331577821 node_paths=PackedStringArray("detection_hitbox")]
+script = ExtResource("2_hnkay")
+detection_hitbox = NodePath("../../DetectionHitbox")
+wander_radius = 75.0
+metadata/_custom_type_script = "uid://4yulkrqdi05f"
+
+[node name="Attack" type="Node" parent="StateMachine" index="1" unique_id=647964090 node_paths=PackedStringArray("detection_area", "attack_delay_timer")]
+script = ExtResource("3_88r02")
+detection_area = NodePath("../../DetectionHitbox")
+attack_delay_timer = NodePath("../../AttackDelay")
+metadata/_custom_type_script = "uid://4yulkrqdi05f"
+
+[node name="Sprite" parent="." index="4" unique_id=1151198309]
+modulate = Color(0.5019608, 1, 1, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionHitbox" parent_id_path=PackedInt32Array(187940754) index="0" unique_id=994001958]
+shape = SubResource("CircleShape2D_88r02")

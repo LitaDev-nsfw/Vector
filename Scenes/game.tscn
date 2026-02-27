@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://lglu1qtsh6am" path="res://Data/Scripts/States/Player States/attack.gd" id="3_1l0tm"]
 [ext_resource type="Texture2D" uid="uid://ckgv6jv2hjgtd" path="res://Assets/Sprites/thruster.png" id="3_wrm1d"]
 [ext_resource type="Script" uid="uid://cmqtvl2dej403" path="res://Data/Scripts/States/Player States/idle.gd" id="4_1l0tm"]
+[ext_resource type="PackedScene" uid="uid://c8878ohby1h10" path="res://Scenes/Enemies/minigun.tscn" id="4_7t8sx"]
 [ext_resource type="Script" uid="uid://cglohlwl1myex" path="res://Data/Scripts/States/Player States/move.gd" id="5_1l0tm"]
 [ext_resource type="Script" uid="uid://bjb4tau8cmobw" path="res://Data/Scripts/item_manager.gd" id="5_iivbl"]
 [ext_resource type="Shader" uid="uid://bgn2qiarsaxxu" path="res://Assets/Resources/Shaders/normal_map.gdshader" id="7_o5yvi"]
@@ -250,6 +251,9 @@ zoom = Vector2(1.8, 1.8)
 
 [node name="StartingRoom" parent="Level" unique_id=1415294416 instance=ExtResource("2_nnt18")]
 has_enemies = false
+
+[node name="Minigun" parent="Level/StartingRoom" unique_id=1631603036 instance=ExtResource("4_7t8sx")]
+position = Vector2(-253, 69)
 
 [node name="Player" type="CharacterBody2D" parent="Level" unique_id=1183994837 groups=["Player"]]
 position = Vector2(-23, -61)

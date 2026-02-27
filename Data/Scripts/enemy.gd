@@ -20,6 +20,7 @@ enum AimTypes {
 			queue_free()
 @export var invincible: bool = false
 @export var attack_delay: float = 3
+@export var move_speed: float = 100
 @export var shot_speed: float = 350
 @export var aim_type: AimTypes = AimTypes.AIMED
 @export var grant_combo_on_death := 0.0

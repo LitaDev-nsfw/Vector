@@ -3,10 +3,15 @@ extends State
 
 @export var detection_area: Area2D
 @export var attack_delay_timer: Timer
-
+@export var attack_windup_timer: Timer
+@export var attack_windup: float = 1.0
 
 
 @onready var owner_node: Enemy = get_parent().get_parent()
+
+func begin_state():
+	if attack_windup_timer:
+		attack_windup_timer.start(attack_windup)
 
 func update(_delta: float):
 	if G.halt_actions or owner_node.frozen:
@@ -22,6 +27,8 @@ func update(_delta: float):
 		if !player:
 			state_machine.change_state("idle")
 	if !attack_delay_timer.is_stopped():
+		return
+	if attack_windup_timer and !attack_windup_timer.is_stopped():
 		return
 	if !player:
 		player = get_tree().get_first_node_in_group("Player")

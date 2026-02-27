@@ -2,8 +2,6 @@
 
 [ext_resource type="Script" uid="uid://c2ms6acjy0y1l" path="res://Data/Scripts/enemy.gd" id="1_ghaa6"]
 [ext_resource type="Script" uid="uid://c3xy6ebvr4cw7" path="res://Data/Scripts/state_machine.gd" id="2_1dp5w"]
-[ext_resource type="Script" path="res://Data/Scripts/States/Enemy States/idle_stationary.gd" id="3_auwsv"]
-[ext_resource type="Script" uid="uid://b7taqorvmqwtu" path="res://Data/Scripts/States/Enemy States/shoot_stationary.gd" id="4_8uf12"]
 [ext_resource type="Shader" uid="uid://c3jq327el6twi" path="res://Assets/Resources/Shaders/outline.gdshader" id="5_1dp5w"]
 [ext_resource type="Texture2D" uid="uid://durj4rpbtlsa1" path="res://Assets/Sprites/cube.png" id="5_po0sg"]
 [ext_resource type="Texture2D" uid="uid://bv2xrbwfgdwni" path="res://Assets/Sprites/sentry.png" id="6_haro7"]
@@ -130,9 +128,6 @@ animations = [{
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mucmn"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_iivbl"]
-radius = 189.09521
-
 [node name="Enemy" type="CharacterBody2D" unique_id=1631603036]
 collision_layer = 21
 motion_mode = 1
@@ -140,7 +135,7 @@ script = ExtResource("1_ghaa6")
 sprite_sheet_dimensions = Vector2(7, 1)
 
 [node name="NewRoomCooldown" type="Timer" parent="." unique_id=1811729363]
-wait_time = 1.5
+wait_time = 0.75
 one_shot = true
 autostart = true
 
@@ -149,17 +144,8 @@ one_shot = true
 
 [node name="StateMachine" type="Node" parent="." unique_id=206549298 node_paths=PackedStringArray("default_state")]
 script = ExtResource("2_1dp5w")
-default_state = NodePath("Idle")
+default_state = NodePath("")
 metadata/_custom_type_script = "uid://c3xy6ebvr4cw7"
-
-[node name="Idle" type="Node" parent="StateMachine" unique_id=855984815]
-script = ExtResource("3_auwsv")
-metadata/_custom_type_script = "uid://4yulkrqdi05f"
-
-[node name="Attack" type="Node" parent="StateMachine" unique_id=2060268359 node_paths=PackedStringArray("attack_delay_timer")]
-script = ExtResource("4_8uf12")
-attack_delay_timer = NodePath("../../AttackDelay")
-metadata/_custom_type_script = "uid://4yulkrqdi05f"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1984190733]
 
@@ -173,9 +159,5 @@ visible = false
 shape = SubResource("CircleShape2D_mucmn")
 
 [node name="DetectionHitbox" type="Area2D" parent="." unique_id=187940754]
-visible = false
 collision_layer = 0
 collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionHitbox" unique_id=1864702638]
-shape = SubResource("CircleShape2D_iivbl")
