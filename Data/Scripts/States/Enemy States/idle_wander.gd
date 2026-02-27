@@ -62,5 +62,5 @@ func update(delta: float):
 	#print("test")
 	if state_machine.states.has("chase"):
 		state_machine.change_state("chase")
-	else:
+	elif state_machine.states.has("attack"):
 		state_machine.change_state("attack")

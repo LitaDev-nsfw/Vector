@@ -19,8 +19,9 @@ one_shot = true
 [node name="StateMachine" parent="." index="3" unique_id=206549298 node_paths=PackedStringArray("default_state")]
 default_state = NodePath("Idle")
 
-[node name="Idle" type="Node" parent="StateMachine" index="0" unique_id=1849034000]
+[node name="Idle" type="Node" parent="StateMachine" index="0" unique_id=1849034000 node_paths=PackedStringArray("line_of_sight")]
 script = ExtResource("2_tb6m1")
+line_of_sight = NodePath("../../LineOfSight")
 wander_radius = 40.0
 wander_cooldown = 3.0
 metadata/_custom_type_script = "uid://4yulkrqdi05f"

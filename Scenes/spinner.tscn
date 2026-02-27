@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://caktgo75008vf"]
+
+[ext_resource type="PackedScene" uid="uid://du3qu1tudrtpa" path="res://Scenes/enemy.tscn" id="1_dgelw"]
+[ext_resource type="Script" uid="uid://77hmmqjw7u6l" path="res://Data/Scripts/States/Enemy States/idle_bounce.gd" id="2_8e35x"]
+
+[node name="Spinner" unique_id=1631603036 instance=ExtResource("1_dgelw")]
+
+[node name="StateMachine" parent="." index="2" unique_id=206549298 node_paths=PackedStringArray("default_state")]
+default_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine" index="0" unique_id=1499002762]
+script = ExtResource("2_8e35x")
+metadata/_custom_type_script = "uid://4yulkrqdi05f"

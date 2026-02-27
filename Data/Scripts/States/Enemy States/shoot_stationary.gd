@@ -7,7 +7,7 @@ extends State
 @export var attack_windup: float = 1.0
 @export var line_of_sight: RayCast2D
 
-@onready var owner_node: Enemy = get_parent().get_parent()
+@onready var state_owner: Enemy = get_parent().get_parent()
 @onready var player: Player = get_tree().get_first_node_in_group("Player")
 
 func begin_state():
@@ -15,7 +15,7 @@ func begin_state():
 		attack_windup_timer.start(attack_windup)
 
 func update(_delta: float):
-	if G.halt_actions or owner_node.frozen:
+	if G.halt_actions or state_owner.frozen:
 		return
 	if detection_area:
 		if !detection_area.has_overlapping_bodies():
@@ -36,5 +36,5 @@ func update(_delta: float):
 		return
 	if attack_windup_timer and !attack_windup_timer.is_stopped():
 		return
-	owner_node.shoot(player)
-	attack_delay_timer.start(owner_node.attack_delay)
+	state_owner.shoot(player)
+	attack_delay_timer.start(state_owner.attack_delay)

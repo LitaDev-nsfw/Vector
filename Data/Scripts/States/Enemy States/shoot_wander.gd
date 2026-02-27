@@ -15,15 +15,15 @@ var current_wander_cooldown: float = 0
 var starting_position: Vector2
 var previous_position: Vector2
 
-@onready var owner_node: Enemy = get_parent().get_parent()
+@onready var state_owner: Enemy = get_parent().get_parent()
 @onready var player: Player = get_tree().get_first_node_in_group("Player")
 
 func begin_state():
-	starting_position = owner_node.global_position
+	starting_position = state_owner.global_position
 
 
 func update(delta: float):
-	if G.halt_actions or owner_node.frozen:
+	if G.halt_actions or state_owner.frozen:
 		return
 	if current_wander_cooldown > 0:
 		print("Running out cooldown")
@@ -34,20 +34,20 @@ func update(delta: float):
 		vector = vector.rotated(randf_range(0,TAU))
 		target_point = starting_position + vector
 		previous_position = Vector2()
-	elif target_point == owner_node.global_position or (previous_position != Vector2() and previous_position.distance_squared_to(owner_node.global_position) < .1):
-		print(previous_position.distance_squared_to(owner_node.global_position))
+	elif target_point == state_owner.global_position or (previous_position != Vector2() and previous_position.distance_squared_to(state_owner.global_position) < .1):
+		print(previous_position.distance_squared_to(state_owner.global_position))
 		print("Starting Wander Cooldown")
 		current_wander_cooldown = wander_cooldown
-		owner_node.velocity = Vector2()
+		state_owner.velocity = Vector2()
 		target_point = Vector2()
 	else:
 		print("Wandering")
-		previous_position = owner_node.global_positiond
-		var direction = target_point - owner_node.global_position
+		previous_position = state_owner.global_positiond
+		var direction = target_point - state_owner.global_position
 		if direction.length() > 1:
 			direction = direction.normalized()
-		owner_node.velocity = direction * owner_node.move_speed * .8
-		owner_node.move_and_slide()
+		state_owner.velocity = direction * state_owner.move_speed * .8
+		state_owner.move_and_slide()
 	
 	
 	if detection_area:
@@ -67,5 +67,5 @@ func update(delta: float):
 			state_machine.change_state("idle")
 	if !attack_delay_timer.is_stopped():
 		return
-	owner_node.shoot(player)
-	attack_delay_timer.start(owner_node.attack_delay)
+	state_owner.shoot(player)
+	attack_delay_timer.start(state_owner.attack_delay)
