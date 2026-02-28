@@ -65,6 +65,7 @@ var current_combo: float = 1.0:
 		if current_combo > 1.0:
 			reset_current_combo_life()
 var current_combo_life: float = 0.0
+var invuln_time_modifier: float = 0.0
 
 ##Effects
 var frozen := false
@@ -72,13 +73,14 @@ var frozen := false
 
 @onready var shot_scene = preload("res://Scenes/shot.tscn")
 @onready var item_manager: ItemManager = find_child("ItemManager")
-
+@onready var invuln_timer: Timer = find_child("InvulnTimer")
 
 const BASE_FIRE_DELAY = 5
 const BASE_MOVE_SPEED = 150
 const BASE_SHOT_SPEED = 400
 const BASE_DAMAGE_COMBO_METER_LOSS = 1
 const GROUND_ACCELERATION = 10000000
+const BASE_INVULN_TIME = 1.0
 
 signal health_changed(new_health: int)
 
@@ -124,12 +126,16 @@ func inflict_effect(effect: Shot.ShotEffects, duration = 0):
 			tween.tween_property(self,"frozen",false,duration)
 
 func take_damage():
+	print("Invuln Timer: "+str(invuln_timer))
+	if !invuln_timer.is_stopped():
+		return
 	var life_to_lose = 1.0
 	for effect in item_manager.static_effects:
 		if effect.id == "incoming_damage_mult":
 			life_to_lose *= effect.amount
 	health -= roundi(life_to_lose)
 	current_combo_life -= get_attribute(Attributes.DAMAGE_COMBO_METER_LOSS)
+	invuln_timer.start(BASE_INVULN_TIME+invuln_time_modifier)
 
 func reset_current_combo_life():
 	current_combo_life = get_current_combo_life()

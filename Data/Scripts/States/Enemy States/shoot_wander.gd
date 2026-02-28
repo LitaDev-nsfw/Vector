@@ -6,7 +6,7 @@ extends State
 @export var detection_area: Area2D
 @export var line_of_sight: RayCast2D
 @export var attack_delay_timer: Timer
-
+@export var attack_once: bool = false
 @export var wander_radius: float
 @export var wander_cooldown: float = 1.0
 
@@ -67,5 +67,7 @@ func update(delta: float):
 			state_machine.change_state("idle")
 	if !attack_delay_timer.is_stopped():
 		return
-	state_owner.shoot(player)
-	attack_delay_timer.start(state_owner.attack_delay)
+	if state_owner.shoot(player):
+		attack_delay_timer.start(state_owner.attack_delay)
+	if attack_once:
+		state_machine.change_state("idle")

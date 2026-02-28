@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://c50nxced33c4u"]
+
+[ext_resource type="PackedScene" uid="uid://du3qu1tudrtpa" path="res://Scenes/enemy.tscn" id="1_yqnq1"]
+[ext_resource type="Script" uid="uid://bgpd6do0mfa1j" path="res://Data/Scripts/States/Enemy States/idle_interrupted_bounce.gd" id="2_dpqg5"]
+[ext_resource type="Script" uid="uid://b7taqorvmqwtu" path="res://Data/Scripts/States/Enemy States/shoot_stationary.gd" id="3_8qxf3"]
+
+[node name="Boss1" unique_id=1631603036 instance=ExtResource("1_yqnq1")]
+health = 150.0
+aim_type = 5
+fires_lasers = true
+
+[node name="AttackWindup" type="Timer" parent="." index="2" unique_id=1292965629]
+one_shot = true
+
+[node name="StateMachine" parent="." index="3" unique_id=206549298 node_paths=PackedStringArray("default_state")]
+default_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine" index="0" unique_id=1927567527]
+script = ExtResource("2_dpqg5")
+metadata/_custom_type_script = "uid://4yulkrqdi05f"
+
+[node name="Attack" type="Node" parent="StateMachine" index="1" unique_id=1052619287 node_paths=PackedStringArray("attack_delay_timer", "attack_windup_timer")]
+script = ExtResource("3_8qxf3")
+attack_delay_timer = NodePath("../../AttackDelay")
+attack_windup_timer = NodePath("../../AttackWindup")
+attack_windup = 5.0
+attack_once = true
+metadata/_custom_type_script = "uid://4yulkrqdi05f"

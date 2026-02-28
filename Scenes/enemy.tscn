@@ -142,9 +142,8 @@ autostart = true
 [node name="AttackDelay" type="Timer" parent="." unique_id=2041846998]
 one_shot = true
 
-[node name="StateMachine" type="Node" parent="." unique_id=206549298 node_paths=PackedStringArray("default_state")]
+[node name="StateMachine" type="Node" parent="." unique_id=206549298]
 script = ExtResource("2_1dp5w")
-default_state = NodePath("")
 metadata/_custom_type_script = "uid://c3xy6ebvr4cw7"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1984190733]

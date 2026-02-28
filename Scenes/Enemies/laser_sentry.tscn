@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://ba4u0q4x437q7"]
+
+[ext_resource type="PackedScene" uid="uid://du3qu1tudrtpa" path="res://Scenes/enemy.tscn" id="1_colk0"]
+[ext_resource type="Script" uid="uid://cef51vxtrq5kc" path="res://Data/Scripts/States/Enemy States/idle_stationary.gd" id="2_kmfuy"]
+[ext_resource type="Script" uid="uid://b7taqorvmqwtu" path="res://Data/Scripts/States/Enemy States/shoot_stationary.gd" id="3_kmfuy"]
+
+[node name="LaserSentry" unique_id=1631603036 instance=ExtResource("1_colk0")]
+aim_type = 5
+fires_lasers = true
+charge_up = 2.5
+laser_duration = 4.0
+
+[node name="StateMachine" parent="." index="2" unique_id=206549298 node_paths=PackedStringArray("default_state")]
+default_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine" index="0" unique_id=518174550]
+script = ExtResource("2_kmfuy")
+metadata/_custom_type_script = "uid://4yulkrqdi05f"
+
+[node name="Attack" type="Node" parent="StateMachine" index="1" unique_id=1726763722 node_paths=PackedStringArray("attack_delay_timer")]
+script = ExtResource("3_kmfuy")
+attack_delay_timer = NodePath("../../AttackDelay")
+metadata/_custom_type_script = "uid://4yulkrqdi05f"

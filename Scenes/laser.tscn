@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://ccttcr7gkq1up"]
+
+[ext_resource type="Script" uid="uid://ca5i48blt2wx0" path="res://Data/Scripts/laser.gd" id="1_r1bh0"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_r1bh0"]
+b = Vector2(0, 0)
+
+[node name="Laser" type="RayCast2D" unique_id=1177483596]
+collision_mask = 32
+script = ExtResource("1_r1bh0")
+
+[node name="Line2D" type="Line2D" parent="." unique_id=1097481318]
+points = PackedVector2Array(0, 0, 0, 0)
+end_cap_mode = 2
+
+[node name="ChargeUpTimer" type="Timer" parent="." unique_id=824495810]
+one_shot = true
+
+[node name="DurationTimer" type="Timer" parent="." unique_id=594695671]
+one_shot = true
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=51410483]
+collision_layer = 0
+collision_mask = 16
+
+[node name="HitboxSegment" type="CollisionShape2D" parent="Hitbox" unique_id=1121801372]
+shape = SubResource("SegmentShape2D_r1bh0")
+
+[connection signal="timeout" from="ChargeUpTimer" to="." method="_on_charge_up_timer_timeout"]
+[connection signal="timeout" from="DurationTimer" to="." method="_on_duration_timer_timeout"]

@@ -24,6 +24,8 @@ var shot_speed: float
 
 var shot_owner: CharacterBody2D
 
+
+
 var on_hit_effects: Array[Dictionary] = []
 
 func _ready():

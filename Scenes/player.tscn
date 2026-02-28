@@ -267,6 +267,9 @@ metadata/_custom_type_script = "uid://4yulkrqdi05f"
 [node name="ShotCooldown" type="Timer" parent="." unique_id=1911408191]
 one_shot = true
 
+[node name="InvulnTimer" type="Timer" parent="." unique_id=882541831]
+one_shot = true
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=58487984]
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_nnt18")
