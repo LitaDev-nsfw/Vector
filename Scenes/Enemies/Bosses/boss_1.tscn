@@ -19,10 +19,9 @@ default_state = NodePath("Idle")
 script = ExtResource("2_dpqg5")
 metadata/_custom_type_script = "uid://4yulkrqdi05f"
 
-[node name="Attack" type="Node" parent="StateMachine" index="1" unique_id=1052619287 node_paths=PackedStringArray("attack_delay_timer", "attack_windup_timer")]
+[node name="Attack" type="Node" parent="StateMachine" index="1" unique_id=1052619287 node_paths=PackedStringArray("attack_delay_timer")]
 script = ExtResource("3_8qxf3")
 attack_delay_timer = NodePath("../../AttackDelay")
-attack_windup_timer = NodePath("../../AttackWindup")
 attack_windup = 5.0
 attack_once = true
 metadata/_custom_type_script = "uid://4yulkrqdi05f"

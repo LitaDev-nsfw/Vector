@@ -34,8 +34,9 @@ func set_target(new_target: Vector2):
 	print("Target: "+str(new_target))
 	target_position = new_target
 	force_raycast_update()
-	if get_collision_point():
-		line.points[1] = get_collision_point()
+	if is_colliding():
+		print(get_collision_point())
+		line.points[1] = get_collision_point() - line.global_position
 	else:
 		line.points[1] = new_target
 

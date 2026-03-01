@@ -27,6 +27,7 @@ func _ready():
 		text_file.close()
 	else:
 		push_error("NO ASCII SPRITE FOR: "+item.id)
-	var rarity = player.item_manager.match_item_rarity(item.entry.rarity)
-	ascii_label.add_theme_color_override("font_color",rarity_colors[rarity])
+	var rarity: ItemManager.Rarities = player.item_manager.match_item_rarity(item.entry.rarity)
+	print("Rarity: "+ItemManager.Rarities.find_key(rarity))
+	ascii_label.add_theme_color_override("default_color",rarity_colors[rarity])
 	
