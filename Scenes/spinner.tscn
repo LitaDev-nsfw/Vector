@@ -4,9 +4,6 @@
 [ext_resource type="Script" uid="uid://77hmmqjw7u6l" path="res://Data/Scripts/States/Enemy States/idle_bounce.gd" id="2_8e35x"]
 
 [node name="Spinner" unique_id=1631603036 instance=ExtResource("1_dgelw")]
-fires_lasers = false
-charge_up = 1.0
-laser_duration = 2.5
 
 [node name="StateMachine" parent="." index="2" unique_id=206549298 node_paths=PackedStringArray("default_state")]
 default_state = NodePath("Idle")
