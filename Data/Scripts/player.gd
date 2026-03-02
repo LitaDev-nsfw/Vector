@@ -66,7 +66,8 @@ var current_combo: float = 1.0:
 			reset_current_combo_life()
 var current_combo_life: float = 0.0
 var invuln_time_modifier: float = 0.0
-
+var tokens: int = 0
+var token_tween: Tween
 ##Effects
 var frozen := false
 
@@ -74,6 +75,7 @@ var frozen := false
 @onready var shot_scene = preload("res://Scenes/shot.tscn")
 @onready var item_manager: ItemManager = find_child("ItemManager")
 @onready var invuln_timer: Timer = find_child("InvulnTimer")
+@onready var tokens_counter: Label = find_child("Tokens")
 
 const BASE_FIRE_DELAY = 5
 const BASE_MOVE_SPEED = 150
@@ -151,12 +153,14 @@ func get_current_combo_life() -> float:
 		return 15
 
 func _ready():
+	E.acquire_token.connect(_on_acquire_token)
 	E.enemy_died.connect(_on_enemy_died)
 	health_changed.connect(E._on_health_changed)
 
 
 func _process(delta: float) -> void:
 	input_vector = Input.get_vector("move_left","move_right","move_up","move_down")
+	$TokensContainer.global_rotation = 0
 	if input_vector.length() > 1:
 		input_vector = input_vector.normalized()
 	if !G.mouse_controls:
@@ -178,3 +182,14 @@ func _on_enemy_died(enemy: Enemy):
 	G.remaining_time += get_attribute(Attributes.KILL_TIME)
 	if enemy.grant_combo_on_death > 0:
 		current_combo += enemy.grant_combo_on_death
+
+func _on_acquire_token(amount: int):
+	print("Token Acquired")
+	if token_tween:
+		token_tween.kill()
+	token_tween = create_tween()
+	token_tween.tween_property(tokens_counter, "modulate", Color(1,1,1,0.5),Vector4(1,1,1,tokens_counter.modulate.a).distance_to(Vector4(1,1,1,.5)))
+	for i in amount:
+		token_tween.tween_property(tokens_counter, "text", str(tokens+1+i),.5)
+	token_tween.tween_property(tokens_counter, "modulate", Color(1,1,1,0),1)
+	tokens += amount

@@ -11,7 +11,8 @@ enum Directions {
 @export var has_enemies := true
 
 
-
+var tokens_on_clear: int = 0
+var inverted := false
 var entrance_direction: Directions:
 	set(value):
 		print("Entrance: "+Directions.find_key(value))
@@ -29,12 +30,16 @@ const TRANSITION_TIME = 1.0
 const ENTRANCE_PLACEMENT_OFFSET = 20
 
 signal room_exited(room: Room,direction: Room.Directions)
+signal room_cleared(room: Room)
+signal acquire_token(amount: int)
 
 func leave():
 	queue_free()
 
 func _ready():
 	room_exited.connect(E._on_room_exited)
+	room_cleared.connect(E._on_room_cleared)
+	acquire_token.connect(E._on_acquire_token)
 	E.enemy_died.connect(_on_enemy_died)
 	if !entrance_direction: return
 	var entrance_player_position: Vector2
@@ -55,6 +60,11 @@ func _ready():
 		#print('has item')
 		_contract_effect()
 	
+
+func _room_cleared():
+	room_cleared.emit(self)
+	if tokens_on_clear != 0:
+		acquire_token.emit(tokens_on_clear)
 
 func _contract_effect():
 	print("Contract Effect")
@@ -85,3 +95,4 @@ func _on_enemy_died(_enemy: Enemy):
 		if enemy.is_alive:
 			return
 	has_enemies = false
+	_room_cleared()

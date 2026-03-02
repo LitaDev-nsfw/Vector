@@ -7,6 +7,8 @@ signal health_changed(new_health: int)
 signal change_halt_actions(halt: bool)
 signal show_selection(pool: ItemSelection.Pools)
 signal acquire_item(item: Item)
+signal room_cleared(room: Room)
+signal acquire_token(amount: int)
 
 func _on_room_exited(room: Room, direction: Room.Directions):
 	room_exited.emit(room,direction)
@@ -28,3 +30,10 @@ func _on_show_selection(pool: ItemSelection.Pools):
 
 func _on_acquire_item(item: Item):
 	acquire_item.emit(item)
+
+func _on_room_cleared(room: Room):
+	room_cleared.emit(room)
+
+func _on_acquire_token(amount: int):
+	if amount != 0:
+		acquire_token.emit(amount)
