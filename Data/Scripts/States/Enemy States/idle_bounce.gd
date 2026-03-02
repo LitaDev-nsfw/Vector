@@ -31,7 +31,7 @@ func update(_delta: float):
 		if !detection_hitbox.has_overlapping_bodies():
 			return
 		var player_found = false
-		for body in detection_hitbox.get_overlapping_bodies():
+		for body in detection_hitbox.get_overlapwdasping_bodies():
 			if body is Player:
 				player_found = body
 				break
