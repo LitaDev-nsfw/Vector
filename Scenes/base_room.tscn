@@ -109,6 +109,30 @@ texture_region_size = Vector2i(32, 32)
 1:3/0/terrain = 0
 1:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -14, 14, -14, 14, 14, -16, 14)
 1:3/0/terrains_peering_bit/left_side = 0
+2:2/0 = 0
+2:2/0/terrain_set = 0
+2:2/0/terrain = 0
+2:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-14, -16, 14, -16, 14, 16, -14, 16)
+2:2/0/terrains_peering_bit/bottom_side = 0
+2:2/0/terrains_peering_bit/top_side = 0
+3:2/0 = 0
+3:2/0/terrain_set = 0
+3:2/0/terrain = 0
+3:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(16, -14, 16, 14, -16, 14, -16, -14)
+3:2/0/terrains_peering_bit/right_side = 0
+3:2/0/terrains_peering_bit/left_side = 0
+3:3/0 = 0
+3:3/0/terrain_set = 0
+3:3/0/terrain = 0
+3:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(16, -14, 16, 14, -16, 14, -16, -14)
+3:3/0/terrains_peering_bit/right_side = 0
+3:3/0/terrains_peering_bit/left_side = 0
+2:3/0 = 0
+2:3/0/terrain_set = 0
+2:3/0/terrain = 0
+2:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-14, -16, 14, -16, 14, 16, -14, 16)
+2:3/0/terrains_peering_bit/bottom_side = 0
+2:3/0/terrains_peering_bit/top_side = 0
 
 [sub_resource type="TileSet" id="TileSet_85qyi"]
 tile_size = Vector2i(32, 32)
@@ -135,41 +159,41 @@ tile_set = SubResource("TileSet_85qyi")
 [node name="Exits" type="Node2D" parent="." unique_id=887774351]
 
 [node name="NorthExitArea" type="Area2D" parent="Exits" unique_id=149224160]
-position = Vector2(-16, -207)
+position = Vector2(-16, -208)
 collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Exits/NorthExitArea" unique_id=1813766084]
-position = Vector2(0, -5)
+position = Vector2(0, -8)
 shape = SubResource("RectangleShape2D_rqups")
 
 [node name="EastExitArea" type="Area2D" parent="Exits" unique_id=362935898]
-position = Vector2(271, -48)
+position = Vector2(272, -48)
 rotation = 1.5707964
 collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Exits/EastExitArea" unique_id=164746692]
-position = Vector2(0, -5)
+position = Vector2(-1.3113416e-07, -8)
 shape = SubResource("RectangleShape2D_rqups")
 
 [node name="SouthExitArea" type="Area2D" parent="Exits" unique_id=200810546]
-position = Vector2(-16, 121)
+position = Vector2(-16, 112)
 collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Exits/SouthExitArea" unique_id=355011059]
-position = Vector2(0, -5)
+position = Vector2(0, 8)
 shape = SubResource("RectangleShape2D_rqups")
 
 [node name="WestExitArea" type="Area2D" parent="Exits" unique_id=464073131]
-position = Vector2(-313, -48)
+position = Vector2(-304, -48)
 rotation = 1.5707964
 collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Exits/WestExitArea" unique_id=1158159116]
-position = Vector2(0, -5)
+position = Vector2(5.68248e-07, 8)
 shape = SubResource("RectangleShape2D_rqups")
 
 [node name="SpecialExitMarkers" type="Node2D" parent="." unique_id=1365617386]
