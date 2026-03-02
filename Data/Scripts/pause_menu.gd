@@ -30,3 +30,8 @@ func _on_options_pressed() -> void:
 
 func _on_mouse_controls_toggled(toggled_on: bool) -> void:
 	G.mouse_controls = toggled_on
+
+
+func _on_back_pressed() -> void:
+	options_page.visible = false
+	default_page.visible = true
