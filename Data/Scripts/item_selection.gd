@@ -32,7 +32,6 @@ signal acquire_item(item: Item)
 func _ready():
 	E.show_selection.connect(_on_show_selection)
 	acquire_item.connect(E._on_acquire_item)
-	_on_show_selection(Pools.POOL_BOSS)
 
 
 func _split_rarities(items: Array[Item])-> Dictionary[ItemManager.Rarities,Array]:

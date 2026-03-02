@@ -17,7 +17,10 @@ func _process(_delta: float) -> void:
 	reticle_sprite.visible = true
 	ray_cast.global_position = get_parent().global_position
 	ray_cast.rotation = get_parent().aim_vector.angle()
-	if ray_cast.is_colliding():
-		reticle_sprite.global_position = get_parent().global_position + (ray_cast.get_collision_point() - get_parent().global_position)*.9
+	if !G.mouse_controls:
+		if ray_cast.is_colliding():
+			reticle_sprite.global_position = get_parent().global_position + (ray_cast.get_collision_point() - get_parent().global_position)*.9
+		else:
+			reticle_sprite.global_position = get_parent().global_position + get_parent().aim_vector * reticle_max_distance
 	else:
-		reticle_sprite.global_position = get_parent().global_position + get_parent().aim_vector * reticle_max_distance
+		reticle_sprite.global_position = reticle_sprite.get_global_mouse_position()
