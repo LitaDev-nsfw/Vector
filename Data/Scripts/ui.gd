@@ -26,6 +26,11 @@ func _process(_delta: float):
 		combo_meter.visible = true
 		combo_meter.max_value = player.get_current_combo_life()
 		combo_meter.value = player.current_combo_life
+	if Input.is_action_just_pressed("pause"):
+		print("Test")
+		$PauseMenu.just_pressed = true
+		$PauseMenu.visible = true
+		get_tree().paused = true
 
 func _on_health_changed(new_health:int):
 	for child in health_bar.get_children():

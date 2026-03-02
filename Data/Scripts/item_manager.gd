@@ -79,6 +79,7 @@ func _apply_item(item: Item, static_only = false):
 			return
 		elif effect.subtypes.has("STATIC"):
 			static_effects.append(effect)
+			return
 		match effect.id:
 			"fire_rate_bonus":
 				player.fire_rate_bonus += effect.amount

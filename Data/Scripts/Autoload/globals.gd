@@ -2,7 +2,7 @@ extends Node
 
 
 
-
+var mouse_controls = false
 var halt_actions = false:
 	set(value):
 		halt_actions = value

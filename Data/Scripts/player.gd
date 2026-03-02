@@ -121,8 +121,8 @@ func get_attribute(attribute: Attributes):
 func inflict_effect(effect: Shot.ShotEffects, duration = 0):
 	match effect:
 		Shot.ShotEffects.FREEZE:
-			var tween = create_tween()
 			frozen = true
+			var tween = create_tween()
 			tween.tween_property(self,"frozen",false,duration)
 
 func take_damage():
@@ -159,7 +159,10 @@ func _process(delta: float) -> void:
 	input_vector = Input.get_vector("move_left","move_right","move_up","move_down")
 	if input_vector.length() > 1:
 		input_vector = input_vector.normalized()
-	aim_vector = Input.get_vector("aim_left","aim_right","aim_up","aim_down").normalized()
+	if !G.mouse_controls:
+		aim_vector = Input.get_vector("aim_left","aim_right","aim_up","aim_down").normalized()
+	else:
+		aim_vector = global_position.direction_to(get_global_mouse_position())
 	#print("Combo: "+str(current_combo)+" Life: "+str(current_combo_life))
 	
 	##Halt Actions Early Return
