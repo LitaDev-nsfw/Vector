@@ -260,9 +260,10 @@ offset_bottom = 15.5
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
-text = "Options"
+text = "Back"
 
 [connection signal="pressed" from="UI/ItemSelectionScreen/PanelContainer/MarginContainer/VBoxContainer/SkipButtonContainer/SkipButton" to="UI/ItemSelectionScreen" method="_on_skip_button_pressed"]
 [connection signal="pressed" from="UI/PauseMenu/PanelContainer/MarginContainer/DefaultPage/ResumeContainer/Resume" to="UI/PauseMenu" method="_on_resume_pressed"]
 [connection signal="pressed" from="UI/PauseMenu/PanelContainer/MarginContainer/DefaultPage/OptionsContainer/Options" to="UI/PauseMenu" method="_on_options_pressed"]
 [connection signal="toggled" from="UI/PauseMenu/PanelContainer/MarginContainer/OptionsPage/MouseControlsToggleContainer/MouseControlsToggle" to="UI/PauseMenu" method="_on_mouse_controls_toggled"]
+[connection signal="pressed" from="UI/PauseMenu/PanelContainer/MarginContainer/OptionsPage/BackContainer/Back" to="UI/PauseMenu" method="_on_back_pressed"]
