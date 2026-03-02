@@ -6,12 +6,22 @@ enum Pools {
 }
 
 
-
-var weights = {
+var rarity_colors = {
+	ItemManager.Rarities.COMMON: Color.GAINSBORO,
+	ItemManager.Rarities.UNCOMMON: Color.LIME_GREEN,
+	ItemManager.Rarities.RARE: Color.DODGER_BLUE,
+	ItemManager.Rarities.LEGENDARY: Color.GOLDENROD,
+}
+var weights: Dictionary[ItemManager.Rarities, int] = {
 	ItemManager.Rarities.COMMON: 50,
 	ItemManager.Rarities.UNCOMMON: 30,
 	ItemManager.Rarities.RARE: 15,
 	ItemManager.Rarities.LEGENDARY: 5,
+}
+var token_weight_increases: Dictionary[ItemManager.Rarities, int] = {
+	ItemManager.Rarities.UNCOMMON: 4,
+	ItemManager.Rarities.RARE: 2,
+	ItemManager.Rarities.LEGENDARY: 1,
 }
 
 var selections_to_make: int
@@ -22,7 +32,7 @@ var skip_attempted = false
 @onready var item_select_box_scene = preload("res://Scenes/item_select_box.tscn")
 @onready var player: Player = get_tree().get_first_node_in_group("Player")
 @onready var skip_button: Button = find_child("SkipButton")
-
+@onready var rarities_container: HBoxContainer = find_child("Rarities")
 
 const BASE_CHOICES = 3
 const BASE_SELECTIONS = 1
@@ -32,6 +42,10 @@ signal acquire_item(item: Item)
 func _ready():
 	E.show_selection.connect(_on_show_selection)
 	acquire_item.connect(E._on_acquire_item)
+	for label: Label in rarities_container.get_children():
+		var rarity = ItemManager.Rarities[label.name]
+		label.add_theme_color_override("font_color",rarity_colors[rarity])
+	_on_show_selection(Pools.POOL_BOSS)
 
 
 func _split_rarities(items: Array[Item])-> Dictionary[ItemManager.Rarities,Array]:
@@ -46,6 +60,7 @@ func _split_rarities(items: Array[Item])-> Dictionary[ItemManager.Rarities,Array
 	return dict
 
 func _on_show_selection(pool: Pools):
+	get_tree().paused = true
 	for node in item_selections.get_children():
 		item_selections.remove_child(node)
 		node.queue_free()
@@ -65,8 +80,15 @@ func _on_show_selection(pool: Pools):
 			for rarity in effect.rarities:
 				modified_weights[player.item_manager.match_item_rarity(rarity)] *= effect.amount
 	var weight_sum = 0
+	for token in player.tokens:
+		for rarity in token_weight_increases:
+			modified_weights[rarity] += token_weight_increases[rarity]
+	player.tokens = 0
 	for weight in modified_weights:
 		weight_sum += modified_weights[weight]
+	for label in rarities_container.get_children():
+		var rarity = ItemManager.Rarities[label.name]
+		label.text = str(roundi((float(modified_weights[rarity])/weight_sum)*100)) + "%"
 	var choices: Array[Item] = []
 	for i in (BASE_CHOICES + choices_modifier):
 		print("Generating Choice")
@@ -85,12 +107,15 @@ func _on_show_selection(pool: Pools):
 		var item_select_box_node: ItemSelectBox = item_select_box_scene.instantiate()
 		item_select_box_node.item = choice
 		item_selections.add_child(item_select_box_node)
+		item_select_box_node.color = rarity_colors[player.item_manager.match_item_rarity(choice.entry.rarity)]
 		item_select_box_node.select_button.pressed.connect(_on_item_selected.bind(choice))
+	
 
 func _on_item_selected(item: Item):
 	if selections_to_make > 1:
 		selections_to_make -= 1
 	else:
+		get_tree().paused = false
 		visible = false
 	skip_attempted = false
 	acquire_item.emit(item)
@@ -99,6 +124,7 @@ func _on_item_selected(item: Item):
 func _on_skip_button_pressed() -> void:
 	if skip_attempted:
 		skip_attempted = false
+		get_tree().paused = false
 		visible = false
 	else:
 		skip_button.text = "Confirm?"

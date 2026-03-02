@@ -1,14 +1,13 @@
 extends VBoxContainer
 class_name ItemSelectBox
 
-var rarity_colors = {
-	ItemManager.Rarities.COMMON: Color.GAINSBORO,
-	ItemManager.Rarities.UNCOMMON: Color.LIME_GREEN,
-	ItemManager.Rarities.RARE: Color.DODGER_BLUE,
-	ItemManager.Rarities.LEGENDARY: Color.GOLDENROD,
-}
+
 
 var item: Item
+var color: Color:
+	set(value):
+		color = value
+		ascii_label.add_theme_color_override("default_color",color)
 
 @onready var ascii_label: RichTextLabel = find_child("ASCII")
 @onready var player: Player = get_tree().get_first_node_in_group("Player")
@@ -27,7 +26,4 @@ func _ready():
 		text_file.close()
 	else:
 		push_error("NO ASCII SPRITE FOR: "+item.id)
-	var rarity: ItemManager.Rarities = player.item_manager.match_item_rarity(item.entry.rarity)
-	print("Rarity: "+ItemManager.Rarities.find_key(rarity))
-	ascii_label.add_theme_color_override("default_color",rarity_colors[rarity])
 	
