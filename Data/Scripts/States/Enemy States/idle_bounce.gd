@@ -1,11 +1,17 @@
 extends State
+## An Idle State which defines a movement pattern of bouncing off walls.
 
+## The Area2D which defines the detection area of the enemy.
 @export var detection_hitbox: Area2D
+## The RayCast used to test if the Enemy can see the player.
 @export var line_of_sight: RayCast2D
+## The initial vector direction for the Enemy to follow in its bouncing AI.
 @export var initial_direction: Vector2 = Vector2(1,1)
 
+## The current movement direction
 var direction = initial_direction
 
+## The Enemy that owns the state
 @onready var state_owner: Enemy = get_parent().get_parent()
 @onready var player: Player = get_tree().get_first_node_in_group("Player")
 

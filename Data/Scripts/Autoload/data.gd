@@ -4,15 +4,17 @@ extends Node
 ## Autoload for all JSON Data handling and queries.
 # Uses the reference "D", in similar scheme to all autoloads.
 
+## Holds all stored JSON data
+var json: Dictionary[String,Dictionary] = {}
 
-var json = {}
-
+## Creates an item from the provided Item ID
 func create_item(item_id: String):
 	var item := Item.new()
 	item.id = item_id
 	item.entry = get_entry(item_id)
 	return item
 
+#region Fetching Functions
 ## Returns all ids of a given type
 func get_all_type(type: String, include_base = false) -> Array[String]:
 	var ids: Array[String] = []
@@ -31,6 +33,7 @@ func get_all_subtype(subtype: String, include_base = false) -> Array[String]:
 				ids.append(json[item].id)
 	return ids
 
+## Returns all ids possessing a certain subtype, from a list of ids. This should be used over get_all_subtype as its quicker than iterating over the entire json dict
 func get_all_subtype_from_list(subtype: String, list: Array[String], include_base = false) -> Array[String]:
 	var ids: Array[String] = []
 	for item in list:
@@ -47,8 +50,10 @@ func get_entry(id:String):
 	if not json.has(id):
 		push_error("Invalid ID: " + id)
 		return null
+	# A given entry can have a "copy-from" field which means to inherit all values from the id, and to override the defined values. That copy-from can have its own copy-from. This variable contains the list of each copy-from's copy-from until the final copy-from is reached
 	var copy_from_list = []
 	var current_check_id = id
+	# This for loop iterates down until the final base copy-from is reached
 	while true:
 		copy_from_list.append(current_check_id)
 		if not json.has(current_check_id):
@@ -57,22 +62,26 @@ func get_entry(id:String):
 			current_check_id = json[current_check_id].copy_from
 		else:
 			break
-	#print("Copy from list: " + str(copy_from_list))
+	# The list is reversed so that the entry can be built up, starting with the deepest copy-from
 	copy_from_list.reverse()
 	var constructed_entry = {}
+	# The final entry is built up entry by entry
 	for entry:String in copy_from_list:
-		#print("Processing Entry: "+entry)
+		# Iterates key by key, adding, subtracting, or overriding.
 		for key:String in json[entry]:
+			# A key beginning with + can only correlate to an array, and it means to add the values listed to the inherited array, rather than overwrite the original array completely
 			if key.left(1) == "+":
 				if constructed_entry.has(key.right(-1)):
 					constructed_entry[key.right(-1)].append_array(json[entry][key])
 					print(key.right(-1) + ": " + str(constructed_entry[key.right(-1)]))
 				else:
 					constructed_entry[key.right(-1)] = json[entry][key].duplicate()
+			# The same is true for - but it subtracts from the inherited array instead of adding
 			elif key.left(1) == "-":
 				if constructed_entry.has(key.right(-1)):
 					for item in json[entry][key]:
 						constructed_entry[key.right(-1)].erase(item)
+			# This simply overrides the original value, if it exists.
 			else:
 				if json[entry][key] is Array:
 					constructed_entry[key] = json[entry][key].duplicate()
@@ -95,6 +104,8 @@ func get_entry_name_string(entry: Dictionary, plural = false) -> String:
 		else:
 			return entry.name["str"]+"s"
 	return "No name"
+#endregion
+
 
 ## Imports the json data
 func _ready():
@@ -103,31 +114,34 @@ func _ready():
 
 
 ## iterates through the Data/Json folder and reads all json files into a single json dict.
-# This means that any entry can be anywhere in the json files. A gun need not be in ranged_weapons.json, but it should be!
-# But a gun in abilities.json will still be imported with no issues, as long as its "type" is "weapon", etc.
+# This means that any entry can be anywhere in the json files. An item need not be in items.json, but it should be!
+# But an item in another file will still be imported with no issues, as long as its type is "ITEM", etc.
 func _initialize_json():
 	var json_dir := DirAccess.open("res://Data/Json/")
+	# It can search through sub-folders, so tracking the current directory is necessary
 	var current_dir = "res://Data/Json/"
+	# Completed directories need to be tracked as well. Once the highest, base directory is added to the completed list, the while loop breaks.
 	var completed_dirs = []
 	while true:
 		if completed_dirs.has("res://Data/Json/"):
 			break
+		# Bounce means jump out of the current folder and go back up a level
 		var bounce = false
+		# Hold means keep the current folder, and check for new sub-directories. Hold = false means process the files in the current folder
 		var hold = false
-		#print(json_dir.get_current_dir())
+		# Gets an array of all files and directories
 		var files = json_dir.get_files()
 		var dirs = json_dir.get_directories()
-		#print(str(dirs)+str(files))
+		# Starts by processing each dir into an absolute dir string.
 		for dir in dirs:
 			var dir_string = current_dir+dir+"/"
-			#print("Step 1")
-			#print(dir_string + str(completed_dirs))
+			# If the dir has not been searched, it becomes the new directory.
 			if not dir_string in completed_dirs:
 				#print("Step 2")
 				json_dir = DirAccess.open(dir_string)
 				current_dir = json_dir.get_current_dir()
 				hold = true
-		#print("breaks out")
+		#Hold being false means there were no subdirectories, or we've just bounced out of a completed dir, so files in the current folder are processed
 		if not hold:
 			#print("Step 3")
 			for file in files:
@@ -137,20 +151,18 @@ func _initialize_json():
 				var raw_json = JSON.parse_string(file.get_as_text())
 				for key in raw_json:
 					json[key.id] = key
-			#print("Step 4")
 			completed_dirs.append(current_dir)
-			#print("help: "+current_dir+str(completed_dirs))
+			# Bounce is set to true since the current folder has been fully processed
 			bounce = true
+		# Bounce being true means all files processed, which requires no unexplored sub-directories, meaning its safe to go back to the parent level
 		if bounce:
-			#print(current_dir)
+			#A slightly hacky way of cutting off the last subfolder and its "/"
 			var dir_string_array = current_dir.split("/")
 			dir_string_array.remove_at(dir_string_array.size()-1)
 			dir_string_array.remove_at(dir_string_array.size()-1)
+			# The chopped string is reconstructed
 			var constructed_dir_string = ""
-			#print(dir_string_array)
 			for folder in dir_string_array:
 				constructed_dir_string += folder+"/"
-			#print(constructed_dir_string)
 			json_dir = DirAccess.open(constructed_dir_string)
 			current_dir = json_dir.get_current_dir()
-			#print("current_dir: "+ current_dir)
