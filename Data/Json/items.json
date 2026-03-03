@@ -4,14 +4,14 @@
 		"name": {"str_sp": "Crying Onion"},
 		"type": "ITEM",
 		"subtypes": ["POOL_BOSS"],
-		"description": "+5 fire rate",
+		"description": "+3 fire rate",
 		"number": 1,
 		"priority": 1,
 		"rarity": "COMMON",
 		"effects": [
 			{
 				"id": "fire_rate_bonus",
-				"amount": 5,
+				"amount": 3,
 				"subtypes": ["STAT_MODIFIER","BUFF"],
 			}
 		],
@@ -97,7 +97,7 @@
 			},
 		]
 	},
-		{
+	{
 		"id": "contract",
 		"name": {"str_sp": "Contract"},
 		"type": "ITEM",
@@ -107,5 +107,56 @@
 		"priority": 1,
 		"rarity": "LEGENDARY",
 		"effects": []
+	},
+	{
+		"id": "doubled_barrel",
+		"name": {"str_sp": "Doubled Barrel"},
+		"type": "ITEM",
+		"subtypes": ["POOL_BOSS"],
+		"description": "Fire two projectiles per shot instead of one.",
+		"number": 7,
+		"priority": 1,
+		"rarity": "RARE",
+		"effects": [
+			{
+				"id": "shot_type",
+				"type": "DOUBLE",
+				"subtypes": ["STATIC"],
+			},
+		]
+	},
+	{
+		"id": "spread_shot",
+		"name": {"str_sp": "Spread Shot"},
+		"type": "ITEM",
+		"subtypes": ["POOL_BOSS"],
+		"description": "Fire three projectiles per shot instead of one.",
+		"number": 8,
+		"priority": 2,
+		"rarity": "RARE",
+		"effects": [
+			{
+				"id": "shot_type",
+				"type": "TRIPLE",
+				"subtypes": ["STATIC"],
+			},
+		]
+	},
+	{
+		"id": "pepperbox",
+		"name": {"str_sp": "Pepperbox"},
+		"type": "ITEM",
+		"subtypes": ["POOL_BOSS"],
+		"description": "Fire a spread of four projectiles per shot instead of one.",
+		"number": 9,
+		"priority": 3,
+		"rarity": "LEGENDARY",
+		"effects": [
+			{
+				"id": "shot_type",
+				"type": "QUAD",
+				"subtypes": ["STATIC"],
+			},
+		]
 	},
 ]

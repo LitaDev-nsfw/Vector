@@ -17,9 +17,14 @@ enum ShotTypes {
 	SINGLE,
 	DOUBLE,
 	TRIPLE,
+	QUAD,
+}
+
+enum WeaponTypes {
+	STANDARD,
 	SHOTGUN,
-	DOUBLE_SHOTGUN,
-	TRIPLE_SHOTGUN,
+	LASER,
+	MINIGUN,
 }
 
 @export_category("Limits")
@@ -56,9 +61,13 @@ enum ShotTypes {
 @export var kill_time_mult: float = 1.0
 @export var damage_combo_meter_loss_modifier: float = 1.0
 
+@export_category("Weapon and Shot")
+@export var shot_type: ShotTypes = ShotTypes.SINGLE
+@export var weapon_type: WeaponTypes = WeaponTypes.STANDARD
+
+
 var input_vector: Vector2
 var aim_vector: Vector2
-var shot_type: ShotTypes = ShotTypes.SINGLE
 var current_combo: float = 1.0:
 	set(value):
 		current_combo = max(value,1.0)
@@ -83,8 +92,28 @@ const BASE_SHOT_SPEED = 400
 const BASE_DAMAGE_COMBO_METER_LOSS = 1
 const GROUND_ACCELERATION = 10000000
 const BASE_INVULN_TIME = 1.0
+const DOUBLE_SHOT_SPREAD = 5.0
 
 signal health_changed(new_health: int)
+
+func create_shot() -> Shot:
+	var shot: Shot
+	shot = shot_scene.instantiate()
+	shot.shot_owner = self
+	shot.shot_speed = get_attribute(Attributes.SHOT_SPEED)
+	shot.team = Shot.Teams.PLAYER
+	match weapon_type:
+		WeaponTypes.STANDARD: shot.bullet_type = Shot.BulletTypes.STANDARD
+		WeaponTypes.SHOTGUN: shot.bullet_type = Shot.BulletTypes.SHOTGUN
+	##Shot Modifiers
+	var shot_modifiers = item_manager.get_all_static_of_subtype("SHOT_MODIFIER")
+	if !shot_modifiers:
+		return shot
+	for effect in shot_modifiers:
+		match effect.id:
+			"freeze_shots":
+				shot.on_hit_effects.append(effect)
+	return shot
 
 func shoot():
 	if G.halt_actions:
@@ -93,23 +122,52 @@ func shoot():
 	var shots: Array[Shot] = []
 	match shot_type:
 		ShotTypes.SINGLE:
-			var shot: Shot = shot_scene.instantiate()
-			shot.shot_owner = self
-			shot.shot_speed = get_attribute(Attributes.SHOT_SPEED)
-			shot.team = Shot.Teams.PLAYER
-			shot.bullet_type = Shot.BulletTypes.STANDARD
-			get_parent().add_child(shot)
+			var shot: Shot = create_shot()
+			get_tree().root.add_child(shot)
 			shot.global_position = global_position
 			shot.vector = aim_vector
 			shots.append(shot)
-	var shot_modifiers = item_manager.get_all_static_of_subtype("SHOT_MODIFIER")
-	if !shot_modifiers:
-		return
-	for shot in shots:
-		for effect in shot_modifiers:
-			match effect.id:
-				"freeze_shots":
-					shot.on_hit_effects.append(effect)
+		ShotTypes.DOUBLE:
+			var shot: Shot = create_shot()
+			get_tree().root.add_child(shot)
+			shot.global_position = global_position+(aim_vector.rotated(.5*PI)*DOUBLE_SHOT_SPREAD)
+			shot.vector = aim_vector
+			shot = create_shot()
+			get_tree().root.add_child(shot)
+			shot.global_position = global_position-(aim_vector.rotated(.5*PI)*DOUBLE_SHOT_SPREAD)
+			shot.vector = aim_vector
+		ShotTypes.TRIPLE:
+			var shot: Shot = create_shot()
+			get_tree().root.add_child(shot)
+			shot.global_position = global_position
+			shot.vector = aim_vector
+			shot = create_shot()
+			get_tree().root.add_child(shot)
+			shot.global_position = global_position
+			shot.vector = aim_vector.rotated(0.15*PI)
+			shot = create_shot()
+			get_tree().root.add_child(shot)
+			shot.global_position = global_position
+			shot.vector = aim_vector.rotated(-0.15*PI)
+		ShotTypes.QUAD:
+			var shot: Shot = create_shot()
+			get_tree().root.add_child(shot)
+			shot.global_position = global_position
+			shot.vector = aim_vector.rotated(0.05*PI)
+			shot = create_shot()
+			get_tree().root.add_child(shot)
+			shot.global_position = global_position
+			shot.vector = aim_vector.rotated(-0.05*PI)
+			shot = create_shot()
+			get_tree().root.add_child(shot)
+			shot.global_position = global_position
+			shot.vector = aim_vector.rotated(0.15*PI)
+			shot = create_shot()
+			get_tree().root.add_child(shot)
+			shot.global_position = global_position
+			shot.vector = aim_vector.rotated(-0.15*PI)
+			
+	
 
 func get_attribute(attribute: Attributes):
 	match attribute:

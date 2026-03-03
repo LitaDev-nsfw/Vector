@@ -77,16 +77,18 @@ func _apply_item(item: Item, static_only = false):
 	for effect in item.entry.effects:
 		if static_only and !effect.subtypes.has("STATIC"):
 			return
-		elif effect.subtypes.has("STATIC"):
+		if effect.subtypes.has("STATIC"):
 			static_effects.append(effect)
-			return
-		match effect.id:
-			"fire_rate_bonus":
-				player.fire_rate_bonus += effect.amount
-			"fire_rate_mult":
-				player.fire_rate_mult *= effect.amount
-			"kill_time_bonus":
-				player.kill_time_bonus += effect.amount
-			"kill_time_mult":
-				player.kill_time_mult *= effect.amount
-			_: push_error("Effect doesn't exist: "+effect.id)
+			match effect.id:
+				"shot_type": player.shot_type = player.ShotTypes[effect.type]
+		else:
+			match effect.id:
+				"fire_rate_bonus":
+					player.fire_rate_bonus += effect.amount
+				"fire_rate_mult":
+					player.fire_rate_mult *= effect.amount
+				"kill_time_bonus":
+					player.kill_time_bonus += effect.amount
+				"kill_time_mult":
+					player.kill_time_mult *= effect.amount
+				_: push_error("Effect doesn't exist: "+effect.id)
