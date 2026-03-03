@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://c2ms6acjy0y1l" path="res://Data/Scripts/enemy.gd" id="1_ghaa6"]
 [ext_resource type="Script" uid="uid://c3xy6ebvr4cw7" path="res://Data/Scripts/state_machine.gd" id="2_1dp5w"]
 [ext_resource type="Shader" uid="uid://bgn2qiarsaxxu" path="res://Assets/Resources/Shaders/normal_map.gdshader" id="3_0830c"]
+[ext_resource type="SpriteFrames" uid="uid://c6gqdunsk3f4y" path="res://Assets/Resources/SpriteFrames/cube_enemy.tres" id="4_287tu"]
 [ext_resource type="Texture2D" uid="uid://buglw34iow0ii" path="res://Assets/Sprites/player_normals_sheet.png" id="4_ghaa6"]
 
 [sub_resource type="Animation" id="Animation_0830c"]
@@ -112,6 +113,7 @@ shape = SubResource("CircleShape2D_mucmn")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=1151198309]
 material = SubResource("ShaderMaterial_1dp5w")
+sprite_frames = ExtResource("4_287tu")
 animation = &""
 autoplay = "idle"
 

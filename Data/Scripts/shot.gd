@@ -34,6 +34,7 @@ func _ready():
 		anim_name += "enemy"
 	else:
 		anim_name += "friendly"
+	print(anim_name)
 	play(anim_name)
 
 func _process(delta: float) -> void:
