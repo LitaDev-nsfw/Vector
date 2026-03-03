@@ -42,8 +42,9 @@ func update(_delta: float):
 	if attack_windup_timer and !attack_windup_timer.is_stopped():
 		return
 	if !attack_once or !has_attacked:
-		if state_owner.shoot(player):
-			attack_delay_timer.start(state_owner.attack_delay)
+		state_owner.target = player
+		if state_owner.pre_shoot():
+			attack_delay_timer.start(state_owner.BASE_FIRE_DELAY/state_owner.attack_delay)
 			has_attacked = true
 	if attack_once:
 		if state_owner.fires_lasers:

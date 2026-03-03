@@ -8,6 +8,7 @@
 radius = 166.07529
 
 [node name="Wanderer" unique_id=1631603036 instance=ExtResource("1_gm1gg")]
+attack_delay = 2.0
 
 [node name="StateMachine" parent="." index="2" unique_id=206549298 node_paths=PackedStringArray("default_state")]
 default_state = NodePath("Idle")
@@ -25,7 +26,7 @@ attack_delay_timer = NodePath("../../AttackDelay")
 line_of_sight = NodePath("../../LineOfSight")
 metadata/_custom_type_script = "uid://4yulkrqdi05f"
 
-[node name="Sprite" parent="." index="4" unique_id=1151198309]
+[node name="Sprite" parent="." index="5" unique_id=1151198309]
 modulate = Color(0.5019608, 1, 1, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionHitbox" parent_id_path=PackedInt32Array(187940754) index="0" unique_id=994001958]

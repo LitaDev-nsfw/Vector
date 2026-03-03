@@ -2,12 +2,17 @@
 
 [ext_resource type="PackedScene" uid="uid://du3qu1tudrtpa" path="res://Scenes/enemy.tscn" id="1_4f0kh"]
 [ext_resource type="Script" uid="uid://cef51vxtrq5kc" path="res://Data/Scripts/States/Enemy States/idle_stationary.gd" id="2_8op6i"]
+[ext_resource type="SpriteFrames" uid="uid://1bml5odqo56p" path="res://Assets/Resources/SpriteFrames/diamond_enemy.tres" id="2_iapy6"]
+[ext_resource type="Texture2D" uid="uid://cch3rylvtm5tx" path="res://Assets/Sprites/sentry_normals.png" id="3_cl75e"]
 [ext_resource type="Script" uid="uid://b7taqorvmqwtu" path="res://Data/Scripts/States/Enemy States/shoot_stationary.gd" id="3_hlhf0"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8op6i"]
 radius = 181.27603
 
 [node name="SlowSentry" unique_id=1631603036 instance=ExtResource("1_4f0kh")]
+sprite_frames = ExtResource("2_iapy6")
+normal_sheet = ExtResource("3_cl75e")
+attack_delay = 2.0
 aim_type = 1
 
 [node name="StateMachine" parent="." index="2" unique_id=206549298 node_paths=PackedStringArray("default_state")]

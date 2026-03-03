@@ -10,7 +10,10 @@ enum AimTypes {
 	FOUR_WAY,
 }
 
-
+@export_category("Necessary")
+@export var sprite_frames: SpriteFrames
+@export var normal_sheet: CompressedTexture2D
+@export_category("Stats")
 @export var health: float = 20:
 	set(value):
 		health = value
@@ -38,6 +41,7 @@ enum AimTypes {
 
 var lasers: Array[Laser] = []
 var is_alive = true
+var target = CharacterBody2D
 
 ##Effects
 var frozen := false
@@ -46,14 +50,38 @@ var frozen := false
 @onready var character_sprite: AnimatedSprite2D = find_child("Sprite")
 @onready var shot_scene = preload("res://Scenes/shot.tscn")
 @onready var laser_scene = preload("res://Scenes/laser.tscn")
+@onready var animation_player: AnimationPlayer = find_child("AnimationPlayer")
+
+const BASE_FIRE_DELAY = 5.0
 
 signal enemy_died(enemy: Enemy)
 
-func shoot(target: CharacterBody2D) -> bool:
+func pre_shoot() -> bool:
 	if G.halt_actions or !$NewRoomCooldown.is_stopped():
 		return false
 	if fires_lasers and !lasers.is_empty():
 		return false
+	var shoot_delay_time = BASE_FIRE_DELAY/attack_delay
+	var animation_set = false
+	match aim_type:
+		AimTypes.TWO_WAY:
+			if sprite_frames.get_animation_names().has("shoot_two_way"):
+				character_sprite.animation = "shoot_two_way"
+				animation_set = true
+		AimTypes.FOUR_WAY:
+			if sprite_frames.get_animation_names().has("shoot_four_way"):
+				character_sprite.animation = "shoot_four_way"
+				animation_set = true
+	if !animation_set:
+		character_sprite.animation = "shoot"
+	if !fires_lasers:
+		animation_player.play("shoot",-1,1/shoot_delay_time)
+	else:
+		animation_player.play("shoot",-1,charge_up)
+		shoot()
+	return true
+
+func shoot() -> bool:
 	print("Firing")
 	match aim_type:
 		AimTypes.AIMED:
@@ -153,6 +181,7 @@ func shoot(target: CharacterBody2D) -> bool:
 				laser_node = _create_laser()
 				get_tree().root.add_child(laser_node)
 				laser_node.set_target(Vector2.UP.rotated(rotation-0.5*PI)*1000)
+	target = null
 	return true
 
 
@@ -189,6 +218,9 @@ func _create_laser() -> Laser:
 func _ready(	):
 	enemy_died.connect(E._on_enemy_died)
 	E.enemy_died.connect(_on_enemy_died)
+	character_sprite.sprite_frames = sprite_frames
+	var shader: ShaderMaterial = character_sprite.material
+	shader.set_shader_parameter("normal_map",normal_sheet)
 
 func _on_enemy_died(enemy: Enemy):
 	if flags.has("CONTRACT") and enemy != self:

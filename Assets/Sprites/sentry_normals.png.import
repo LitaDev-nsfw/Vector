@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://durj4rpbtlsa1"
-path="res://.godot/imported/cube.png-e786b0c8528aa294df0e8ae08536b7f3.ctex"
+uid="uid://cch3rylvtm5tx"
+path="res://.godot/imported/sentry_normals.png-51eadc8fa867433b063f877c707b9061.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/cube.png"
-dest_files=["res://.godot/imported/cube.png-e786b0c8528aa294df0e8ae08536b7f3.ctex"]
+source_file="res://Assets/Sprites/sentry_normals.png"
+dest_files=["res://.godot/imported/sentry_normals.png-51eadc8fa867433b063f877c707b9061.ctex"]
 
 [params]
 

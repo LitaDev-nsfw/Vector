@@ -67,7 +67,7 @@ func update(delta: float):
 			state_machine.change_state("idle")
 	if !attack_delay_timer.is_stopped():
 		return
-	if state_owner.shoot(player):
-		attack_delay_timer.start(state_owner.attack_delay)
+	if state_owner.pre_shoot():
+		attack_delay_timer.start(state_owner.BASE_FIRE_DELAY/state_owner.attack_delay)
 	if attack_once:
 		state_machine.change_state("idle")

@@ -1,15 +1,19 @@
 [gd_scene format=3 uid="uid://dem3xunko802k"]
 
 [ext_resource type="PackedScene" uid="uid://du3qu1tudrtpa" path="res://Scenes/enemy.tscn" id="1_hb4qr"]
+[ext_resource type="SpriteFrames" uid="uid://1bml5odqo56p" path="res://Assets/Resources/SpriteFrames/diamond_enemy.tres" id="2_2cdol"]
 [ext_resource type="Script" uid="uid://cef51vxtrq5kc" path="res://Data/Scripts/States/Enemy States/idle_stationary.gd" id="2_h86s8"]
 [ext_resource type="Script" uid="uid://b7taqorvmqwtu" path="res://Data/Scripts/States/Enemy States/shoot_stationary.gd" id="3_fdu7v"]
+[ext_resource type="Texture2D" uid="uid://cch3rylvtm5tx" path="res://Assets/Sprites/sentry_normals.png" id="3_hq52u"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fdu7v"]
 radius = 181.27603
 
 [node name="FastSentry" unique_id=1631603036 instance=ExtResource("1_hb4qr")]
+sprite_frames = ExtResource("2_2cdol")
+normal_sheet = ExtResource("3_hq52u")
 health = 30.0
-attack_delay = 1.0
+attack_delay = 4.0
 
 [node name="StateMachine" parent="." index="2" unique_id=206549298 node_paths=PackedStringArray("default_state")]
 default_state = NodePath("Idle")

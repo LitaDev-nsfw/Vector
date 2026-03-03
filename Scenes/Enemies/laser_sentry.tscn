@@ -1,10 +1,14 @@
 [gd_scene format=3 uid="uid://ba4u0q4x437q7"]
 
 [ext_resource type="PackedScene" uid="uid://du3qu1tudrtpa" path="res://Scenes/enemy.tscn" id="1_colk0"]
+[ext_resource type="SpriteFrames" uid="uid://c6gqdunsk3f4y" path="res://Assets/Resources/SpriteFrames/cube_enemy.tres" id="2_eqrxq"]
 [ext_resource type="Script" uid="uid://cef51vxtrq5kc" path="res://Data/Scripts/States/Enemy States/idle_stationary.gd" id="2_kmfuy"]
+[ext_resource type="Texture2D" uid="uid://cw6iyjnvulq5f" path="res://Assets/Sprites/cube_normals.png" id="3_dckin"]
 [ext_resource type="Script" uid="uid://b7taqorvmqwtu" path="res://Data/Scripts/States/Enemy States/shoot_stationary.gd" id="3_kmfuy"]
 
 [node name="LaserSentry" unique_id=1631603036 instance=ExtResource("1_colk0")]
+sprite_frames = ExtResource("2_eqrxq")
+normal_sheet = ExtResource("3_dckin")
 aim_type = 5
 fires_lasers = true
 charge_up = 2.5

@@ -15,6 +15,7 @@
 [ext_resource type="Script" uid="uid://wvhd7njm4812" path="res://Data/Scripts/reticle.gd" id="13_vfarp"]
 [ext_resource type="Texture2D" uid="uid://f0yu0ihlbnrb" path="res://Assets/Sprites/reticle.png" id="14_y6uwr"]
 [ext_resource type="Texture2D" uid="uid://dx7a63fvfgeeo" path="res://Assets/Sprites/parry.png" id="15_83xs0"]
+[ext_resource type="Texture2D" uid="uid://c006aij4kl1ap" path="res://Assets/Sprites/player_lightmap.png" id="16_fd4e3"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nnt18"]
 radius = 6.0
@@ -287,7 +288,6 @@ offset = Vector2(-20, 0)
 material = SubResource("ShaderMaterial_rku1e")
 sprite_frames = SubResource("SpriteFrames_ldgsr")
 animation = &"shoot"
-frame = 1
 
 [node name="Reticle" type="Node" parent="." unique_id=177096936]
 script = ExtResource("13_vfarp")
@@ -323,3 +323,9 @@ offset_bottom = -17.0
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=1545523482]
+color = Color(0.63529414, 1, 1, 1)
+energy = 9.75
+texture = ExtResource("16_fd4e3")
+height = 24.0
