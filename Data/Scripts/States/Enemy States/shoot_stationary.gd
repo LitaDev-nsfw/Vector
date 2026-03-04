@@ -39,7 +39,7 @@ func update(_delta: float):
 		if not line_of_sight.get_collider() is Player:
 			state_machine.change_state("idle")
 	if state_owner.optional_weapon_sprite:
-		state_owner.weapon_sprite_container.rotation = move_toward(state_owner.weapon_sprite_container.rotation, state_owner.global_position.angle_to_point(player.global_position) - 0.5*PI, head_rotation_speed)
+		state_owner.weapon_sprite_container.rotation = snapped(state_owner.global_position.angle_to_point(player.global_position) - 0.5*PI,0.01)
 		
 	if !attack_delay_timer.is_stopped():
 		return

@@ -2,7 +2,7 @@ extends State
 
 @export var detection_hitbox: Area2D
 @export var line_of_sight: RayCast2D
-@export var head_rotation_speed: float = 1.0
+@export var head_rotation_speed: float = 0.0125
 
 var target_head_rotation
 
@@ -29,8 +29,12 @@ func update(_delta: float):
 					break
 			if player_found and (!line_of_sight or line_of_sight_satisfied): move_to_attack()
 	if state_owner.optional_weapon_sprite:
+		if abs(state_owner.weapon_sprite_container.rotation - target_head_rotation) > abs(state_owner.weapon_sprite_container.rotation - (target_head_rotation - TAU)):
+			target_head_rotation = target_head_rotation - TAU
 		state_owner.weapon_sprite_container.rotation = move_toward(state_owner.weapon_sprite_container.rotation, target_head_rotation, head_rotation_speed)
-		if state_owner.weapon_sprite_container.rotation == target_head_rotation:
+		print(state_owner.weapon_sprite_container.rotation)
+		print("Target "+ str(target_head_rotation))
+		if snapped(state_owner.weapon_sprite_container.rotation,0.01) == snapped(target_head_rotation,0.01):
 			target_head_rotation = randf_range(0,TAU)
 
 func move_to_attack():

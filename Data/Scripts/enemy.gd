@@ -234,16 +234,19 @@ func _ready(	):
 
 func _process(_delta: float) -> void:
 	if optional_weapon_sprite:
-		if weapon_sprite_container.rotation < 0:
-			weapon_sprite_container.rotation += TAU
-		if weapon_sprite_container.rotation > 1.75 * PI or weapon_sprite_container.rotation < .25 * PI:
+		var pi_removed_rotation = weapon_sprite_container.rotation
+		if pi_removed_rotation < 0:
+			pi_removed_rotation += TAU
+		pi_removed_rotation /= PI
+		print(pi_removed_rotation)
+		if pi_removed_rotation > 1.75 or pi_removed_rotation < .25:
 			optional_weapon_sprite.animation = "shoot_down"
-		elif weapon_sprite_container.rotation > 1.25 * PI:
-			optional_weapon_sprite.animation = "shoot_left"
-		elif weapon_sprite_container.rotation > .75 * PI:
-			optional_weapon_sprite.animation = "shoot_up"
-		elif weapon_sprite_container.rotation > .25 * PI:
+		elif pi_removed_rotation > 1.25:
 			optional_weapon_sprite.animation = "shoot_right"
+		elif pi_removed_rotation > .75:
+			optional_weapon_sprite.animation = "shoot_up"
+		elif pi_removed_rotation > .25:
+			optional_weapon_sprite.animation = "shoot_left"
 
 func _on_enemy_died(enemy: Enemy):
 	if flags.has("CONTRACT") and enemy != self:

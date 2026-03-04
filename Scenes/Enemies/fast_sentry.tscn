@@ -30,5 +30,14 @@ detection_area = NodePath("../../DetectionHitbox")
 attack_delay_timer = NodePath("../../AttackDelay")
 metadata/_custom_type_script = "uid://4yulkrqdi05f"
 
+[node name="Sprite" parent="." index="5" unique_id=1151198309]
+sprite_frames = ExtResource("2_2cdol")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionHitbox" parent_id_path=PackedInt32Array(187940754) index="0" unique_id=1804655026]
 shape = SubResource("CircleShape2D_fdu7v")
+
+[node name="WeaponSpriteContainer" parent="." index="8" unique_id=1459535350]
+position = Vector2(0, -3)
+
+[node name="OptionalWeaponSprite" parent="WeaponSpriteContainer" index="0" unique_id=1720919820]
+position = Vector2(0, 3)
