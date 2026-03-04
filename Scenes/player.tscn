@@ -288,6 +288,7 @@ offset = Vector2(-20, 0)
 material = SubResource("ShaderMaterial_rku1e")
 sprite_frames = SubResource("SpriteFrames_ldgsr")
 animation = &"shoot"
+frame = 1
 
 [node name="Reticle" type="Node" parent="." unique_id=177096936]
 script = ExtResource("13_vfarp")

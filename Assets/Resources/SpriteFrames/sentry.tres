@@ -1,0 +1,18 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://1bml5odqo56p"]
+
+[ext_resource type="Texture2D" uid="uid://5g7qryf4is5l" path="res://Assets/Sprites/sentry_body.png" id="1_ylkxr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pptpa"]
+atlas = ExtResource("1_ylkxr")
+region = Rect2(0, 0, 32, 32)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pptpa")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]

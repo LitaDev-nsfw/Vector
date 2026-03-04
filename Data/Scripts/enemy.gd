@@ -13,6 +13,7 @@ enum AimTypes {
 @export_category("Necessary")
 @export var sprite_frames: SpriteFrames
 @export var normal_sheet: CompressedTexture2D
+@export var optional_weapon_sprite: AnimatedSprite2D
 @export_category("Stats")
 @export var health: float = 20:
 	set(value):
@@ -51,6 +52,7 @@ var frozen := false
 @onready var shot_scene = preload("res://Scenes/shot.tscn")
 @onready var laser_scene = preload("res://Scenes/laser.tscn")
 @onready var animation_player: AnimationPlayer = find_child("AnimationPlayer")
+@onready var weapon_sprite_container: Node2D = find_child("WeaponSpriteContainer")
 
 const BASE_FIRE_DELAY = 5.0
 
@@ -63,22 +65,30 @@ func pre_shoot() -> bool:
 		return false
 	var shoot_delay_time = BASE_FIRE_DELAY/attack_delay
 	var animation_set = false
-	match aim_type:
-		AimTypes.TWO_WAY:
-			if sprite_frames.get_animation_names().has("shoot_two_way"):
-				character_sprite.animation = "shoot_two_way"
-				animation_set = true
-		AimTypes.FOUR_WAY:
-			if sprite_frames.get_animation_names().has("shoot_four_way"):
-				character_sprite.animation = "shoot_four_way"
-				animation_set = true
-	if !animation_set:
-		character_sprite.animation = "shoot"
-	if !fires_lasers:
-		animation_player.play("shoot",-1,1/shoot_delay_time)
+	if !optional_weapon_sprite:
+		match aim_type:
+			AimTypes.TWO_WAY:
+				if sprite_frames.get_animation_names().has("shoot_two_way"):
+					character_sprite.animation = "shoot_two_way"
+					animation_set = true
+			AimTypes.FOUR_WAY:
+				if sprite_frames.get_animation_names().has("shoot_four_way"):
+					character_sprite.animation = "shoot_four_way"
+					animation_set = true
+		if !animation_set:
+			if sprite_frames.get_animation_names().has("shoot"):
+				character_sprite.animation = "shoot"
+		if !fires_lasers:
+			animation_player.play("shoot",-1,1/shoot_delay_time)
+		else:
+			animation_player.play("shoot",-1,charge_up)
+			shoot()
 	else:
-		animation_player.play("shoot",-1,charge_up)
-		shoot()
+		if !fires_lasers:
+			animation_player.play("shoot_head",-1,1/shoot_delay_time)
+		else:
+			animation_player.play("shoot_head",-1,charge_up)
+			shoot()
 	return true
 
 func shoot() -> bool:
@@ -221,6 +231,19 @@ func _ready(	):
 	character_sprite.sprite_frames = sprite_frames
 	var shader: ShaderMaterial = character_sprite.material
 	shader.set_shader_parameter("normal_map",normal_sheet)
+
+func _process(_delta: float) -> void:
+	if optional_weapon_sprite:
+		if weapon_sprite_container.rotation < 0:
+			weapon_sprite_container.rotation += TAU
+		if weapon_sprite_container.rotation > 1.75 * PI or weapon_sprite_container.rotation < .25 * PI:
+			optional_weapon_sprite.animation = "shoot_down"
+		elif weapon_sprite_container.rotation > 1.25 * PI:
+			optional_weapon_sprite.animation = "shoot_left"
+		elif weapon_sprite_container.rotation > .75 * PI:
+			optional_weapon_sprite.animation = "shoot_up"
+		elif weapon_sprite_container.rotation > .25 * PI:
+			optional_weapon_sprite.animation = "shoot_right"
 
 func _on_enemy_died(enemy: Enemy):
 	if flags.has("CONTRACT") and enemy != self:

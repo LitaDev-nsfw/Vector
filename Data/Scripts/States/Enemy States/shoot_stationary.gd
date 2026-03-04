@@ -9,6 +9,7 @@ extends State
 @export var attack_once: bool = false
 
 var has_attacked: bool = false
+var head_rotation_speed: float = 5.0
 
 @onready var state_owner: Enemy = get_parent().get_parent()
 @onready var player: Player = get_tree().get_first_node_in_group("Player")
@@ -37,6 +38,9 @@ func update(_delta: float):
 		line_of_sight.force_raycast_update()
 		if not line_of_sight.get_collider() is Player:
 			state_machine.change_state("idle")
+	if state_owner.optional_weapon_sprite:
+		state_owner.weapon_sprite_container.rotation = move_toward(state_owner.weapon_sprite_container.rotation, state_owner.global_position.angle_to_point(player.global_position) - 0.5*PI, head_rotation_speed)
+		
 	if !attack_delay_timer.is_stopped():
 		return
 	if attack_windup_timer and !attack_windup_timer.is_stopped():
