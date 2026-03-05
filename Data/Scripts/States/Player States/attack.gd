@@ -3,7 +3,6 @@ extends State
 @export var animation_player: AnimationPlayer
 @export var attack_timer: Timer
 @export var move_state: State
-@export var thruster_sprite: AnimatedSprite2D
 
 @onready var player: Player = get_parent().get_parent()
 
@@ -20,8 +19,6 @@ func update(delta):
 		state_machine.change_state("idle")
 	if player.input_vector:
 		move_state.do_move(delta)
-	else:
-		thruster_sprite.visible = false
 	if Input.is_action_just_pressed("dash"):
 		state_machine.change_state("dash")
 	if Input.is_action_just_pressed("parry"):

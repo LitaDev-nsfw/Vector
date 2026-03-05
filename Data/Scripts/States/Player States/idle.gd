@@ -1,13 +1,17 @@
 extends State
 
-@export var thruster_sprite: AnimatedSprite2D
 @export var animation_player: AnimationPlayer
 
 @onready var player: Player = get_parent().get_parent()
 
 
 func begin_state():
+	var input_vector = player.input_vector
+	if input_vector != Vector2():
+		state_machine.change_state("move")
+		return
 	animation_player.play("idle")
+	
 
 func physics_update(delta: float):
 	if G.halt_actions or player.frozen:
@@ -16,7 +20,6 @@ func physics_update(delta: float):
 	if input_vector != Vector2():
 		state_machine.change_state("move")
 	else:
-		thruster_sprite.visible = false
 		player.velocity = player.velocity.move_toward(Vector2(),player.GROUND_ACCELERATION*delta)
 		player.move_and_slide()
 	if player.aim_vector:

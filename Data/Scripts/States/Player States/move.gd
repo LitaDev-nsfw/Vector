@@ -1,6 +1,5 @@
 extends State
 
-@export var thruster_sprite: AnimatedSprite2D
 
 @onready var player: Player = get_parent().get_parent()
 
@@ -12,13 +11,14 @@ func do_move(delta):
 	#print("Test")
 	player.velocity = player.velocity.move_toward(player.input_vector * player.get_attribute(player.Attributes.MOVE_SPEED), player.GROUND_ACCELERATION*delta)
 	#print(player.velocity)
-	player.rotation = player.input_vector.angle()
-	thruster_sprite.visible = false
-	thruster_sprite.global_rotation = player.input_vector.angle()
+	if player.velocity.x < 0:
+		player.character_sprite.flip_h = true
+	elif player.velocity.x > 0:
+		player.character_sprite.flip_h = false
 	player.move_and_slide()
 
 func begin_state():
-	pass
+	player.character_sprite.play("walk")
 
 func physics_update(delta: float):
 	if G.halt_actions or player.frozen:

@@ -1,11 +1,13 @@
 extends Node
 
 @export var reticle_max_distance := 100
+@export var weapon_sprite: AnimatedSprite2D
 
 var target_rotation: float
 
 @onready var ray_cast: RayCast2D = find_child("RayCast2D")
 @onready var reticle_sprite: Sprite2D = find_child("Reticle")
+
 
 func _ready():
 	ray_cast.target_position = Vector2(reticle_max_distance*1.15, 0)
@@ -15,12 +17,13 @@ func _process(_delta: float) -> void:
 		reticle_sprite.visible = false
 		return
 	reticle_sprite.visible = true
-	ray_cast.global_position = get_parent().global_position
+	var offset_position = weapon_sprite.global_position
+	ray_cast.global_position = offset_position
 	ray_cast.rotation = get_parent().aim_vector.angle()
 	if !G.mouse_controls:
 		if ray_cast.is_colliding():
-			reticle_sprite.global_position = get_parent().global_position + (ray_cast.get_collision_point() - get_parent().global_position)*.9
+			reticle_sprite.global_position = offset_position + (ray_cast.get_collision_point() - offset_position)*.9
 		else:
-			reticle_sprite.global_position = get_parent().global_position + get_parent().aim_vector * reticle_max_distance
+			reticle_sprite.global_position = offset_position + get_parent().aim_vector * reticle_max_distance
 	else:
 		reticle_sprite.global_position = reticle_sprite.get_global_mouse_position()

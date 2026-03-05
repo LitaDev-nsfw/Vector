@@ -21,7 +21,7 @@ enum ShotTypes {
 }
 
 enum WeaponTypes {
-	STANDARD,
+	PISTOL,
 	SHOTGUN,
 	LASER,
 	MINIGUN,
@@ -63,7 +63,7 @@ enum WeaponTypes {
 
 @export_category("Weapon and Shot")
 @export var shot_type: ShotTypes = ShotTypes.SINGLE
-@export var weapon_type: WeaponTypes = WeaponTypes.STANDARD
+@export var weapon_type: WeaponTypes = WeaponTypes.PISTOL
 
 
 var input_vector: Vector2
@@ -85,6 +85,10 @@ var frozen := false
 @onready var item_manager: ItemManager = find_child("ItemManager")
 @onready var invuln_timer: Timer = find_child("InvulnTimer")
 @onready var tokens_counter: Label = find_child("Tokens")
+@onready var character_sprite: AnimatedSprite2D = find_child("CharacterSprite")
+@onready var weapon_sprite_container: Node2D = find_child("WeaponSpriteContainer")
+@onready var weapon_sprite: AnimatedSprite2D = find_child("WeaponSprite")
+
 
 const BASE_FIRE_DELAY = 5
 const BASE_MOVE_SPEED = 150
@@ -96,15 +100,18 @@ const DOUBLE_SHOT_SPREAD = 5.0
 
 signal health_changed(new_health: int)
 
-func create_shot() -> Shot:
+func create_shot(new_aim_vector: Vector2) -> Shot:
 	var shot: Shot
 	shot = shot_scene.instantiate()
 	shot.shot_owner = self
 	shot.shot_speed = get_attribute(Attributes.SHOT_SPEED)
 	shot.team = Shot.Teams.PLAYER
 	match weapon_type:
-		WeaponTypes.STANDARD: shot.bullet_type = Shot.BulletTypes.STANDARD
+		WeaponTypes.PISTOL: shot.bullet_type = Shot.BulletTypes.STANDARD
 		WeaponTypes.SHOTGUN: shot.bullet_type = Shot.BulletTypes.SHOTGUN
+	get_tree().root.add_child(shot)
+	shot.global_position = weapon_sprite.global_position+aim_vector*5
+	shot.vector = new_aim_vector
 	##Shot Modifiers
 	var shot_modifiers = item_manager.get_all_static_of_subtype("SHOT_MODIFIER")
 	if !shot_modifiers:
@@ -122,50 +129,31 @@ func shoot():
 	var shots: Array[Shot] = []
 	match shot_type:
 		ShotTypes.SINGLE:
-			var shot: Shot = create_shot()
-			get_tree().root.add_child(shot)
-			shot.global_position = global_position
-			shot.vector = aim_vector
+			var shot: Shot = create_shot(aim_vector)
 			shots.append(shot)
 		ShotTypes.DOUBLE:
-			var shot: Shot = create_shot()
-			get_tree().root.add_child(shot)
-			shot.global_position = global_position+(aim_vector.rotated(.5*PI)*DOUBLE_SHOT_SPREAD)
-			shot.vector = aim_vector
-			shot = create_shot()
-			get_tree().root.add_child(shot)
-			shot.global_position = global_position-(aim_vector.rotated(.5*PI)*DOUBLE_SHOT_SPREAD)
-			shot.vector = aim_vector
+			var shot: Shot = create_shot(aim_vector)
+			shot.global_position += (aim_vector.rotated(.5*PI)*DOUBLE_SHOT_SPREAD)
+			shots.append(shot)
+			shot = create_shot(aim_vector)
+			shot.global_position -= (aim_vector.rotated(.5*PI)*DOUBLE_SHOT_SPREAD)
+			shots.append(shot)
 		ShotTypes.TRIPLE:
-			var shot: Shot = create_shot()
-			get_tree().root.add_child(shot)
-			shot.global_position = global_position
-			shot.vector = aim_vector
-			shot = create_shot()
-			get_tree().root.add_child(shot)
-			shot.global_position = global_position
-			shot.vector = aim_vector.rotated(0.15*PI)
-			shot = create_shot()
-			get_tree().root.add_child(shot)
-			shot.global_position = global_position
-			shot.vector = aim_vector.rotated(-0.15*PI)
+			var shot: Shot = create_shot(aim_vector)
+			shots.append(shot)
+			shot = create_shot(aim_vector.rotated(0.15*PI))
+			shots.append(shot)
+			shot = create_shot(aim_vector.rotated(-0.15*PI))
+			shots.append(shot)
 		ShotTypes.QUAD:
-			var shot: Shot = create_shot()
-			get_tree().root.add_child(shot)
-			shot.global_position = global_position
-			shot.vector = aim_vector.rotated(0.05*PI)
-			shot = create_shot()
-			get_tree().root.add_child(shot)
-			shot.global_position = global_position
-			shot.vector = aim_vector.rotated(-0.05*PI)
-			shot = create_shot()
-			get_tree().root.add_child(shot)
-			shot.global_position = global_position
-			shot.vector = aim_vector.rotated(0.15*PI)
-			shot = create_shot()
-			get_tree().root.add_child(shot)
-			shot.global_position = global_position
-			shot.vector = aim_vector.rotated(-0.15*PI)
+			var shot: Shot = create_shot(aim_vector.rotated(0.05*PI))
+			shots.append(shot)
+			shot = create_shot(aim_vector.rotated(-0.05*PI))
+			shots.append(shot)
+			shot = create_shot(aim_vector.rotated(0.15*PI))
+			shots.append(shot)
+			shot = create_shot(aim_vector.rotated(-0.15*PI))
+			shots.append(shot)
 			
 	
 
@@ -224,12 +212,25 @@ func _process(delta: float) -> void:
 	if !G.mouse_controls:
 		aim_vector = Input.get_vector("aim_left","aim_right","aim_up","aim_down").normalized()
 	else:
-		aim_vector = global_position.direction_to(get_global_mouse_position())
+		aim_vector = weapon_sprite.global_position.direction_to(get_global_mouse_position())
 	#print("Combo: "+str(current_combo)+" Life: "+str(current_combo_life))
-	
 	##Halt Actions Early Return
 	if G.halt_actions:
 		return
+	if aim_vector:
+		weapon_sprite_container.rotation = aim_vector.angle()
+	var pi_removed_rotation = weapon_sprite_container.rotation
+	if pi_removed_rotation < 0:
+		pi_removed_rotation += TAU
+	pi_removed_rotation /= PI
+	if pi_removed_rotation > 1.75 or pi_removed_rotation < .25:
+		weapon_sprite.animation = str(WeaponTypes.find_key(weapon_type).to_lower())+"_right"
+	elif pi_removed_rotation > 1.25:
+		weapon_sprite.animation = str(WeaponTypes.find_key(weapon_type).to_lower())+"_up"
+	elif pi_removed_rotation > .75:
+		weapon_sprite.animation = str(WeaponTypes.find_key(weapon_type).to_lower())+"_left"
+	elif pi_removed_rotation > .25:
+		weapon_sprite.animation = str(WeaponTypes.find_key(weapon_type).to_lower())+"_down"
 	if current_combo_life > 0:
 		current_combo_life -= delta
 	if current_combo_life <= 0 and current_combo > 1.0:
