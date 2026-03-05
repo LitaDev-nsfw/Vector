@@ -187,7 +187,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"walk",
-"speed": 5.0
+"speed": 8.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ewbju"]
@@ -417,7 +417,7 @@ libraries/ = SubResource("AnimationLibrary_1l0tm")
 [node name="CharacterSprite" type="AnimatedSprite2D" parent="." unique_id=726623463]
 material = SubResource("ShaderMaterial_rku1e")
 sprite_frames = SubResource("SpriteFrames_ldgsr")
-animation = &"shoot"
+animation = &"walk"
 autoplay = "idle"
 offset = Vector2(0, -16)
 
