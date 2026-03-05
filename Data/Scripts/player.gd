@@ -88,7 +88,7 @@ var frozen := false
 @onready var character_sprite: AnimatedSprite2D = find_child("CharacterSprite")
 @onready var weapon_sprite_container: Node2D = find_child("WeaponSpriteContainer")
 @onready var weapon_sprite: AnimatedSprite2D = find_child("WeaponSprite")
-
+@onready var animation_player: AnimationPlayer = find_child("AnimationPlayer")
 
 const BASE_FIRE_DELAY = 5
 const BASE_MOVE_SPEED = 150

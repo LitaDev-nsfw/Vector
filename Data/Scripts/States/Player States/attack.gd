@@ -1,6 +1,6 @@
 extends State
 
-@export var animation_player: AnimationPlayer
+
 @export var attack_timer: Timer
 @export var move_state: State
 
@@ -10,7 +10,7 @@ extends State
 func begin_state():
 	var shoot_delay_time = player.BASE_FIRE_DELAY/player.get_attribute(Player.Attributes.FIRE_RATE)
 	print(shoot_delay_time)
-	animation_player.play("shoot",-1,1/shoot_delay_time)
+	player.animation_player.play("shoot",-1,1/shoot_delay_time)
 	attack_timer.start(shoot_delay_time)
 	#player.spawn_attack(Player.AttackTypes.SMALL_SLASH,player.get_attribute(Player.Attributes.STRENGTH))
 

@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://Data/Scripts/States/Player States/parry.gd" id="8_wpjfl"]
 [ext_resource type="Shader" uid="uid://bgn2qiarsaxxu" path="res://Assets/Resources/Shaders/normal_map.gdshader" id="10_2ijsl"]
 [ext_resource type="Texture2D" uid="uid://buglw34iow0ii" path="res://Assets/Sprites/player_normals_sheet.png" id="11_p1odr"]
+[ext_resource type="Texture2D" uid="uid://cbdjxxegkolys" path="res://Assets/Sprites/player.png" id="11_qqcod"]
 [ext_resource type="Texture2D" uid="uid://cfc4kxjgemcik" path="res://Assets/Sprites/player_sheet.png" id="12_qqcod"]
 [ext_resource type="Script" uid="uid://wvhd7njm4812" path="res://Data/Scripts/reticle.gd" id="13_vfarp"]
 [ext_resource type="Texture2D" uid="uid://f0yu0ihlbnrb" path="res://Assets/Sprites/reticle.png" id="14_y6uwr"]
@@ -35,23 +36,84 @@ tracks/0/keys = {
 "update": 1,
 "values": [0]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CharacterSprite:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"dash"]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CharacterSprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CharacterSprite:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
 
-[sub_resource type="Animation" id="Animation_rku1e"]
-resource_name = "idle"
-tracks/0/type = "method"
+[sub_resource type="Animation" id="Animation_qqcod"]
+resource_name = "dash"
+tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("CharacterSprite")
+tracks/0/path = NodePath("CharacterSprite:animation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [&"idle", 1.0, false],
-"method": &"play"
-}]
+"times": PackedFloat32Array(-0.033333335, 0.033333335),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [&"dash", &"dash"]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CharacterSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.033333335, 0.3, 0.46666667, 0.6333333, 0.90000004),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CharacterSprite:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.1, 0.46666667, 0.86666673),
+"transitions": PackedFloat32Array(0.31864017, 1, 3.138335),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -18), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_igrcy"]
+resource_name = "idle"
 
 [sub_resource type="Animation" id="Animation_i6g32"]
 resource_name = "shoot"
@@ -85,13 +147,34 @@ tracks/1/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1l0tm"]
 _data = {
 &"RESET": SubResource("Animation_wowpa"),
-&"idle": SubResource("Animation_rku1e"),
+&"dash": SubResource("Animation_qqcod"),
+&"idle": SubResource("Animation_igrcy"),
 &"shoot": SubResource("Animation_i6g32")
 }
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rku1e"]
 shader = ExtResource("10_2ijsl")
 shader_parameter/normal_map = ExtResource("11_p1odr")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5x828"]
+atlas = ExtResource("11_qqcod")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c1k8q"]
+atlas = ExtResource("11_qqcod")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e6mvm"]
+atlas = ExtResource("11_qqcod")
+region = Rect2(64, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_57lvd"]
+atlas = ExtResource("11_qqcod")
+region = Rect2(96, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ie7r7"]
+atlas = ExtResource("11_qqcod")
+region = Rect2(128, 64, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fs7ks"]
 atlas = ExtResource("12_qqcod")
@@ -143,6 +226,26 @@ region = Rect2(160, 32, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ldgsr"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5x828")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c1k8q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e6mvm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_57lvd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ie7r7")
+}],
+"loop": false,
+"name": &"dash",
+"speed": 6.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_fs7ks")
@@ -375,16 +478,14 @@ script = ExtResource("2_fd4e3")
 script = ExtResource("3_qqcod")
 default_state = NodePath("Idle")
 
-[node name="Shoot" type="Node" parent="StateMachine" unique_id=1286749836 node_paths=PackedStringArray("animation_player", "attack_timer", "move_state")]
+[node name="Shoot" type="Node" parent="StateMachine" unique_id=1286749836 node_paths=PackedStringArray("attack_timer", "move_state")]
 script = ExtResource("4_igrcy")
-animation_player = NodePath("../../AnimationPlayer")
 attack_timer = NodePath("../../ShotCooldown")
 move_state = NodePath("../Move")
 metadata/_custom_type_script = "uid://4yulkrqdi05f"
 
-[node name="Idle" type="Node" parent="StateMachine" unique_id=1030277534 node_paths=PackedStringArray("animation_player")]
+[node name="Idle" type="Node" parent="StateMachine" unique_id=1030277534]
 script = ExtResource("5_fs7ks")
-animation_player = NodePath("../../AnimationPlayer")
 metadata/_custom_type_script = "uid://4yulkrqdi05f"
 
 [node name="Move" type="Node" parent="StateMachine" unique_id=1926959944]
@@ -417,7 +518,7 @@ libraries/ = SubResource("AnimationLibrary_1l0tm")
 [node name="CharacterSprite" type="AnimatedSprite2D" parent="." unique_id=726623463]
 material = SubResource("ShaderMaterial_rku1e")
 sprite_frames = SubResource("SpriteFrames_ldgsr")
-animation = &"walk"
+animation = &"dash"
 autoplay = "idle"
 offset = Vector2(0, -16)
 
