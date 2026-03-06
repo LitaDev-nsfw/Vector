@@ -13,6 +13,11 @@ enum Attributes {
 	DAMAGE_COMBO_METER_LOSS
 }
 
+enum Expressions {
+	HAPPY,
+	NEUTRAL
+}
+
 enum ShotTypes {
 	SINGLE,
 	DOUBLE,
@@ -52,6 +57,9 @@ enum WeaponTypes {
 		health_changed.emit(health)
 		if health <= 0:
 			queue_free()
+		if is_node_ready():
+			update_sprite_health_colors()
+		
 @export var damage_bonus: int = 10
 @export var damage_mult: float = 1.0
 @export var bullet_size_mult: float = 1.0
@@ -77,6 +85,7 @@ var current_combo_life: float = 0.0
 var invuln_time_modifier: float = 0.0
 var tokens: int = 0
 var token_tween: Tween
+var current_expression: Expressions = Expressions.NEUTRAL
 ##Effects
 var frozen := false
 
@@ -86,6 +95,7 @@ var frozen := false
 @onready var invuln_timer: Timer = find_child("InvulnTimer")
 @onready var tokens_counter: Label = find_child("Tokens")
 @onready var character_sprite: AnimatedSprite2D = find_child("CharacterSprite")
+@onready var expression_sprite: AnimatedSprite2D = find_child("ExpressionSprite")
 @onready var weapon_sprite_container: Node2D = find_child("WeaponSpriteContainer")
 @onready var weapon_sprite: AnimatedSprite2D = find_child("WeaponSprite")
 @onready var animation_player: AnimationPlayer = find_child("AnimationPlayer")
@@ -99,6 +109,16 @@ const BASE_INVULN_TIME = 1.0
 const DOUBLE_SHOT_SPREAD = 5.0
 
 signal health_changed(new_health: int)
+
+func update_sprite_health_colors():
+	var max_health_color = Color.LIME
+	var mid_health_color = Color(1.0,.7,0,1)
+	var low_health_color = Color.RED
+	@warning_ignore("integer_division")
+	if health >= max_health/2:
+		expression_sprite.modulate = mid_health_color.lerp(max_health_color,float(health-0.5*max_health)/(0.5*max_health))
+	else:
+		expression_sprite.modulate = low_health_color.lerp(mid_health_color,float(health)/(0.5*max_health))
 
 func create_shot(new_aim_vector: Vector2) -> Shot:
 	var shot: Shot
@@ -202,9 +222,14 @@ func _ready():
 	E.acquire_token.connect(_on_acquire_token)
 	E.enemy_died.connect(_on_enemy_died)
 	health_changed.connect(E._on_health_changed)
+	update_sprite_health_colors()
 
 
 func _process(delta: float) -> void:
+	expression_sprite.animation = Expressions.find_key(current_expression).to_lower() +"_"+character_sprite.animation
+	expression_sprite.frame = character_sprite.frame
+	expression_sprite.flip_h = character_sprite.flip_h
+	
 	input_vector = Input.get_vector("move_left","move_right","move_up","move_down")
 	$TokensContainer.global_rotation = 0
 	if input_vector.length() > 1:

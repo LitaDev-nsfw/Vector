@@ -177,7 +177,7 @@ func _create_shot(new_vector: Vector2) -> Shot:
 	shot_node.vector = new_vector
 	return shot_node
 
-func _create_laser(target: Vector2) -> Laser:
+func _create_laser(laser_target: Vector2) -> Laser:
 	var laser_node: Laser = laser_scene.instantiate()
 	laser_node.shot_owner = self
 	laser_node.team = Shot.Teams.ENEMY
@@ -186,7 +186,7 @@ func _create_laser(target: Vector2) -> Laser:
 	laser_node.duration = laser_duration
 	lasers.append(laser_node)
 	get_tree().root.add_child(laser_node)
-	laser_node.set_target(target)
+	laser_node.set_target(laser_target)
 	return laser_node
 
 func _ready(	):
