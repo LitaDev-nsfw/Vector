@@ -3,6 +3,7 @@ class_name StateMachine
 
 
 var current_state: State
+var previous_state: State
 var states: Dictionary[String, State] = {}
 
 
@@ -15,6 +16,7 @@ func change_state(new_state: String):
 		push_error("Nonexistent State: "+new_state)
 	if current_state:
 		current_state.end_state()
+	previous_state = current_state
 	current_state = new_state_node
 	new_state_node.begin_state()
 

@@ -51,8 +51,8 @@ func update(_delta: float):
 			attack_delay_timer.start(state_owner.BASE_FIRE_DELAY/state_owner.attack_delay)
 			has_attacked = true
 	if attack_once:
-		if state_owner.fires_lasers:
-			if state_owner.lasers.is_empty():
+		if !state_owner.fires_lasers or state_owner.lasers.is_empty():
+			if state_machine.states.has("idleattacktransition"):
+				state_machine.change_state("idleattacktransition")
+			else:
 				state_machine.change_state("idle")
-		else:
-			state_machine.change_state("idle")

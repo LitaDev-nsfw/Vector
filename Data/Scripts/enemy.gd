@@ -8,6 +8,7 @@ enum AimTypes {
 	AIMED_SPLIT,
 	TWO_WAY,
 	FOUR_WAY,
+	FOUR_WAY_DIAGONAL,
 }
 
 @export_category("Necessary")
@@ -35,6 +36,7 @@ enum AimTypes {
 @export var sprite_sheet_dimensions := Vector2(1,1)
 @export var flags: Array[String] = []
 @export var bullet_spread: float = .125*PI
+@export var shot_angle: float = 0.0
 @export_category("Laser ShotType Vars")
 @export var fires_lasers: bool = false
 @export var charge_up: float = 1.0
@@ -75,6 +77,10 @@ func pre_shoot() -> bool:
 				if sprite_frames.get_animation_names().has("shoot_four_way"):
 					character_sprite.animation = "shoot_four_way"
 					animation_set = true
+			AimTypes.FOUR_WAY_DIAGONAL:
+				if sprite_frames.get_animation_names().has("shoot_four_way"):
+					character_sprite.animation = "shoot_four_way"
+					animation_set = true
 		if !animation_set:
 			if sprite_frames.get_animation_names().has("shoot"):
 				character_sprite.animation = "shoot"
@@ -97,100 +103,54 @@ func shoot() -> bool:
 		AimTypes.AIMED:
 			if !target: return false
 			if !fires_lasers:
-				var shot_node: Shot = _create_shot()
-				shot_node.vector = (target.global_position - global_position).normalized()
-				get_tree().root.add_child(shot_node)
+				_create_shot((target.global_position - global_position).normalized())
 			else:
-				var laser_node: Laser = _create_laser()
-				get_tree().root.add_child(laser_node)
-				laser_node.set_target((target.global_position - global_position)*1000)
+				_create_laser((target.global_position - global_position)*1000)
 		AimTypes.FORWARDED:
 			if !target: return false
 			if !fires_lasers:
-				var shot_node: Shot = _create_shot()
+				
 				var distance_vector = (target.global_position - global_position)
-				shot_node.vector = (distance_vector+(target.velocity*distance_vector.length()/shot_speed)).normalized()
-				get_tree().root.add_child(shot_node)
+				_create_shot((distance_vector+(target.velocity*distance_vector.length()/shot_speed)).normalized())
 			else:
-				var laser_node: Laser = _create_laser()
 				var distance_vector = (target.global_position - global_position)
-				get_tree().root.add_child(laser_node)
-				laser_node.set_target((distance_vector+(target.velocity*distance_vector.length()/(charge_up*60)))*1000)
+				_create_laser((distance_vector+(target.velocity*distance_vector.length()/(charge_up*60)))*1000)
 		AimTypes.ONE_WAY:
 			if !fires_lasers:
-				var shot_node: Shot = _create_shot()
-				shot_node.vector = Vector2.UP.normalized().rotated(rotation)
-				get_tree().root.add_child(shot_node)
+				_create_shot(Vector2.UP.normalized().rotated(shot_angle))
 			else:
-				var laser_node: Laser = _create_laser()
-				get_tree().root.add_child(laser_node)
-				laser_node.set_target(Vector2.UP*1000)
+				_create_laser(Vector2.UP.rotated(shot_angle)*1000)
 		AimTypes.AIMED_SPLIT:
 			if !fires_lasers:
-				var shot_node: Shot = _create_shot()
 				var direction = (target.global_position - global_position).normalized()
-				shot_node.vector = direction
-				get_tree().root.add_child(shot_node)
-				shot_node = _create_shot()
-				shot_node.vector = direction.rotated(-bullet_spread)
-				get_tree().root.add_child(shot_node)
-				shot_node = _create_shot()
-				shot_node.vector = direction.rotated(bullet_spread)
-				get_tree().root.add_child(shot_node)
+				_create_shot(direction)
+				_create_shot(direction.rotated(-bullet_spread))
+				_create_shot(direction.rotated(bullet_spread))
 			else:
-				var laser_node: Laser = _create_laser()
+				
 				var direction = (target.global_position - global_position).normalized()
-				get_tree().root.add_child(laser_node)
-				laser_node.set_target(direction)
-				laser_node = _create_laser()
-				get_tree().root.add_child(laser_node)
-				laser_node.set_target(direction.rotated(bullet_spread))
-				laser_node = _create_laser()
-				get_tree().root.add_child(laser_node)
-				laser_node.set_target(direction.rotated(-bullet_spread))
+				_create_laser(direction)
+				_create_laser(direction.rotated(bullet_spread))
+				_create_laser(direction.rotated(-bullet_spread))
 		AimTypes.TWO_WAY:
 			if !fires_lasers:
-				var shot_node: Shot = _create_shot()
-				shot_node.vector = Vector2.UP.normalized().rotated(rotation)
-				get_tree().root.add_child(shot_node)
-				shot_node = _create_shot()
-				shot_node.vector = Vector2.UP.normalized().rotated(rotation+PI)
-				get_tree().root.add_child(shot_node)
+				_create_shot(Vector2.UP.normalized().rotated(shot_angle))
+				_create_shot(Vector2.UP.normalized().rotated(shot_angle+PI))
 			else:
-				var laser_node: Laser = _create_laser()
-				get_tree().root.add_child(laser_node)
-				laser_node.set_target(Vector2.UP.rotated(rotation)*1000)
-				laser_node = _create_laser()
-				get_tree().root.add_child(laser_node)
-				laser_node.set_target(Vector2.UP.rotated(rotation+PI)*1000)
+				_create_laser(Vector2.UP.rotated(shot_angle)*1000)
+				_create_laser(Vector2.UP.rotated(shot_angle+PI)*1000)
 		AimTypes.FOUR_WAY:
 			if !fires_lasers:
-				var shot_node: Shot = _create_shot()
-				shot_node.vector = Vector2.UP.normalized().rotated(rotation)
-				get_tree().root.add_child(shot_node)
-				shot_node = _create_shot()
-				shot_node.vector = Vector2.UP.normalized().rotated(rotation+PI)
-				get_tree().root.add_child(shot_node)
-				shot_node = _create_shot()
-				shot_node.vector = Vector2.UP.normalized().rotated(rotation+0.5*PI)
-				get_tree().root.add_child(shot_node)
-				shot_node = _create_shot()
-				shot_node.vector = Vector2.UP.normalized().rotated(rotation-0.5*PI)
-				get_tree().root.add_child(shot_node)
+				_create_shot(Vector2.UP.normalized().rotated(shot_angle))
+				_create_shot(Vector2.UP.normalized().rotated(rotation+PI))
+				_create_shot(Vector2.UP.normalized().rotated(rotation+0.5*PI))
+				_create_shot(Vector2.UP.normalized().rotated(rotation-0.5*PI))
 			else:
 				print("Making Lasers")
-				var laser_node: Laser = _create_laser()
-				get_tree().root.add_child(laser_node)
-				laser_node.set_target(Vector2.UP.rotated(rotation)*1000)
-				laser_node = _create_laser()
-				get_tree().root.add_child(laser_node)
-				laser_node.set_target(Vector2.UP.rotated(rotation+PI)*1000)
-				laser_node = _create_laser()
-				get_tree().root.add_child(laser_node)
-				laser_node.set_target(Vector2.UP.rotated(rotation+0.5*PI)*1000)
-				laser_node = _create_laser()
-				get_tree().root.add_child(laser_node)
-				laser_node.set_target(Vector2.UP.rotated(rotation-0.5*PI)*1000)
+				_create_laser(Vector2.UP.rotated(shot_angle)*1000)
+				_create_laser(Vector2.UP.rotated(shot_angle+PI)*1000)
+				_create_laser(Vector2.UP.rotated(shot_angle+0.5*PI)*1000)
+				_create_laser(Vector2.UP.rotated(shot_angle-0.5*PI)*1000)
 	target = null
 	return true
 
@@ -207,15 +167,17 @@ func inflict_effect(effect: Shot.ShotEffects, duration = 0):
 func take_damage(damage: float):
 	health -= damage
 
-func _create_shot() -> Shot:
+func _create_shot(new_vector: Vector2) -> Shot:
 	var shot_node: Shot = shot_scene.instantiate()
 	shot_node.shot_owner = self
 	shot_node.shot_speed = shot_speed
 	shot_node.team = Shot.Teams.ENEMY
+	get_tree().root.add_child(shot_node)
 	shot_node.global_position = global_position
+	shot_node.vector = new_vector
 	return shot_node
 
-func _create_laser() -> Laser:
+func _create_laser(target: Vector2) -> Laser:
 	var laser_node: Laser = laser_scene.instantiate()
 	laser_node.shot_owner = self
 	laser_node.team = Shot.Teams.ENEMY
@@ -223,6 +185,8 @@ func _create_laser() -> Laser:
 	laser_node.charge_time = charge_up
 	laser_node.duration = laser_duration
 	lasers.append(laser_node)
+	get_tree().root.add_child(laser_node)
+	laser_node.set_target(target)
 	return laser_node
 
 func _ready(	):

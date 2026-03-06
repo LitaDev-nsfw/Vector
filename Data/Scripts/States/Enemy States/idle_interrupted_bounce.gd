@@ -15,6 +15,7 @@ var direction = initial_direction
 
 func begin_state():
 	current_interruption_wait = interruption_wait_duration
+	state_owner.animation_player.play("idle")
 
 func update(delta: float):
 	if G.halt_actions or state_owner.frozen:
@@ -50,4 +51,7 @@ func update(delta: float):
 		if state_machine.states.has("chase"):
 			state_machine.change_state("chase")
 		elif state_machine.states.has("attack"):
-			state_machine.change_state("attack")
+			if state_machine.states.has("idleattacktransition"):
+				state_machine.change_state("idleattacktransition")
+			else:
+				state_machine.change_state("attack")

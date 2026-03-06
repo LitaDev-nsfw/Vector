@@ -3,9 +3,7 @@
 [ext_resource type="Script" uid="uid://c2ms6acjy0y1l" path="res://Data/Scripts/enemy.gd" id="1_ghaa6"]
 [ext_resource type="Script" uid="uid://c3xy6ebvr4cw7" path="res://Data/Scripts/state_machine.gd" id="2_1dp5w"]
 [ext_resource type="Shader" uid="uid://bgn2qiarsaxxu" path="res://Assets/Resources/Shaders/normal_map.gdshader" id="3_0830c"]
-[ext_resource type="SpriteFrames" uid="uid://c6gqdunsk3f4y" path="res://Assets/Resources/SpriteFrames/cube_enemy.tres" id="4_287tu"]
 [ext_resource type="Texture2D" uid="uid://buglw34iow0ii" path="res://Assets/Sprites/player_normals_sheet.png" id="4_ghaa6"]
-[ext_resource type="Texture2D" uid="uid://84lf4x35mg3f" path="res://Assets/Sprites/sentry_single_head.png" id="6_ghaa6"]
 
 [sub_resource type="Animation" id="Animation_0830c"]
 length = 0.001
@@ -44,6 +42,40 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_po0sg"]
+resource_name = "attack"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.033333335),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"attack", 1.0, false],
+"method": &"play"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_haro7"]
+resource_name = "idle"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.033333335),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"idle", 1.0, false],
+"method": &"play"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_ghaa6"]
@@ -116,153 +148,77 @@ tracks/1/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_auwsv"]
+resource_name = "transition_attack"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.033333335),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"transition_attack"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.06666666, 0.36666667, 0.6666667, 0.93333334),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_8uf12"]
+resource_name = "transition_idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.03333333),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"transition_idle"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.06666668, 0.36666667, 0.6333333, 0.93333334),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1dp5w"]
 _data = {
 &"RESET": SubResource("Animation_0830c"),
+&"attack": SubResource("Animation_po0sg"),
+&"idle": SubResource("Animation_haro7"),
 &"shoot": SubResource("Animation_ghaa6"),
-&"shoot_head": SubResource("Animation_1dp5w")
+&"shoot_head": SubResource("Animation_1dp5w"),
+&"transition_attack": SubResource("Animation_auwsv"),
+&"transition_idle": SubResource("Animation_8uf12")
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mucmn"]
+radius = 20.22375
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1dp5w"]
 shader = ExtResource("3_0830c")
 shader_parameter/normal_map = ExtResource("4_ghaa6")
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1dp5w"]
-atlas = ExtResource("6_ghaa6")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ghaa6"]
-atlas = ExtResource("6_ghaa6")
-region = Rect2(0, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_haro7"]
-atlas = ExtResource("6_ghaa6")
-region = Rect2(32, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_56vhr"]
-atlas = ExtResource("6_ghaa6")
-region = Rect2(64, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_auwsv"]
-atlas = ExtResource("6_ghaa6")
-region = Rect2(96, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ta2yt"]
-atlas = ExtResource("6_ghaa6")
-region = Rect2(0, 128, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_m4x7e"]
-atlas = ExtResource("6_ghaa6")
-region = Rect2(32, 128, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_vt4ob"]
-atlas = ExtResource("6_ghaa6")
-region = Rect2(64, 128, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_8uf12"]
-atlas = ExtResource("6_ghaa6")
-region = Rect2(64, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_hgeoe"]
-atlas = ExtResource("6_ghaa6")
-region = Rect2(0, 96, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tk7xo"]
-atlas = ExtResource("6_ghaa6")
-region = Rect2(32, 96, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_scl1n"]
-atlas = ExtResource("6_ghaa6")
-region = Rect2(64, 96, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_po0sg"]
-atlas = ExtResource("6_ghaa6")
-region = Rect2(32, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_dhkrs"]
-atlas = ExtResource("6_ghaa6")
-region = Rect2(0, 64, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5xdhn"]
-atlas = ExtResource("6_ghaa6")
-region = Rect2(32, 64, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4jyny"]
-atlas = ExtResource("6_ghaa6")
-region = Rect2(64, 64, 32, 32)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_haro7"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1dp5w")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ghaa6")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_haro7")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_56vhr")
-}],
-"loop": false,
-"name": &"shoot_down",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_auwsv")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ta2yt")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_m4x7e")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_vt4ob")
-}],
-"loop": true,
-"name": &"shoot_left",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_8uf12")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_hgeoe")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_tk7xo")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_scl1n")
-}],
-"loop": true,
-"name": &"shoot_right",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_po0sg")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_dhkrs")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5xdhn")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_4jyny")
-}],
-"loop": true,
-"name": &"shoot_up",
-"speed": 5.0
-}]
 
 [node name="Enemy" type="CharacterBody2D" unique_id=1631603036]
 collision_layer = 21
@@ -291,7 +247,6 @@ shape = SubResource("CircleShape2D_mucmn")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=1151198309]
 material = SubResource("ShaderMaterial_1dp5w")
-sprite_frames = ExtResource("4_287tu")
 animation = &""
 autoplay = "idle"
 
@@ -305,5 +260,4 @@ collision_mask = 3
 [node name="WeaponSpriteContainer" type="Node2D" parent="." unique_id=1459535350]
 
 [node name="OptionalWeaponSprite" type="AnimatedSprite2D" parent="WeaponSpriteContainer" unique_id=1720919820]
-sprite_frames = SubResource("SpriteFrames_haro7")
 animation = &"shoot_left"

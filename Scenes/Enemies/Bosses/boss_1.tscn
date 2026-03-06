@@ -1,16 +1,18 @@
 [gd_scene format=3 uid="uid://c50nxced33c4u"]
 
 [ext_resource type="PackedScene" uid="uid://du3qu1tudrtpa" path="res://Scenes/enemy.tscn" id="1_yqnq1"]
-[ext_resource type="SpriteFrames" uid="uid://c6gqdunsk3f4y" path="res://Assets/Resources/SpriteFrames/cube_enemy.tres" id="2_8qxf3"]
 [ext_resource type="Script" uid="uid://bgpd6do0mfa1j" path="res://Data/Scripts/States/Enemy States/idle_interrupted_bounce.gd" id="2_dpqg5"]
 [ext_resource type="Script" uid="uid://b7taqorvmqwtu" path="res://Data/Scripts/States/Enemy States/shoot_stationary.gd" id="3_8qxf3"]
 [ext_resource type="Texture2D" uid="uid://cw6iyjnvulq5f" path="res://Assets/Sprites/cube_normals.png" id="3_b60mh"]
+[ext_resource type="Script" uid="uid://b3ooxboj2gtld" path="res://Data/Scripts/States/Enemy States/idle_attack_transition.gd" id="5_b60mh"]
+[ext_resource type="SpriteFrames" uid="uid://jx1mt2jpx0k0" path="res://Assets/Resources/SpriteFrames/nightclub_boss1.tres" id="7_l47m3"]
 
-[node name="Boss1" unique_id=1631603036 instance=ExtResource("1_yqnq1")]
-sprite_frames = ExtResource("2_8qxf3")
+[node name="NightclubBoss" unique_id=1631603036 instance=ExtResource("1_yqnq1")]
+sprite_frames = ExtResource("7_l47m3")
 normal_sheet = ExtResource("3_b60mh")
 health = 150.0
 aim_type = 5
+shot_angle = 0.785
 fires_lasers = true
 
 [node name="AttackWindup" type="Timer" parent="." index="2" unique_id=1292965629]
@@ -23,9 +25,26 @@ default_state = NodePath("Idle")
 script = ExtResource("2_dpqg5")
 metadata/_custom_type_script = "uid://4yulkrqdi05f"
 
-[node name="Attack" type="Node" parent="StateMachine" index="1" unique_id=1052619287 node_paths=PackedStringArray("attack_delay_timer")]
+[node name="IdleAttackTransition" type="Node" parent="StateMachine" index="1" unique_id=1732709972]
+script = ExtResource("5_b60mh")
+metadata/_custom_type_script = "uid://4yulkrqdi05f"
+
+[node name="Attack" type="Node" parent="StateMachine" index="2" unique_id=1052619287 node_paths=PackedStringArray("attack_delay_timer")]
 script = ExtResource("3_8qxf3")
 attack_delay_timer = NodePath("../../AttackDelay")
 attack_windup = 5.0
 attack_once = true
 metadata/_custom_type_script = "uid://4yulkrqdi05f"
+
+[node name="CollisionShape2D" parent="." index="5" unique_id=1759336711]
+visible = true
+position = Vector2(0, 9)
+
+[node name="Sprite" parent="." index="6" unique_id=1151198309]
+autoplay = ""
+
+[node name="LineOfSight" parent="." index="8" unique_id=357936683]
+position = Vector2(0, 24)
+
+[node name="OptionalWeaponSprite" parent="WeaponSpriteContainer" parent_id_path=PackedInt32Array(1459535350) index="0" unique_id=1720919820]
+animation = &""
