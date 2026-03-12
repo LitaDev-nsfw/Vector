@@ -41,7 +41,13 @@ enum AimTypes {
 @export var fires_lasers: bool = false
 @export var charge_up: float = 1.0
 @export var laser_duration: float = 2.5
-
+@export_category("Visual Tweaks")
+##How much to offset bullet spawn by. This is applied to bullets equally, regardless of bullet direction
+@export var overall_bullet_spawn_offset: Vector2
+##How much to offset an individual bullet spawn by. This offset is rotated towards bullet direction.
+@export var individual_bullet_spawn_offset: Vector2
+## This value can be used to squish the offset vertically, to account for the skew created by the perspective
+@export var vertical_skew: float = 1.0
 var lasers: Array[Laser] = []
 var is_alive = true
 var target = CharacterBody2D
@@ -59,6 +65,7 @@ var frozen := false
 const BASE_FIRE_DELAY = 5.0
 
 signal enemy_died(enemy: Enemy)
+signal transition_finished(transition_to: String)
 
 func pre_shoot() -> bool:
 	if G.halt_actions or !$NewRoomCooldown.is_stopped():
@@ -70,30 +77,30 @@ func pre_shoot() -> bool:
 	if !optional_weapon_sprite:
 		match aim_type:
 			AimTypes.TWO_WAY:
-				if sprite_frames.get_animation_names().has("shoot_two_way"):
+				if sprite_frames.has_animation("shoot_two_way"):
 					character_sprite.animation = "shoot_two_way"
 					animation_set = true
 			AimTypes.FOUR_WAY:
-				if sprite_frames.get_animation_names().has("shoot_four_way"):
+				if sprite_frames.has_animation("shoot_four_way"):
 					character_sprite.animation = "shoot_four_way"
 					animation_set = true
 			AimTypes.FOUR_WAY_DIAGONAL:
-				if sprite_frames.get_animation_names().has("shoot_four_way"):
+				if sprite_frames.has_animation("shoot_four_way"):
 					character_sprite.animation = "shoot_four_way"
 					animation_set = true
 		if !animation_set:
-			if sprite_frames.get_animation_names().has("shoot"):
+			if sprite_frames.has_animation("shoot"):
 				character_sprite.animation = "shoot"
 		if !fires_lasers:
-			animation_player.play("shoot",-1,1/shoot_delay_time)
+			play_animation("shoot",1/shoot_delay_time)
 		else:
-			animation_player.play("shoot",-1,charge_up)
+			play_animation("shoot",charge_up)
 			shoot()
 	else:
 		if !fires_lasers:
-			animation_player.play("shoot_head",-1,1/shoot_delay_time)
+			play_animation("shoot_head",1/shoot_delay_time)
 		else:
-			animation_player.play("shoot_head",-1,charge_up)
+			play_animation("shoot_head",charge_up)
 			shoot()
 	return true
 
@@ -154,7 +161,12 @@ func shoot() -> bool:
 	target = null
 	return true
 
-
+func play_animation(animation_name: StringName, custom_speed: float = 1.0):
+	animation_player.play(animation_name, -1, custom_speed)
+	character_sprite.speed_scale = custom_speed
+	if animation_name == "shoot_head" and optional_weapon_sprite:
+		optional_weapon_sprite.speed_scale = custom_speed
+		optional_weapon_sprite.play(optional_weapon_sprite.animation)
 
 func inflict_effect(effect: Shot.ShotEffects, duration = 0):
 	match effect:
@@ -173,7 +185,9 @@ func _create_shot(new_vector: Vector2) -> Shot:
 	shot_node.shot_speed = shot_speed
 	shot_node.team = Shot.Teams.ENEMY
 	get_tree().root.add_child(shot_node)
-	shot_node.global_position = global_position
+	var position_to_place_at = overall_bullet_spawn_offset + individual_bullet_spawn_offset.rotated(new_vector.angle())
+	position_to_place_at = Vector2(position_to_place_at.x, position_to_place_at.y * vertical_skew)
+	shot_node.global_position = to_global(position_to_place_at)
 	shot_node.vector = new_vector
 	return shot_node
 
@@ -181,7 +195,11 @@ func _create_laser(laser_target: Vector2) -> Laser:
 	var laser_node: Laser = laser_scene.instantiate()
 	laser_node.shot_owner = self
 	laser_node.team = Shot.Teams.ENEMY
-	laser_node.global_position = global_position
+	var position_to_place_at = overall_bullet_spawn_offset + individual_bullet_spawn_offset.rotated(to_local(laser_target).angle())
+	position_to_place_at = Vector2(position_to_place_at.x, position_to_place_at.y * vertical_skew)
+	print("Position Placement: "+str(position_to_place_at))
+	laser_node.global_position = to_global(position_to_place_at)
+	
 	laser_node.charge_time = charge_up
 	laser_node.duration = laser_duration
 	lasers.append(laser_node)
@@ -189,12 +207,17 @@ func _create_laser(laser_target: Vector2) -> Laser:
 	laser_node.set_target(laser_target)
 	return laser_node
 
+func _transition_finished(transition_to):
+	transition_finished.emit(transition_to)
+
 func _ready(	):
 	enemy_died.connect(E._on_enemy_died)
 	E.enemy_died.connect(_on_enemy_died)
 	character_sprite.sprite_frames = sprite_frames
 	var shader: ShaderMaterial = character_sprite.material
 	shader.set_shader_parameter("normal_map",normal_sheet)
+	if optional_weapon_sprite:
+		weapon_sprite_container.visible = true
 
 func _process(_delta: float) -> void:
 	if optional_weapon_sprite:

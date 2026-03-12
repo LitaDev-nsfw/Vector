@@ -7,9 +7,10 @@ var item: Item
 var color: Color:
 	set(value):
 		color = value
-		ascii_label.add_theme_color_override("default_color",color)
+		frame_texture.modulate = color
 
-@onready var ascii_label: RichTextLabel = find_child("ASCII")
+@onready var icon_texture: TextureRect = find_child("IconTexture")
+@onready var frame_texture: TextureRect = find_child("FrameTexture")
 @onready var player: Player = get_tree().get_first_node_in_group("Player")
 @onready var select_button: Button = find_child("Button")
 
@@ -20,10 +21,8 @@ func _ready():
 		pass
 	$ItemName.text = D.get_entry_name_string(item.entry)
 	$Description.text = item.entry.description
-	var text_file := FileAccess.open("Assets/Sprites/Item Icons/"+item.id+".txt",FileAccess.READ)
-	if text_file:
-		ascii_label.text = text_file.get_as_text()
-		text_file.close()
+	if FileAccess.file_exists("Assets/Sprites/Item Icons/"+item.id+".png"):
+		icon_texture.texture = load("Assets/Sprites/Item Icons/"+item.id+".png")
 	else:
-		push_error("NO ASCII SPRITE FOR: "+item.id)
+		push_error("No icon for: "+item.id+", using placeholder.png")
 	

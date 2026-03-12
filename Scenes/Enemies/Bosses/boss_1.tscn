@@ -8,12 +8,18 @@
 [ext_resource type="SpriteFrames" uid="uid://jx1mt2jpx0k0" path="res://Assets/Resources/SpriteFrames/nightclub_boss1.tres" id="7_l47m3"]
 
 [node name="NightclubBoss" unique_id=1631603036 instance=ExtResource("1_yqnq1")]
+collision_mask = 32
 sprite_frames = ExtResource("7_l47m3")
 normal_sheet = ExtResource("3_b60mh")
-health = 150.0
+health = 250.0
+move_speed = 200.0
 aim_type = 5
 shot_angle = 0.785
 fires_lasers = true
+charge_up = 0.25
+overall_bullet_spawn_offset = Vector2(0, -16)
+individual_bullet_spawn_offset = Vector2(22.6, 0)
+vertical_skew = 0.75
 
 [node name="AttackWindup" type="Timer" parent="." index="2" unique_id=1292965629]
 one_shot = true
@@ -23,16 +29,18 @@ default_state = NodePath("Idle")
 
 [node name="Idle" type="Node" parent="StateMachine" index="0" unique_id=1927567527]
 script = ExtResource("2_dpqg5")
+interruption_wait_duration = 3.0
 metadata/_custom_type_script = "uid://4yulkrqdi05f"
 
 [node name="IdleAttackTransition" type="Node" parent="StateMachine" index="1" unique_id=1732709972]
 script = ExtResource("5_b60mh")
 metadata/_custom_type_script = "uid://4yulkrqdi05f"
 
-[node name="Attack" type="Node" parent="StateMachine" index="2" unique_id=1052619287 node_paths=PackedStringArray("attack_delay_timer")]
+[node name="Attack" type="Node" parent="StateMachine" index="2" unique_id=1052619287 node_paths=PackedStringArray("attack_delay_timer", "attack_windup_timer")]
 script = ExtResource("3_8qxf3")
 attack_delay_timer = NodePath("../../AttackDelay")
-attack_windup = 5.0
+attack_windup_timer = NodePath("../../AttackWindup")
+attack_windup = 1.5
 attack_once = true
 metadata/_custom_type_script = "uid://4yulkrqdi05f"
 
@@ -41,10 +49,9 @@ visible = true
 position = Vector2(0, 9)
 
 [node name="Sprite" parent="." index="6" unique_id=1151198309]
+sprite_frames = ExtResource("7_l47m3")
+animation = &"transition_attack"
 autoplay = ""
 
 [node name="LineOfSight" parent="." index="8" unique_id=357936683]
 position = Vector2(0, 24)
-
-[node name="OptionalWeaponSprite" parent="WeaponSpriteContainer" parent_id_path=PackedInt32Array(1459535350) index="0" unique_id=1720919820]
-animation = &""

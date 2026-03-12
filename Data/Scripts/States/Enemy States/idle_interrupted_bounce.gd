@@ -15,7 +15,7 @@ var direction = initial_direction
 
 func begin_state():
 	current_interruption_wait = interruption_wait_duration
-	state_owner.animation_player.play("idle")
+	state_owner.play_animation("idle")
 
 func update(delta: float):
 	if G.halt_actions or state_owner.frozen:

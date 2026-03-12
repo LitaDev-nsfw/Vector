@@ -46,6 +46,14 @@ region = Rect2(128, 64, 64, 64)
 atlas = ExtResource("1_46gwu")
 region = Rect2(192, 64, 64, 64)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_vv6b7"]
+atlas = ExtResource("1_46gwu")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wxjvd"]
+atlas = ExtResource("1_46gwu")
+region = Rect2(384, 0, 64, 64)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_hxc0b"]
 atlas = ExtResource("1_46gwu")
 region = Rect2(0, 192, 64, 64)
@@ -103,7 +111,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_vtjhd")
 }],
 "loop": false,
-"name": &"attack",
+"name": &"charge",
 "speed": 5.0
 }, {
 "frames": [{
@@ -125,6 +133,17 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_vv6b7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wxjvd")
+}],
+"loop": true,
+"name": &"shoot",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_hxc0b")
 }, {
 "duration": 1.0,
@@ -138,7 +157,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"transition_attack",
-"speed": 5.0
+"speed": 4.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -155,5 +174,5 @@ animations = [{
 }],
 "loop": false,
 "name": &"transition_idle",
-"speed": 5.0
+"speed": 4.0
 }]

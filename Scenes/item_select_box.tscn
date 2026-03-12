@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://din4eqi8ctob4"]
 
 [ext_resource type="Script" uid="uid://bcieiflut0ny7" path="res://Data/Scripts/item_select_box.gd" id="1_35vh3"]
-[ext_resource type="FontFile" uid="uid://5npxki2ak35y" path="res://Assets/Fonts/liberation-mono/LiberationMono-Italic.ttf" id="2_ryhmg"]
+[ext_resource type="Texture2D" uid="uid://bi3nw2jg01llk" path="res://Assets/Sprites/Item Icons/icon_frame.png" id="2_35vh3"]
+[ext_resource type="Texture2D" uid="uid://bfcd1ms08v7ya" path="res://Assets/Sprites/Item Icons/placeholder.png" id="2_ryhmg"]
 
 [node name="ItemSelectBox" type="VBoxContainer" unique_id=494770694]
 size_flags_horizontal = 3
@@ -15,13 +16,20 @@ text = "Item Name"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ASCII" type="RichTextLabel" parent="." unique_id=718631822]
+[node name="IconTexture" type="TextureRect" parent="." unique_id=1109078411]
 layout_mode = 2
-size_flags_horizontal = 4
-theme_override_fonts/normal_font = ExtResource("2_ryhmg")
-fit_content = true
-scroll_active = false
-autowrap_mode = 0
+texture = ExtResource("2_ryhmg")
+expand_mode = 4
+
+[node name="FrameTexture" type="TextureRect" parent="IconTexture" unique_id=1365838112]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_35vh3")
+expand_mode = 4
 
 [node name="Description" type="Label" parent="." unique_id=1857668868]
 layout_mode = 2

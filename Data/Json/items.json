@@ -1,7 +1,7 @@
 [
 	{
-		"id": "crying_onion",
-		"name": {"str_sp": "Crying Onion"},
+		"id": "quick_loader",
+		"name": {"str_sp": "Quick Loader"},
 		"type": "ITEM",
 		"subtypes": ["POOL_BOSS"],
 		"description": "+3 fire rate",
@@ -17,8 +17,8 @@
 		],
 	},
 	{
-		"id": "snowflake",
-		"name": {"str_sp": "Snowflake"},
+		"id": "cryo_rounds",
+		"name": {"str_sp": "Cryo Rounds"},
 		"type": "ITEM",
 		"subtypes": ["POOL_BOSS"],
 		"description": "Shots have a 10% chance to freeze enemies on hit. \nFrozen enemies cannot move or fire for 5 seconds.",

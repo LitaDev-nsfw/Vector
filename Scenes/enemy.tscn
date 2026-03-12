@@ -4,45 +4,11 @@
 [ext_resource type="Script" uid="uid://c3xy6ebvr4cw7" path="res://Data/Scripts/state_machine.gd" id="2_1dp5w"]
 [ext_resource type="Shader" uid="uid://bgn2qiarsaxxu" path="res://Assets/Resources/Shaders/normal_map.gdshader" id="3_0830c"]
 [ext_resource type="Texture2D" uid="uid://buglw34iow0ii" path="res://Assets/Sprites/player_normals_sheet.png" id="4_ghaa6"]
+[ext_resource type="SpriteFrames" uid="uid://1bml5odqo56p" path="res://Assets/Resources/SpriteFrames/sentry.tres" id="5_0830c"]
+[ext_resource type="SpriteFrames" uid="uid://c8x6q4m2svqm8" path="res://Assets/Resources/SpriteFrames/sentry_head.tres" id="6_ghaa6"]
 
 [sub_resource type="Animation" id="Animation_0830c"]
 length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite:animation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&""]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("WeaponSpriteContainer/OptionalWeaponSprite:frame")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
 
 [sub_resource type="Animation" id="Animation_po0sg"]
 resource_name = "attack"
@@ -60,6 +26,9 @@ tracks/0/keys = {
 "method": &"play"
 }]
 }
+
+[sub_resource type="Animation" id="Animation_287tu"]
+resource_name = "charge"
 
 [sub_resource type="Animation" id="Animation_haro7"]
 resource_name = "idle"
@@ -80,25 +49,13 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_ghaa6"]
 resource_name = "shoot"
-tracks/0/type = "value"
+tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:frame")
+tracks/0/path = NodePath(".")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.16666667, 0.33333334, 0.5, 0.7, 0.8666667),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4, 5]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
 "times": PackedFloat32Array(0.7),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -106,40 +63,30 @@ tracks/1/keys = {
 "method": &"shoot"
 }]
 }
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite:animation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(1),
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"idle"]
+"values": [{
+"args": [&"shoot", 1.0, false],
+"method": &"play"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_1dp5w"]
 resource_name = "shoot_head"
-tracks/0/type = "value"
+tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("WeaponSpriteContainer/OptionalWeaponSprite:frame")
+tracks/0/path = NodePath(".")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.16666667, 0.23333335, 0.3, 0.39999998),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 0]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
 "times": PackedFloat32Array(0.23333333),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -150,62 +97,71 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_auwsv"]
 resource_name = "transition_attack"
-tracks/0/type = "value"
+tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:animation")
+tracks/0/path = NodePath(".")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.033333335),
+"times": PackedFloat32Array(1),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"transition_attack"]
+"values": [{
+"args": ["attack"],
+"method": &"_transition_finished"
+}]
 }
-tracks/1/type = "value"
+tracks/1/type = "method"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite:frame")
+tracks/1/path = NodePath("Sprite")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.06666666, 0.36666667, 0.6666667, 0.93333334),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3]
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"transition_attack", 1.0, false],
+"method": &"play"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_8uf12"]
 resource_name = "transition_idle"
-tracks/0/type = "value"
+tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:animation")
+tracks/0/path = NodePath(".")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.03333333),
+"times": PackedFloat32Array(1),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"transition_idle"]
+"values": [{
+"args": ["idle"],
+"method": &"_transition_finished"
+}]
 }
-tracks/1/type = "value"
+tracks/1/type = "method"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite:frame")
+tracks/1/path = NodePath("Sprite")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.06666668, 0.36666667, 0.6333333, 0.93333334),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3]
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"transition_idle", 1.0, false],
+"method": &"play"
+}]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1dp5w"]
 _data = {
 &"RESET": SubResource("Animation_0830c"),
 &"attack": SubResource("Animation_po0sg"),
+&"charge": SubResource("Animation_287tu"),
 &"idle": SubResource("Animation_haro7"),
 &"shoot": SubResource("Animation_ghaa6"),
 &"shoot_head": SubResource("Animation_1dp5w"),
@@ -247,7 +203,8 @@ shape = SubResource("CircleShape2D_mucmn")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=1151198309]
 material = SubResource("ShaderMaterial_1dp5w")
-animation = &""
+sprite_frames = ExtResource("5_0830c")
+animation = &"idle"
 autoplay = "idle"
 
 [node name="DetectionHitbox" type="Area2D" parent="." unique_id=187940754]
@@ -258,6 +215,8 @@ collision_mask = 2
 collision_mask = 3
 
 [node name="WeaponSpriteContainer" type="Node2D" parent="." unique_id=1459535350]
+visible = false
 
 [node name="OptionalWeaponSprite" type="AnimatedSprite2D" parent="WeaponSpriteContainer" unique_id=1720919820]
-animation = &"shoot_left"
+sprite_frames = ExtResource("6_ghaa6")
+animation = &"shoot_down"

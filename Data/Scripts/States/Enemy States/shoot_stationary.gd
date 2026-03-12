@@ -18,6 +18,7 @@ func begin_state():
 	has_attacked = false
 	if attack_windup_timer:
 		attack_windup_timer.start(attack_windup)
+		state_owner.play_animation("charge", 1.0/attack_windup)
 	state_owner.velocity = Vector2()
 
 func update(_delta: float):
