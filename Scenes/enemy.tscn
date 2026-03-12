@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" uid="uid://c2ms6acjy0y1l" path="res://Data/Scripts/enemy.gd" id="1_ghaa6"]
 [ext_resource type="Script" uid="uid://c3xy6ebvr4cw7" path="res://Data/Scripts/state_machine.gd" id="2_1dp5w"]
+[ext_resource type="SpriteFrames" uid="uid://c6gqdunsk3f4y" path="res://Assets/Resources/SpriteFrames/cube_enemy.tres" id="2_auwsv"]
 [ext_resource type="Shader" uid="uid://bgn2qiarsaxxu" path="res://Assets/Resources/Shaders/normal_map.gdshader" id="3_0830c"]
 [ext_resource type="Texture2D" uid="uid://buglw34iow0ii" path="res://Assets/Sprites/player_normals_sheet.png" id="4_ghaa6"]
-[ext_resource type="SpriteFrames" uid="uid://1bml5odqo56p" path="res://Assets/Resources/SpriteFrames/sentry.tres" id="5_0830c"]
 [ext_resource type="SpriteFrames" uid="uid://c8x6q4m2svqm8" path="res://Assets/Resources/SpriteFrames/sentry_head.tres" id="6_ghaa6"]
 
 [sub_resource type="Animation" id="Animation_0830c"]
@@ -180,6 +180,7 @@ shader_parameter/normal_map = ExtResource("4_ghaa6")
 collision_layer = 21
 motion_mode = 1
 script = ExtResource("1_ghaa6")
+sprite_frames = ExtResource("2_auwsv")
 sprite_sheet_dimensions = Vector2(7, 1)
 
 [node name="NewRoomCooldown" type="Timer" parent="." unique_id=1811729363]
@@ -203,8 +204,8 @@ shape = SubResource("CircleShape2D_mucmn")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=1151198309]
 material = SubResource("ShaderMaterial_1dp5w")
-sprite_frames = ExtResource("5_0830c")
-animation = &"idle"
+sprite_frames = ExtResource("2_auwsv")
+animation = &"transition_idle"
 autoplay = "idle"
 
 [node name="DetectionHitbox" type="Area2D" parent="." unique_id=187940754]
