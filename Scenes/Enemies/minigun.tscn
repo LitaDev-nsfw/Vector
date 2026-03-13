@@ -9,7 +9,7 @@ radius = 263.54886
 
 [node name="Minigun" unique_id=1631603036 instance=ExtResource("1_e70ld")]
 health = 40.0
-attack_delay = 10.0
+attack_delay = 50.0
 shot_speed = 400.0
 aim_type = 1
 

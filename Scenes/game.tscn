@@ -3,7 +3,6 @@
 [ext_resource type="Texture2D" uid="uid://p4uijrce3q4d" path="res://Assets/Sprites/large_point_light.png" id="2_1phco"]
 [ext_resource type="Script" uid="uid://n87epj2ltqdw" path="res://Data/Scripts/level.gd" id="2_ewbju"]
 [ext_resource type="PackedScene" uid="uid://dbtgpv01w0f1x" path="res://Scenes/base_room.tscn" id="2_nnt18"]
-[ext_resource type="PackedScene" uid="uid://c50nxced33c4u" path="res://Scenes/Enemies/Bosses/boss_1.tscn" id="4_v158k"]
 [ext_resource type="PackedScene" uid="uid://7ece84hg3lnd" path="res://Scenes/player.tscn" id="5_v158k"]
 [ext_resource type="Script" uid="uid://dovlcp7gobgyc" path="res://Data/Scripts/pause_menu.gd" id="9_h4fw4"]
 [ext_resource type="Script" uid="uid://bn1h50ufx85up" path="res://Data/Scripts/ui.gd" id="18_85qyi"]
@@ -30,8 +29,6 @@ zoom = Vector2(1.8, 1.8)
 
 [node name="StartingRoom" parent="Level" unique_id=1415294416 instance=ExtResource("2_nnt18")]
 has_enemies = false
-
-[node name="NightclubBoss" parent="Level/StartingRoom" unique_id=1631603036 instance=ExtResource("4_v158k")]
 
 [node name="Player" parent="Level" unique_id=1301122545 instance=ExtResource("5_v158k")]
 

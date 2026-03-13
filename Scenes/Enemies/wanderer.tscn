@@ -5,10 +5,10 @@
 [ext_resource type="Script" uid="uid://b7taqorvmqwtu" path="res://Data/Scripts/States/Enemy States/shoot_stationary.gd" id="3_88r02"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_88r02"]
-radius = 166.07529
+radius = 320.0
 
 [node name="Wanderer" unique_id=1631603036 instance=ExtResource("1_gm1gg")]
-attack_delay = 2.0
+attack_delay = 15.0
 
 [node name="StateMachine" parent="." index="2" unique_id=206549298 node_paths=PackedStringArray("default_state")]
 default_state = NodePath("Idle")
