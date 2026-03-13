@@ -5,6 +5,9 @@
 
 [node name="TurretClump" unique_id=1415294416 instance=ExtResource("1_jae17")]
 
+[node name="InnerObstacles" parent="." index="2" unique_id=548588248]
+tile_map_data = PackedByteArray("AAD4/wAAAAAAAAIAAAD5/wAAAAADAAAAAAD5/wEAAAAAAAMAAAAGAAAAAAABAAMAAAAFAAAAAAACAAAAAAAFAAEAAAAAAAMAAAAFAPv/AAABAAIAAAAFAPz/AAACAAEAAAAGAPz/AAABAAMAAAD4//z/AAAAAAIAAAD5//z/AAADAAEAAAD5//v/AAABAAIAAAA=")
+
 [node name="SlowSentry" parent="Enemies" parent_id_path=PackedInt32Array(683597873) index="0" unique_id=1631603036 instance=ExtResource("2_7n5m6")]
 position = Vector2(16, -16)
 
