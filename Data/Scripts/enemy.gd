@@ -183,12 +183,16 @@ func take_damage(damage: float):
 	health -= damage
 	if !damage_indicator_tween or !damage_indicator_tween.is_running():
 		damage_indicator_tween = create_tween()
-		damage_indicator_tween.tween_property(character_sprite,"modulate",Color.RED,0.25)
-		damage_indicator_tween.tween_property(character_sprite,"modulate",character_sprite.modulate,0.25)
+		damage_indicator_tween.tween_property(character_sprite,"modulate",Color.RED,0.1)
+		damage_indicator_tween.set_trans(Tween.TRANS_SINE)
+		damage_indicator_tween.set_ease(Tween.EASE_IN)
+		damage_indicator_tween.tween_property(character_sprite,"modulate",character_sprite.modulate,0.1)
 	if optional_weapon_sprite and (!weapon_sprite_damage_indicator_tween or !weapon_sprite_damage_indicator_tween.is_running()):
 		weapon_sprite_damage_indicator_tween = create_tween()
-		weapon_sprite_damage_indicator_tween.tween_property(optional_weapon_sprite,"modulate",Color.RED,0.25)
-		weapon_sprite_damage_indicator_tween.tween_property(optional_weapon_sprite,"modulate",optional_weapon_sprite.modulate,0.25)
+		weapon_sprite_damage_indicator_tween.tween_property(optional_weapon_sprite,"modulate",Color.RED,0.1)
+		weapon_sprite_damage_indicator_tween.set_trans(Tween.TRANS_SINE)
+		weapon_sprite_damage_indicator_tween.set_ease(Tween.EASE_IN)
+		weapon_sprite_damage_indicator_tween.tween_property(optional_weapon_sprite,"modulate",optional_weapon_sprite.modulate,0.1)
 	var damage_label: DamageNumberLabel = damage_number_label_scene.instantiate()
 	damage_label.number = int(damage)
 	get_tree().root.add_child(damage_label)
