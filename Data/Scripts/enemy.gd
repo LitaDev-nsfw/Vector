@@ -48,10 +48,12 @@ enum AimTypes {
 @export var individual_bullet_spawn_offset: Vector2
 ## This value can be used to squish the offset vertically, to account for the skew created by the perspective
 @export var vertical_skew: float = 1.0
+
 var lasers: Array[Laser] = []
 var is_alive = true
 var target = CharacterBody2D
-
+var damage_indicator_tween: Tween
+var weapon_sprite_damage_indicator_tween: Tween
 ##Effects
 var frozen := false
 
@@ -59,6 +61,7 @@ var frozen := false
 @onready var character_sprite: AnimatedSprite2D = find_child("Sprite")
 @onready var shot_scene = preload("res://Scenes/shot.tscn")
 @onready var laser_scene = preload("res://Scenes/laser.tscn")
+@onready var damage_number_label_scene = preload("res://Scenes/damage_number_label.tscn")
 @onready var animation_player: AnimationPlayer = find_child("AnimationPlayer")
 @onready var weapon_sprite_container: Node2D = find_child("WeaponSpriteContainer")
 
@@ -178,6 +181,19 @@ func inflict_effect(effect: Shot.ShotEffects, duration = 0):
 
 func take_damage(damage: float):
 	health -= damage
+	if !damage_indicator_tween or !damage_indicator_tween.is_running():
+		damage_indicator_tween = create_tween()
+		damage_indicator_tween.tween_property(character_sprite,"modulate",Color.RED,0.25)
+		damage_indicator_tween.tween_property(character_sprite,"modulate",character_sprite.modulate,0.25)
+	if optional_weapon_sprite and (!weapon_sprite_damage_indicator_tween or !weapon_sprite_damage_indicator_tween.is_running()):
+		weapon_sprite_damage_indicator_tween = create_tween()
+		weapon_sprite_damage_indicator_tween.tween_property(optional_weapon_sprite,"modulate",Color.RED,0.25)
+		weapon_sprite_damage_indicator_tween.tween_property(optional_weapon_sprite,"modulate",optional_weapon_sprite.modulate,0.25)
+	var damage_label: DamageNumberLabel = damage_number_label_scene.instantiate()
+	damage_label.number = int(damage)
+	get_tree().root.add_child(damage_label)
+	damage_label.global_position = global_position
+	damage_label.initialize()
 
 func _create_shot(new_vector: Vector2) -> Shot:
 	var shot_node: Shot = shot_scene.instantiate()

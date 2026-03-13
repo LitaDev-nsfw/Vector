@@ -27,10 +27,11 @@ level_camera = NodePath("Camera2D")
 position = Vector2(-15, -49)
 zoom = Vector2(1.8, 1.8)
 
+[node name="Player" parent="Level" unique_id=1301122545 instance=ExtResource("5_v158k")]
+z_index = 1
+
 [node name="StartingRoom" parent="Level" unique_id=1415294416 instance=ExtResource("2_nnt18")]
 has_enemies = false
-
-[node name="Player" parent="Level" unique_id=1301122545 instance=ExtResource("5_v158k")]
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=498555873]
 script = ExtResource("18_85qyi")

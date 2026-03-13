@@ -1,4 +1,4 @@
-[gd_scene format=4 uid="uid://b8uf3r2sj2lf"]
+[gd_scene format=3 uid="uid://b8uf3r2sj2lf"]
 
 [ext_resource type="PackedScene" uid="uid://dbtgpv01w0f1x" path="res://Scenes/base_room.tscn" id="1_gwwtr"]
 [ext_resource type="PackedScene" uid="uid://dem3xunko802k" path="res://Scenes/Enemies/fast_sentry.tscn" id="2_xsccn"]
