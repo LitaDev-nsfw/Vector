@@ -1,0 +1,12 @@
+[gd_scene format=4 uid="uid://bwnmn7ujacot"]
+
+[ext_resource type="PackedScene" uid="uid://dbtgpv01w0f1x" path="res://Scenes/base_room.tscn" id="1_jdips"]
+[ext_resource type="PackedScene" uid="uid://c8878ohby1h10" path="res://Scenes/Enemies/minigun.tscn" id="2_fl2gx"]
+
+[node name="Room" unique_id=1415294416 instance=ExtResource("1_jdips")]
+
+[node name="InnerObstacles" parent="." index="2" unique_id=548588248]
+tile_map_data = PackedByteArray("AAD8/wAAAAAAAAIAAAD9/wAAAAABAAMAAAABAAAAAAAAAAIAAAACAAAAAAABAAMAAAAFAAAAAAABAAIAAAAFAAEAAAAAAAMAAAAFAPz/AAAAAAMAAAAFAPv/AAABAAIAAAD5/wEAAAAAAAMAAAD5/wAAAAABAAIAAAD5//z/AAAAAAMAAAD5//v/AAABAAIAAAD8//z/AAAAAAIAAAD9//z/AAABAAMAAAABAPz/AAAAAAIAAAACAPz/AAABAAMAAAA=")
+
+[node name="Minigun" parent="Enemies" parent_id_path=PackedInt32Array(683597873) index="0" unique_id=1631603036 instance=ExtResource("2_fl2gx")]
+position = Vector2(-16, -48)

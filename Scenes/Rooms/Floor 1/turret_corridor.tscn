@@ -4,7 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://csfg1wbvw20he" path="res://Scenes/Enemies/slow_sentry.tscn" id="2_eh7s4"]
 
 [node name="TurretCorridor" unique_id=1415294416 instance=ExtResource("1_shv00")]
-has_enemies = true
+
+[node name="InnerObstacles" parent="." index="2" unique_id=548588248]
+tile_map_data = PackedByteArray("AAD+//7/AAABAAEAAAD+//z/AAABAAEAAAAAAPz/AAABAAEAAAAAAAAAAAABAAEAAAAAAP7/AAABAAEAAAD+/wAAAAABAAEAAAA=")
 
 [node name="SlowSentry" parent="Enemies" parent_id_path=PackedInt32Array(683597873) index="0" unique_id=1631603036 instance=ExtResource("2_eh7s4")]
 position = Vector2(-16, 16)
