@@ -1,19 +1,18 @@
-[gd_scene format=4 uid="uid://bxrq1glktq1jo"]
+[gd_scene format=3 uid="uid://bxrq1glktq1jo"]
 
 [ext_resource type="PackedScene" uid="uid://dbtgpv01w0f1x" path="res://Scenes/base_room.tscn" id="1_2ahep"]
-[ext_resource type="PackedScene" uid="uid://dem3xunko802k" path="res://Scenes/Enemies/fast_sentry.tscn" id="2_15h3g"]
+[ext_resource type="PackedScene" uid="uid://c8878ohby1h10" path="res://Scenes/Enemies/minigun.tscn" id="2_8xctr"]
 
 [node name="Quad Sentry Room" unique_id=1415294416 instance=ExtResource("1_2ahep")]
-has_enemies = true
 
-[node name="FastSentry" parent="Enemies" parent_id_path=PackedInt32Array(683597873) index="0" unique_id=1631603036 instance=ExtResource("2_15h3g")]
+[node name="Minigun" parent="Enemies" parent_id_path=PackedInt32Array(683597873) index="0" unique_id=1631603036 instance=ExtResource("2_8xctr")]
 position = Vector2(-240, 16)
 
-[node name="FastSentry2" parent="Enemies" parent_id_path=PackedInt32Array(683597873) index="1" unique_id=2123310554 instance=ExtResource("2_15h3g")]
+[node name="Minigun2" parent="Enemies" parent_id_path=PackedInt32Array(683597873) index="1" unique_id=1269444868 instance=ExtResource("2_8xctr")]
 position = Vector2(-240, -112)
 
-[node name="FastSentry3" parent="Enemies" parent_id_path=PackedInt32Array(683597873) index="2" unique_id=1624586840 instance=ExtResource("2_15h3g")]
-position = Vector2(208, -112)
-
-[node name="FastSentry4" parent="Enemies" parent_id_path=PackedInt32Array(683597873) index="3" unique_id=1285747085 instance=ExtResource("2_15h3g")]
+[node name="Minigun3" parent="Enemies" parent_id_path=PackedInt32Array(683597873) index="2" unique_id=932044813 instance=ExtResource("2_8xctr")]
 position = Vector2(208, 16)
+
+[node name="Minigun4" parent="Enemies" parent_id_path=PackedInt32Array(683597873) index="3" unique_id=912588895 instance=ExtResource("2_8xctr")]
+position = Vector2(208, -112)

@@ -1,0 +1,21 @@
+[gd_scene format=4 uid="uid://dj40gn7o6gbqp"]
+
+[ext_resource type="PackedScene" uid="uid://dbtgpv01w0f1x" path="res://Scenes/base_room.tscn" id="1_xe1rp"]
+[ext_resource type="PackedScene" uid="uid://ddjh5i5o6opdq" path="res://Scenes/Enemies/fast_wanderer.tscn" id="2_xe1rp"]
+
+[node name="Room" unique_id=1415294416 instance=ExtResource("1_xe1rp")]
+
+[node name="InnerObstacles" parent="." index="2" unique_id=548588248]
+tile_map_data = PackedByteArray("AAD4//v/AAABAAEAAAD6//v/AAABAAEAAAD8//v/AAABAAEAAAD+//v/AAABAAEAAAAAAPv/AAABAAEAAAACAPv/AAABAAEAAAAEAPv/AAABAAEAAAAGAPv/AAABAAEAAAAGAP3/AAABAAEAAAAEAP3/AAABAAEAAAACAP3/AAABAAEAAAAAAP3/AAABAAEAAAD+//3/AAABAAEAAAD8//3/AAABAAEAAAD6//3/AAABAAEAAAD4//3/AAABAAEAAAD4////AAABAAEAAAD4/wEAAAABAAEAAAD6/wEAAAABAAEAAAD6////AAABAAEAAAD8////AAABAAEAAAD8/wEAAAABAAEAAAD+/wEAAAABAAEAAAD+////AAABAAEAAAAAAP//AAABAAEAAAAAAAEAAAABAAEAAAACAAEAAAABAAEAAAACAP//AAABAAEAAAAEAP//AAABAAEAAAAEAAEAAAABAAEAAAAGAAEAAAABAAEAAAAGAP//AAABAAEAAAA=")
+
+[node name="FastWanderer" parent="Enemies" parent_id_path=PackedInt32Array(683597873) index="0" unique_id=1631603036 instance=ExtResource("2_xe1rp")]
+position = Vector2(-208, -112)
+
+[node name="FastWanderer2" parent="Enemies" parent_id_path=PackedInt32Array(683597873) index="1" unique_id=110728286 instance=ExtResource("2_xe1rp")]
+position = Vector2(-208, 16)
+
+[node name="FastWanderer3" parent="Enemies" parent_id_path=PackedInt32Array(683597873) index="2" unique_id=1728613595 instance=ExtResource("2_xe1rp")]
+position = Vector2(176, -112)
+
+[node name="FastWanderer4" parent="Enemies" parent_id_path=PackedInt32Array(683597873) index="3" unique_id=1006599246 instance=ExtResource("2_xe1rp")]
+position = Vector2(176, 16)

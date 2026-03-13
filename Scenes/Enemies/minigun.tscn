@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://c8878ohby1h10"]
 
 [ext_resource type="PackedScene" uid="uid://du3qu1tudrtpa" path="res://Scenes/enemy.tscn" id="1_e70ld"]
-[ext_resource type="Script" uid="uid://c1xmwuyh14d52" path="res://Data/Scripts/States/Enemy States/idle_wander.gd" id="2_tb6m1"]
+[ext_resource type="Script" uid="uid://cef51vxtrq5kc" path="res://Data/Scripts/States/Enemy States/idle_stationary.gd" id="2_e70ld"]
 [ext_resource type="Script" uid="uid://b7taqorvmqwtu" path="res://Data/Scripts/States/Enemy States/shoot_stationary.gd" id="3_0m51w"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_e70ld"]
@@ -20,10 +20,8 @@ one_shot = true
 default_state = NodePath("Idle")
 
 [node name="Idle" type="Node" parent="StateMachine" index="0" unique_id=1849034000 node_paths=PackedStringArray("line_of_sight")]
-script = ExtResource("2_tb6m1")
+script = ExtResource("2_e70ld")
 line_of_sight = NodePath("../../LineOfSight")
-wander_radius = 40.0
-wander_cooldown = 3.0
 metadata/_custom_type_script = "uid://4yulkrqdi05f"
 
 [node name="Attack" type="Node" parent="StateMachine" index="1" unique_id=1973823447 node_paths=PackedStringArray("attack_delay_timer", "attack_windup_timer", "line_of_sight")]

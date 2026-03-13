@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://bgtnocrw0j1c0"]
+
+[ext_resource type="PackedScene" uid="uid://dbtgpv01w0f1x" path="res://Scenes/base_room.tscn" id="1_ka3pq"]
+[ext_resource type="PackedScene" uid="uid://c50nxced33c4u" path="res://Scenes/Enemies/Bosses/boss_1.tscn" id="2_5ub1j"]
+
+[node name="Boss2" unique_id=1415294416 instance=ExtResource("1_ka3pq")]
+
+[node name="Boss1" parent="Enemies" parent_id_path=PackedInt32Array(683597873) index="0" unique_id=1631603036 instance=ExtResource("2_5ub1j")]
+position = Vector2(-16, -48)
