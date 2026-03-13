@@ -28,6 +28,7 @@ position = Vector2(-15, -49)
 zoom = Vector2(1.8, 1.8)
 
 [node name="StartingRoom" parent="Level" unique_id=1415294416 instance=ExtResource("2_nnt18")]
+visible = false
 has_enemies = false
 
 [node name="Player" parent="Level" unique_id=1301122545 instance=ExtResource("5_v158k")]
