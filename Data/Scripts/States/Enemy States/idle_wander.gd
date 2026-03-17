@@ -22,6 +22,7 @@ func update(delta: float):
 		return
 	if current_wander_cooldown > 0:
 		print("Running out cooldown")
+		state_owner.play_animation("idle")
 		current_wander_cooldown -= delta
 	elif target_point == Vector2():
 		print("Selecting point")
@@ -30,18 +31,19 @@ func update(delta: float):
 		target_point = starting_position + vector
 		previous_position = Vector2()
 	elif target_point == state_owner.global_position or (previous_position != Vector2() and previous_position.distance_squared_to(state_owner.global_position) < .1):
-		print(previous_position.distance_squared_to(state_owner.global_position))
+		#print(previous_position.distance_squared_to(state_owner.global_position))
 		print("Starting Wander Cooldown")
 		current_wander_cooldown = wander_cooldown
 		state_owner.velocity = Vector2()
 		target_point = Vector2()
 	else:
 		print("Wandering")
+		state_owner.play_animation("walk")
 		previous_position = state_owner.global_position
 		var direction = target_point - state_owner.global_position
-		if direction.length() > 1:
-			direction = direction.normalized()
-		state_owner.velocity = direction * state_owner.move_speed * .8
+		var distance = direction.length()
+		direction = direction.normalized()
+		state_owner.velocity = direction * state_owner.move_speed * .8 * min(1,distance/10)
 		state_owner.move_and_slide()
 		
 	#print(detection_hitbox)

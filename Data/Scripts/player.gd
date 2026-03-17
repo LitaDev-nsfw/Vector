@@ -110,6 +110,10 @@ const DOUBLE_SHOT_SPREAD = 5.0
 
 signal health_changed(new_health: int)
 
+func get_centered_position() -> Vector2:
+	print("Centered Position: "+str(global_position + character_sprite.offset))
+	return global_position + character_sprite.offset
+
 func update_sprite_health_colors():
 	var max_health_color = Color.LIME
 	var mid_health_color = Color(1.0,.7,0,1)

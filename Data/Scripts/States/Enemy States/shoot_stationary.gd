@@ -19,6 +19,8 @@ func begin_state():
 	if attack_windup_timer:
 		attack_windup_timer.start(attack_windup)
 		state_owner.play_animation("charge", 1.0/attack_windup)
+	else:
+		state_owner.play_animation("idle")
 	state_owner.velocity = Vector2()
 
 func update(_delta: float):
@@ -40,7 +42,7 @@ func update(_delta: float):
 		if not line_of_sight.get_collider() is Player:
 			state_machine.change_state("idle")
 	if state_owner.optional_weapon_sprite:
-		state_owner.weapon_sprite_container.rotation = snapped(state_owner.global_position.angle_to_point(player.global_position) - 0.5*PI,0.01)
+		state_owner.weapon_sprite_container.rotation = snapped(state_owner.global_position.angle_to_point(player.global_position),0.01)
 		
 	if !attack_delay_timer.is_stopped():
 		return

@@ -65,6 +65,8 @@ func update(delta: float):
 		line_of_sight.force_raycast_update()
 		if not line_of_sight.get_collider() is Player:
 			state_machine.change_state("idle")
+	if state_owner.optional_weapon_sprite:
+		state_owner.weapon_sprite_container.rotation = snapped(state_owner.global_position.angle_to_point(player.global_position),0.01)
 	if !attack_delay_timer.is_stopped():
 		return
 	if state_owner.pre_shoot():

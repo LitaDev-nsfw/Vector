@@ -157,6 +157,23 @@ tracks/1/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_56vhr"]
+resource_name = "walk"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"walk", 1.0, false],
+"method": &"play"
+}]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1dp5w"]
 _data = {
 &"RESET": SubResource("Animation_0830c"),
@@ -166,7 +183,8 @@ _data = {
 &"shoot": SubResource("Animation_ghaa6"),
 &"shoot_head": SubResource("Animation_1dp5w"),
 &"transition_attack": SubResource("Animation_auwsv"),
-&"transition_idle": SubResource("Animation_8uf12")
+&"transition_idle": SubResource("Animation_8uf12"),
+&"walk": SubResource("Animation_56vhr")
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mucmn"]

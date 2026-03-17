@@ -15,6 +15,8 @@ enum Teams {
 	ENEMY
 }
 
+var debug = false
+var debug_line: Line2D
 var team: Teams = Teams.PLAYER
 var damages_self: bool = false
 var bullet_type: BulletTypes = BulletTypes.STANDARD
@@ -29,6 +31,13 @@ var shot_owner: CharacterBody2D
 var on_hit_effects: Array[Dictionary] = []
 
 func _ready():
+	if debug:
+		debug_line = Line2D.new()
+		debug_line.add_point(Vector2())
+		debug_line.add_point(vector*1000)
+		debug_line.width = 1
+		get_parent().add_child(debug_line)
+		debug_line.global_position = global_position
 	var anim_name = BulletTypes.find_key(bullet_type).to_lower() + "_"
 	if team == Teams.ENEMY:
 		anim_name += "enemy"
@@ -79,4 +88,6 @@ func _on_hitbox_body_entered(body: Node2D) -> void:
 				"freeze_shots":
 					if randi_range(1,100) <= effect.chance:
 						body.inflict_effect(ShotEffects.FREEZE,effect.duration)
+	if debug:
+		debug_line.queue_free()
 	queue_free()

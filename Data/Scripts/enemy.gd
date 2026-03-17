@@ -112,18 +112,25 @@ func shoot() -> bool:
 	match aim_type:
 		AimTypes.AIMED:
 			if !target: return false
-			if !fires_lasers:
-				_create_shot((target.global_position - global_position).normalized())
+			var vector: Vector2
+			if !optional_weapon_sprite:
+				vector = (target.get_centered_position() - get_centered_position())
 			else:
-				_create_laser((target.global_position - global_position)*1000)
+				vector = target.get_centered_position() - optional_weapon_sprite.to_global(optional_weapon_sprite.offset)
+			vector = vector.normalized()
+			if !fires_lasers:
+				_create_shot(vector)
+			else:
+				_create_laser(vector*1000)
 		AimTypes.FORWARDED:
 			if !target: return false
+			var distance_vector = target.get_centered_position() - get_centered_position()
+			if optional_weapon_sprite:
+				distance_vector = target.get_centered_position() - optional_weapon_sprite.to_global(optional_weapon_sprite.offset)
+			distance_vector = distance_vector.normalized()
 			if !fires_lasers:
-				
-				var distance_vector = (target.global_position - global_position)
 				_create_shot((distance_vector+(target.velocity*distance_vector.length()/shot_speed)).normalized())
 			else:
-				var distance_vector = (target.global_position - global_position)
 				_create_laser((distance_vector+(target.velocity*distance_vector.length()/(charge_up*60)))*1000)
 		AimTypes.ONE_WAY:
 			if !fires_lasers:
@@ -131,14 +138,15 @@ func shoot() -> bool:
 			else:
 				_create_laser(Vector2.UP.rotated(shot_angle)*1000)
 		AimTypes.AIMED_SPLIT:
+			var direction = (target.get_centered_position() - get_centered_position()).normalized()
+			if optional_weapon_sprite:
+				direction = target.get_centered_position() - optional_weapon_sprite.to_global(optional_weapon_sprite.offset)
+			direction = direction.normalized()
 			if !fires_lasers:
-				var direction = (target.global_position - global_position).normalized()
 				_create_shot(direction)
 				_create_shot(direction.rotated(-bullet_spread))
 				_create_shot(direction.rotated(bullet_spread))
 			else:
-				
-				var direction = (target.global_position - global_position).normalized()
 				_create_laser(direction)
 				_create_laser(direction.rotated(bullet_spread))
 				_create_laser(direction.rotated(-bullet_spread))
@@ -165,6 +173,7 @@ func shoot() -> bool:
 	return true
 
 func play_animation(animation_name: StringName, custom_speed: float = 1.0):
+	print("Playing Animation: "+animation_name)
 	animation_player.play(animation_name, -1, custom_speed)
 	character_sprite.speed_scale = custom_speed
 	if animation_name == "shoot_head" and optional_weapon_sprite:
@@ -199,16 +208,22 @@ func take_damage(damage: float):
 	damage_label.global_position = global_position
 	damage_label.initialize()
 
+func get_centered_position() -> Vector2:
+	return global_position + character_sprite.offset
+
 func _create_shot(new_vector: Vector2) -> Shot:
 	var shot_node: Shot = shot_scene.instantiate()
 	shot_node.shot_owner = self
 	shot_node.shot_speed = shot_speed
 	shot_node.team = Shot.Teams.ENEMY
-	get_tree().root.add_child(shot_node)
 	var position_to_place_at = overall_bullet_spawn_offset + individual_bullet_spawn_offset.rotated(new_vector.angle())
 	position_to_place_at = Vector2(position_to_place_at.x, position_to_place_at.y * vertical_skew)
-	shot_node.global_position = to_global(position_to_place_at)
+	if optional_weapon_sprite:
+		shot_node.global_position = optional_weapon_sprite.to_global(position_to_place_at) + (optional_weapon_sprite.offset).rotated(weapon_sprite_container.rotation)
+	else:
+		shot_node.global_position = to_global(position_to_place_at)
 	shot_node.vector = new_vector
+	get_tree().root.add_child(shot_node)
 	return shot_node
 
 func _create_laser(laser_target: Vector2) -> Laser:
@@ -218,8 +233,10 @@ func _create_laser(laser_target: Vector2) -> Laser:
 	var position_to_place_at = overall_bullet_spawn_offset + individual_bullet_spawn_offset.rotated(to_local(laser_target).angle())
 	position_to_place_at = Vector2(position_to_place_at.x, position_to_place_at.y * vertical_skew)
 	print("Position Placement: "+str(position_to_place_at))
-	laser_node.global_position = to_global(position_to_place_at)
-	
+	if optional_weapon_sprite:
+		laser_node.global_position = optional_weapon_sprite.to_global(position_to_place_at) + (optional_weapon_sprite.offset).rotated(weapon_sprite_container.rotation)
+	else:
+		laser_node.global_position = to_global(position_to_place_at)
 	laser_node.charge_time = charge_up
 	laser_node.duration = laser_duration
 	lasers.append(laser_node)
@@ -230,7 +247,7 @@ func _create_laser(laser_target: Vector2) -> Laser:
 func _transition_finished(transition_to):
 	transition_finished.emit(transition_to)
 
-func _ready(	):
+func _ready():
 	enemy_died.connect(E._on_enemy_died)
 	E.enemy_died.connect(_on_enemy_died)
 	character_sprite.sprite_frames = sprite_frames
@@ -245,7 +262,7 @@ func _process(_delta: float) -> void:
 		if pi_removed_rotation < 0:
 			pi_removed_rotation += TAU
 		pi_removed_rotation /= PI
-		print(pi_removed_rotation)
+		#print(pi_removed_rotation)
 		if pi_removed_rotation > 1.75 or pi_removed_rotation < .25:
 			optional_weapon_sprite.animation = "shoot_down"
 		elif pi_removed_rotation > 1.25:
@@ -254,10 +271,15 @@ func _process(_delta: float) -> void:
 			optional_weapon_sprite.animation = "shoot_up"
 		elif pi_removed_rotation > .25:
 			optional_weapon_sprite.animation = "shoot_left"
+	if velocity:
+		if velocity.x > 0:
+			character_sprite.flip_h = false
+		else:
+			character_sprite.flip_h = true
 
 func _on_enemy_died(enemy: Enemy):
 	if flags.has("CONTRACT") and enemy != self:
-		print("Rwemoving contract")
+		print("Removing contract")
 		var shader_material: ShaderMaterial = character_sprite.material
 		shader_material.set_shader_parameter("outline_width", 0.0)
 		grant_combo_on_death -= 1.0

@@ -3,11 +3,178 @@
 [ext_resource type="PackedScene" uid="uid://du3qu1tudrtpa" path="res://Scenes/enemy.tscn" id="1_gm1gg"]
 [ext_resource type="Script" uid="uid://c1xmwuyh14d52" path="res://Data/Scripts/States/Enemy States/idle_wander.gd" id="2_hnkay"]
 [ext_resource type="Script" uid="uid://b7taqorvmqwtu" path="res://Data/Scripts/States/Enemy States/shoot_stationary.gd" id="3_88r02"]
+[ext_resource type="SpriteFrames" uid="uid://bi30w37icceoo" path="res://Assets/Resources/SpriteFrames/wanderer.tres" id="4_73xea"]
+[ext_resource type="Texture2D" uid="uid://bop8efxf2angm" path="res://Assets/Sprites/weapon_sheet.png" id="5_73xea"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_88r02"]
 radius = 320.0
 
-[node name="Wanderer" unique_id=1631603036 instance=ExtResource("1_gm1gg")]
+[sub_resource type="AtlasTexture" id="AtlasTexture_4fpwc"]
+atlas = ExtResource("5_73xea")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1v0a0"]
+atlas = ExtResource("5_73xea")
+region = Rect2(0, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ys6gb"]
+atlas = ExtResource("5_73xea")
+region = Rect2(16, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jqig4"]
+atlas = ExtResource("5_73xea")
+region = Rect2(32, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2l2c5"]
+atlas = ExtResource("5_73xea")
+region = Rect2(48, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3wpa8"]
+atlas = ExtResource("5_73xea")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bfwr7"]
+atlas = ExtResource("5_73xea")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nf105"]
+atlas = ExtResource("5_73xea")
+region = Rect2(16, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ao1f8"]
+atlas = ExtResource("5_73xea")
+region = Rect2(32, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_phvbi"]
+atlas = ExtResource("5_73xea")
+region = Rect2(48, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uew0s"]
+atlas = ExtResource("5_73xea")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_llqnc"]
+atlas = ExtResource("5_73xea")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nqu0c"]
+atlas = ExtResource("5_73xea")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qxtgu"]
+atlas = ExtResource("5_73xea")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y2tpo"]
+atlas = ExtResource("5_73xea")
+region = Rect2(48, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jd0yi"]
+atlas = ExtResource("5_73xea")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ulxy"]
+atlas = ExtResource("5_73xea")
+region = Rect2(0, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pg7cv"]
+atlas = ExtResource("5_73xea")
+region = Rect2(16, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1bwjn"]
+atlas = ExtResource("5_73xea")
+region = Rect2(32, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_564fe"]
+atlas = ExtResource("5_73xea")
+region = Rect2(48, 48, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pgn2e"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4fpwc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1v0a0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ys6gb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jqig4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2l2c5")
+}],
+"loop": false,
+"name": &"shoot_down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3wpa8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bfwr7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nf105")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ao1f8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_phvbi")
+}],
+"loop": false,
+"name": &"shoot_left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uew0s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_llqnc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nqu0c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qxtgu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y2tpo")
+}],
+"loop": false,
+"name": &"shoot_right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jd0yi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ulxy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pg7cv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1bwjn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_564fe")
+}],
+"loop": false,
+"name": &"shoot_up",
+"speed": 5.0
+}]
+
+[node name="Wanderer" unique_id=1631603036 node_paths=PackedStringArray("optional_weapon_sprite") instance=ExtResource("1_gm1gg")]
+sprite_frames = ExtResource("4_73xea")
+optional_weapon_sprite = NodePath("WeaponSpriteContainer/OptionalWeaponSprite")
 attack_delay = 15.0
 
 [node name="StateMachine" parent="." index="2" unique_id=206549298 node_paths=PackedStringArray("default_state")]
@@ -27,7 +194,28 @@ line_of_sight = NodePath("../../LineOfSight")
 metadata/_custom_type_script = "uid://4yulkrqdi05f"
 
 [node name="Sprite" parent="." index="5" unique_id=1151198309]
-modulate = Color(0.5019608, 1, 1, 1)
+sprite_frames = ExtResource("4_73xea")
+animation = &"idle"
+autoplay = ""
+offset = Vector2(0, -16)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionHitbox" parent_id_path=PackedInt32Array(187940754) index="0" unique_id=994001958]
+[node name="DetectionHitbox" parent="." index="6" unique_id=187940754]
+position = Vector2(0, -16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionHitbox" index="0" unique_id=994001958]
+visible = false
 shape = SubResource("CircleShape2D_88r02")
+
+[node name="LineOfSight" parent="." index="7" unique_id=357936683]
+position = Vector2(0, -16)
+
+[node name="WeaponSpriteContainer" parent="." index="8" unique_id=1459535350]
+visible = true
+position = Vector2(0, -16)
+
+[node name="OptionalWeaponSprite" parent="WeaponSpriteContainer" index="0" unique_id=1720919820]
+y_sort_enabled = true
+position = Vector2(9, 16)
+sprite_frames = SubResource("SpriteFrames_pgn2e")
+animation = &"shoot_up"
+offset = Vector2(0, -16)
