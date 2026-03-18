@@ -2,8 +2,14 @@
 
 [ext_resource type="PackedScene" uid="uid://du3qu1tudrtpa" path="res://Scenes/enemy.tscn" id="1_dgelw"]
 [ext_resource type="Script" uid="uid://77hmmqjw7u6l" path="res://Data/Scripts/States/Enemy States/idle_bounce.gd" id="2_8e35x"]
+[ext_resource type="SpriteFrames" uid="uid://bll2vcsn2ndjd" path="res://Assets/Resources/SpriteFrames/spinner.tres" id="2_as4v6"]
 
 [node name="Spinner" unique_id=1631603036 instance=ExtResource("1_dgelw")]
+collision_mask = 32
+sprite_frames = ExtResource("2_as4v6")
+health = 40.0
+move_speed = 175.0
+ignore_flip = true
 
 [node name="StateMachine" parent="." index="2" unique_id=206549298 node_paths=PackedStringArray("default_state")]
 default_state = NodePath("Idle")
@@ -11,3 +17,11 @@ default_state = NodePath("Idle")
 [node name="Idle" type="Node" parent="StateMachine" index="0" unique_id=1499002762]
 script = ExtResource("2_8e35x")
 metadata/_custom_type_script = "uid://4yulkrqdi05f"
+
+[node name="CollisionShape2D" parent="." index="4" unique_id=1759336711]
+position = Vector2(0, 3)
+
+[node name="Sprite" parent="." index="5" unique_id=1151198309]
+sprite_frames = ExtResource("2_as4v6")
+animation = &"idle"
+autoplay = ""

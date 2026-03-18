@@ -56,7 +56,7 @@ enum WeaponTypes {
 		health = value
 		health_changed.emit(health)
 		if health <= 0:
-			queue_free()
+			get_tree().change_scene_to_file("res://Scenes/main_menu.tscn")
 		if is_node_ready():
 			update_sprite_health_colors()
 		

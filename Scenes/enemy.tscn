@@ -188,7 +188,7 @@ _data = {
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mucmn"]
-radius = 20.22375
+radius = 12.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1dp5w"]
 shader = ExtResource("3_0830c")
@@ -217,7 +217,6 @@ metadata/_custom_type_script = "uid://c3xy6ebvr4cw7"
 libraries/ = SubResource("AnimationLibrary_1dp5w")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1759336711]
-visible = false
 shape = SubResource("CircleShape2D_mucmn")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=1151198309]

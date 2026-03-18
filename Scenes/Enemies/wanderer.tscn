@@ -6,6 +6,9 @@
 [ext_resource type="SpriteFrames" uid="uid://bi30w37icceoo" path="res://Assets/Resources/SpriteFrames/wanderer.tres" id="4_73xea"]
 [ext_resource type="Texture2D" uid="uid://bop8efxf2angm" path="res://Assets/Sprites/weapon_sheet.png" id="5_73xea"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_73xea"]
+radius = 7.0
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_88r02"]
 radius = 320.0
 
@@ -192,6 +195,10 @@ detection_area = NodePath("../../DetectionHitbox")
 attack_delay_timer = NodePath("../../AttackDelay")
 line_of_sight = NodePath("../../LineOfSight")
 metadata/_custom_type_script = "uid://4yulkrqdi05f"
+
+[node name="CollisionShape2D" parent="." index="4" unique_id=1759336711]
+position = Vector2(0, -10)
+shape = SubResource("CircleShape2D_73xea")
 
 [node name="Sprite" parent="." index="5" unique_id=1151198309]
 sprite_frames = ExtResource("4_73xea")

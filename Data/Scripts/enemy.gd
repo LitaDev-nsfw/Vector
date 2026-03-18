@@ -42,12 +42,15 @@ enum AimTypes {
 @export var charge_up: float = 1.0
 @export var laser_duration: float = 2.5
 @export_category("Visual Tweaks")
+##Whether the sprite flips while moving left vs right
+@export var ignore_flip = false
 ##How much to offset bullet spawn by. This is applied to bullets equally, regardless of bullet direction
 @export var overall_bullet_spawn_offset: Vector2
 ##How much to offset an individual bullet spawn by. This offset is rotated towards bullet direction.
 @export var individual_bullet_spawn_offset: Vector2
-## This value can be used to squish the offset vertically, to account for the skew created by the perspective
+## This value can be used to squish the bullet offset vertically, to account for the skew created by the perspective
 @export var vertical_skew: float = 1.0
+
 
 var lasers: Array[Laser] = []
 var is_alive = true
@@ -95,15 +98,15 @@ func pre_shoot() -> bool:
 			if sprite_frames.has_animation("shoot"):
 				character_sprite.animation = "shoot"
 		if !fires_lasers:
-			play_animation("shoot",1/shoot_delay_time)
+			play_animation("shoot",1.05/shoot_delay_time)
 		else:
-			play_animation("shoot",charge_up)
+			play_animation("shoot",1.05/charge_up)
 			shoot()
 	else:
 		if !fires_lasers:
-			play_animation("shoot_head",1/shoot_delay_time)
+			play_animation("shoot_head",1.05/shoot_delay_time)
 		else:
-			play_animation("shoot_head",charge_up)
+			play_animation("shoot_head",1.05/charge_up)
 			shoot()
 	return true
 
@@ -271,7 +274,7 @@ func _process(_delta: float) -> void:
 			optional_weapon_sprite.animation = "shoot_up"
 		elif pi_removed_rotation > .25:
 			optional_weapon_sprite.animation = "shoot_left"
-	if velocity:
+	if velocity and !ignore_flip:
 		if velocity.x > 0:
 			character_sprite.flip_h = false
 		else:

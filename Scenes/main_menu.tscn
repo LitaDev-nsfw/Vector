@@ -1,0 +1,99 @@
+[gd_scene format=3 uid="uid://hmk8xon7r21c"]
+
+[ext_resource type="Script" uid="uid://dovlcp7gobgyc" path="res://Data/Scripts/pause_menu.gd" id="1_48xlc"]
+[ext_resource type="PackedScene" uid="uid://c5r225hc58dkc" path="res://Scenes/options_page.tscn" id="2_48xlc"]
+
+[node name="MainMenu" type="Control" unique_id=1642413180]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_48xlc")
+is_main_menu = true
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1299270121]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -125.0
+offset_top = -175.0
+offset_right = 125.0
+offset_bottom = 175.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DefaultPage" type="VBoxContainer" parent="PanelContainer" unique_id=461454574]
+custom_minimum_size = Vector2(250, 350)
+layout_mode = 2
+
+[node name="StartGameContainer" type="Control" parent="PanelContainer/DefaultPage" unique_id=358292480]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="StartGame" type="Button" parent="PanelContainer/DefaultPage/StartGameContainer" unique_id=336346597]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.0
+offset_top = -15.5
+offset_right = 35.0
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Start"
+
+[node name="OptionsContainer" type="Control" parent="PanelContainer/DefaultPage" unique_id=1431506147]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Options" type="Button" parent="PanelContainer/DefaultPage/OptionsContainer" unique_id=491996432]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.0
+offset_top = -15.5
+offset_right = 35.0
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Options"
+
+[node name="QuitContainer" type="Control" parent="PanelContainer/DefaultPage" unique_id=2079042681]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="QuitGame" type="Button" parent="PanelContainer/DefaultPage/QuitContainer" unique_id=966312478]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.0
+offset_top = -15.5
+offset_right = 35.0
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Quit"
+
+[node name="OptionsPage" parent="PanelContainer" unique_id=2045501422 instance=ExtResource("2_48xlc")]
+visible = false
+layout_mode = 2
+
+[connection signal="pressed" from="PanelContainer/DefaultPage/StartGameContainer/StartGame" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="PanelContainer/DefaultPage/OptionsContainer/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="PanelContainer/DefaultPage/QuitContainer/QuitGame" to="." method="_on_quit_pressed"]
+[connection signal="back_button" from="PanelContainer/OptionsPage" to="." method="_on_back_pressed"]
+[connection signal="mouse_controls_toggle" from="PanelContainer/OptionsPage" to="." method="_on_mouse_controls_toggled"]

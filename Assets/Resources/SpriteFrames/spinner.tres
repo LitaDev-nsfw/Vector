@@ -1,0 +1,39 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://bll2vcsn2ndjd"]
+
+[ext_resource type="Texture2D" uid="uid://baqwswydowttg" path="res://Assets/Sprites/spinner_sheet.png" id="1_urkhq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_as4v6"]
+atlas = ExtResource("1_urkhq")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uomg8"]
+atlas = ExtResource("1_urkhq")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hakld"]
+atlas = ExtResource("1_urkhq")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bg4gt"]
+atlas = ExtResource("1_urkhq")
+region = Rect2(96, 0, 32, 32)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_as4v6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uomg8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hakld")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bg4gt")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}]

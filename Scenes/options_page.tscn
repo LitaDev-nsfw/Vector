@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://c5r225hc58dkc"]
+
+[ext_resource type="Script" uid="uid://b8tkwne6r0b0l" path="res://Data/Scripts/options_page.gd" id="1_q4kpw"]
+
+[node name="OptionsPage" type="VBoxContainer" unique_id=2045501422]
+custom_minimum_size = Vector2(250, 350)
+alignment = 1
+script = ExtResource("1_q4kpw")
+
+[node name="MouseControlsToggleContainer" type="Control" parent="." unique_id=240726650]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MouseControlsToggle" type="CheckButton" parent="MouseControlsToggleContainer" unique_id=337327568]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -79.0
+offset_top = -15.5
+offset_right = 79.0
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Mouse Aiming"
+
+[node name="BackContainer" type="Control" parent="." unique_id=1695414967]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Back" type="Button" parent="BackContainer" unique_id=653950163]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.0
+offset_top = -15.5
+offset_right = 35.0
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+text = "Back"
+
+[connection signal="toggled" from="MouseControlsToggleContainer/MouseControlsToggle" to="." method="_on_mouse_controls_toggled"]
+[connection signal="pressed" from="BackContainer/Back" to="." method="_on_back_pressed"]

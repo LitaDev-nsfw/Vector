@@ -3,9 +3,10 @@
 [ext_resource type="Texture2D" uid="uid://p4uijrce3q4d" path="res://Assets/Sprites/large_point_light.png" id="2_1phco"]
 [ext_resource type="Script" uid="uid://n87epj2ltqdw" path="res://Data/Scripts/level.gd" id="2_ewbju"]
 [ext_resource type="PackedScene" uid="uid://dbtgpv01w0f1x" path="res://Scenes/base_room.tscn" id="2_nnt18"]
-[ext_resource type="PackedScene" uid="uid://csqdceksah25l" path="res://Scenes/Enemies/wanderer.tscn" id="5_h4fw4"]
+[ext_resource type="PackedScene" uid="uid://caktgo75008vf" path="res://Scenes/spinner.tscn" id="5_h4fw4"]
 [ext_resource type="PackedScene" uid="uid://7ece84hg3lnd" path="res://Scenes/player.tscn" id="5_v158k"]
 [ext_resource type="Script" uid="uid://dovlcp7gobgyc" path="res://Data/Scripts/pause_menu.gd" id="9_h4fw4"]
+[ext_resource type="PackedScene" uid="uid://c5r225hc58dkc" path="res://Scenes/options_page.tscn" id="10_ldgsr"]
 [ext_resource type="Script" uid="uid://bn1h50ufx85up" path="res://Data/Scripts/ui.gd" id="18_85qyi"]
 [ext_resource type="Texture2D" uid="uid://cmwympn1o4gw6" path="res://Assets/Sprites/combo_meter.png" id="20_7nbq1"]
 [ext_resource type="Script" uid="uid://bl8swghpiopp0" path="res://Data/Scripts/item_selection.gd" id="21_exi56"]
@@ -34,9 +35,7 @@ z_index = 1
 [node name="StartingRoom" parent="Level" unique_id=1415294416 instance=ExtResource("2_nnt18")]
 has_enemies = false
 
-[node name="Wanderer" parent="Level/StartingRoom" unique_id=1631603036 instance=ExtResource("5_h4fw4")]
-position = Vector2(159, -91)
-attack_delay = 8.0
+[node name="Spinner" parent="Level/StartingRoom" unique_id=1631603036 instance=ExtResource("5_h4fw4")]
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=498555873]
 script = ExtResource("18_85qyi")
@@ -261,43 +260,13 @@ grow_vertical = 2
 size_flags_horizontal = 4
 text = "Quit"
 
-[node name="OptionsPage" type="VBoxContainer" parent="UI/PauseMenu/PanelContainer/MarginContainer" unique_id=1486614913]
+[node name="OptionsPage" parent="UI/PauseMenu/PanelContainer/MarginContainer" unique_id=2045501422 instance=ExtResource("10_ldgsr")]
 visible = false
 layout_mode = 2
-alignment = 1
-
-[node name="MouseControlsToggleContainer" type="Control" parent="UI/PauseMenu/PanelContainer/MarginContainer/OptionsPage" unique_id=1021564763]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="MouseControlsToggle" type="CheckButton" parent="UI/PauseMenu/PanelContainer/MarginContainer/OptionsPage/MouseControlsToggleContainer" unique_id=267003179]
-layout_mode = 0
-offset_right = 44.0
-offset_bottom = 24.0
-text = "Mouse Aiming"
-
-[node name="BackContainer" type="Control" parent="UI/PauseMenu/PanelContainer/MarginContainer/OptionsPage" unique_id=2079830967]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="Back" type="Button" parent="UI/PauseMenu/PanelContainer/MarginContainer/OptionsPage/BackContainer" unique_id=95873409]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -35.0
-offset_top = -15.5
-offset_right = 35.0
-offset_bottom = 15.5
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-text = "Back"
 
 [connection signal="pressed" from="UI/ItemSelectionScreen/PanelContainer/MarginContainer/VBoxContainer/SkipButtonContainer/SkipButton" to="UI/ItemSelectionScreen" method="_on_skip_button_pressed"]
 [connection signal="pressed" from="UI/PauseMenu/PanelContainer/MarginContainer/DefaultPage/ResumeContainer/Resume" to="UI/PauseMenu" method="_on_resume_pressed"]
 [connection signal="pressed" from="UI/PauseMenu/PanelContainer/MarginContainer/DefaultPage/OptionsContainer/Options" to="UI/PauseMenu" method="_on_options_pressed"]
-[connection signal="toggled" from="UI/PauseMenu/PanelContainer/MarginContainer/OptionsPage/MouseControlsToggleContainer/MouseControlsToggle" to="UI/PauseMenu" method="_on_mouse_controls_toggled"]
-[connection signal="pressed" from="UI/PauseMenu/PanelContainer/MarginContainer/OptionsPage/BackContainer/Back" to="UI/PauseMenu" method="_on_back_pressed"]
+[connection signal="pressed" from="UI/PauseMenu/PanelContainer/MarginContainer/DefaultPage/QuitContainer/Quit" to="UI/PauseMenu" method="_on_quit_pressed"]
+[connection signal="back_button" from="UI/PauseMenu/PanelContainer/MarginContainer/OptionsPage" to="UI/PauseMenu" method="_on_back_pressed"]
+[connection signal="mouse_controls_toggle" from="UI/PauseMenu/PanelContainer/MarginContainer/OptionsPage" to="UI/PauseMenu" method="_on_mouse_controls_toggled"]

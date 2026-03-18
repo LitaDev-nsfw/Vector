@@ -17,7 +17,7 @@ var direction = initial_direction
 
 
 func begin_state():
-	pass
+	state_owner.play_animation("idle")
 
 func update(_delta: float):
 	if G.halt_actions or state_owner.frozen:
