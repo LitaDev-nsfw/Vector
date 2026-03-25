@@ -38,6 +38,7 @@ var special_exit_direction: Directions:
 @onready var wall_tilemap: TileMapLayer = find_child("OuterWall")
 @onready var player: Player = get_tree().get_first_node_in_group("Player")
 @onready var enemies: Node2D = find_child("Enemies")
+@onready var bounds: Polygon2D = find_child("Bounds")
 
 const TRANSITION_TIME = 1.0
 const ENTRANCE_PLACEMENT_OFFSET = 32
@@ -61,6 +62,10 @@ func open_doors():
 		if wall_tilemap.get_cell_atlas_coords(door_tile_coords[direction]) == door_atlas_coords[direction]:
 			wall_tilemap.erase_cell(door_tile_coords[direction])
 
+func is_inside_room(point: Vector2):
+	print("Point: "+str(point))
+	print("Polygon: "+str(bounds.polygon))
+	return Geometry2D.is_point_in_polygon(point,bounds.polygon)
 
 func _ready():
 	room_exited.connect(E._on_room_exited)

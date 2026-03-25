@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://ddkb3qbykohsj"]
+
+[ext_resource type="PackedScene" uid="uid://du3qu1tudrtpa" path="res://Scenes/enemy.tscn" id="1_5ews5"]
+[ext_resource type="Script" uid="uid://c1xmwuyh14d52" path="res://Data/Scripts/States/Enemy States/idle_wander.gd" id="2_kvhtq"]
+[ext_resource type="Script" uid="uid://dkun044bxr2o6" path="res://Data/Scripts/States/Enemy States/attack_charge.gd" id="3_kvhtq"]
+
+[node name="Spider" unique_id=1631603036 instance=ExtResource("1_5ews5")]
+
+[node name="AttackWindup" type="Timer" parent="." index="2" unique_id=465933000]
+one_shot = true
+
+[node name="Idle" type="Node" parent="StateMachine" parent_id_path=PackedInt32Array(206549298) index="0" unique_id=11419505 node_paths=PackedStringArray("line_of_sight")]
+script = ExtResource("2_kvhtq")
+line_of_sight = NodePath("../../LineOfSight")
+wander_radius = 30.0
+wander_cooldown = 1.5
+metadata/_custom_type_script = "uid://4yulkrqdi05f"
+
+[node name="Attack" type="Node" parent="StateMachine" parent_id_path=PackedInt32Array(206549298) index="1" unique_id=241027862 node_paths=PackedStringArray("attack_delay_timer", "attack_windup_timer")]
+script = ExtResource("3_kvhtq")
+attack_delay_timer = NodePath("../../AttackDelay")
+attack_windup_timer = NodePath("../../AttackWindup")
+metadata/_custom_type_script = "uid://4yulkrqdi05f"

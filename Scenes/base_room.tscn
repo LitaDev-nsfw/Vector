@@ -416,6 +416,10 @@ size = Vector2(38, 20)
 [node name="Room" type="Node2D" unique_id=1415294416]
 script = ExtResource("1_rqups")
 
+[node name="Bounds" type="Polygon2D" parent="." unique_id=1670574071]
+color = Color(1, 1, 1, 0)
+polygon = PackedVector2Array(-288, -192, 256, -192, 256, 96, -288, 96)
+
 [node name="Background" type="Sprite2D" parent="." unique_id=73276614]
 z_index = -1
 texture = ExtResource("1_n8ynd")
