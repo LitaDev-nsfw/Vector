@@ -4,6 +4,12 @@
 [ext_resource type="Script" uid="uid://77hmmqjw7u6l" path="res://Data/Scripts/States/Enemy States/idle_bounce.gd" id="2_8e35x"]
 [ext_resource type="SpriteFrames" uid="uid://bll2vcsn2ndjd" path="res://Assets/Resources/SpriteFrames/spinner.tres" id="2_as4v6"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_8e35x"]
+radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_as4v6"]
+radius = 9.0
+
 [node name="Spinner" unique_id=1631603036 instance=ExtResource("1_dgelw")]
 collision_mask = 32
 sprite_frames = ExtResource("2_as4v6")
@@ -20,8 +26,15 @@ metadata/_custom_type_script = "uid://4yulkrqdi05f"
 
 [node name="CollisionShape2D" parent="." index="4" unique_id=1759336711]
 position = Vector2(0, 3)
+shape = SubResource("CircleShape2D_8e35x")
 
 [node name="Sprite" parent="." index="5" unique_id=1151198309]
 sprite_frames = ExtResource("2_as4v6")
 animation = &"idle"
 autoplay = ""
+
+[node name="Hurtbox" parent="." index="9" unique_id=1287101152]
+position = Vector2(0, 3)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" index="0" unique_id=858348338]
+shape = SubResource("CircleShape2D_as4v6")

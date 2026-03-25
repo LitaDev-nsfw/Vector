@@ -68,6 +68,7 @@ var frozen := false
 @onready var animation_player: AnimationPlayer = find_child("AnimationPlayer")
 @onready var weapon_sprite_container: Node2D = find_child("WeaponSpriteContainer")
 
+
 const BASE_FIRE_DELAY = 5.0
 
 signal enemy_died(enemy: Enemy)
@@ -287,3 +288,7 @@ func _on_enemy_died(enemy: Enemy):
 		shader_material.set_shader_parameter("outline_width", 0.0)
 		grant_combo_on_death -= 1.0
 		flags.erase("CONTRACT")
+
+
+func _on_hurtbox_body_entered(body: Player) -> void:
+	body.take_damage()

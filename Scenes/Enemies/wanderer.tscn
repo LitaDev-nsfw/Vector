@@ -175,6 +175,10 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_73xea"]
+radius = 6.0
+height = 22.0
+
 [node name="Wanderer" unique_id=1631603036 node_paths=PackedStringArray("optional_weapon_sprite") instance=ExtResource("1_gm1gg")]
 sprite_frames = ExtResource("4_73xea")
 optional_weapon_sprite = NodePath("WeaponSpriteContainer/OptionalWeaponSprite")
@@ -226,3 +230,9 @@ position = Vector2(9, 16)
 sprite_frames = SubResource("SpriteFrames_pgn2e")
 animation = &"shoot_up"
 offset = Vector2(0, -16)
+
+[node name="Hurtbox" parent="." index="9" unique_id=1287101152]
+position = Vector2(0, -14)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" index="0" unique_id=1552359829]
+shape = SubResource("CapsuleShape2D_73xea")

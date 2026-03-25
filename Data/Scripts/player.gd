@@ -107,6 +107,7 @@ const BASE_DAMAGE_COMBO_METER_LOSS = 1
 const GROUND_ACCELERATION = 10000000
 const BASE_INVULN_TIME = 1.0
 const DOUBLE_SHOT_SPREAD = 5.0
+const FLASH_RATE = 6
 
 signal health_changed(new_health: int)
 
@@ -208,6 +209,9 @@ func take_damage():
 	health -= roundi(life_to_lose)
 	current_combo_life -= get_attribute(Attributes.DAMAGE_COMBO_METER_LOSS)
 	invuln_timer.start(BASE_INVULN_TIME+invuln_time_modifier)
+	var tween = create_tween()
+	tween.tween_method(_flash,0,FLASH_RATE*BASE_INVULN_TIME+invuln_time_modifier,BASE_INVULN_TIME+invuln_time_modifier)
+	tween.tween_property(self,"visible",true,0)
 
 func reset_current_combo_life():
 	current_combo_life = get_current_combo_life()
@@ -221,6 +225,13 @@ func get_current_combo_life() -> float:
 		return 10
 	else:
 		return 15
+
+func _flash(interval: float):
+	var do_flash = floori(interval) % 2
+	if do_flash:
+		visible = false
+	else:
+		visible = true
 
 func _ready():
 	E.acquire_token.connect(_on_acquire_token)

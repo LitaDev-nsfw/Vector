@@ -238,3 +238,9 @@ visible = false
 [node name="OptionalWeaponSprite" type="AnimatedSprite2D" parent="WeaponSpriteContainer" unique_id=1720919820]
 sprite_frames = ExtResource("6_ghaa6")
 animation = &"shoot_down"
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1287101152]
+collision_layer = 0
+collision_mask = 2
+
+[connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]
